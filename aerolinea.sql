@@ -86,7 +86,7 @@ CREATE TABLE Aviones (
 CREATE TABLE Vuelos (
   id INT NOT NULL AUTO_INCREMENT,
   modalidad VARCHAR2(45) NULL,
-  duracion INT NULL, --REVUSAR LA DURACION
+  duracion INT NULL, --REVISAR LA DURACION
   ruta_id INT NOT NULL,
   avion_id INT NOT NULL,
   fecha DATE NULL,
@@ -128,7 +128,7 @@ end;
 /
 show error
 ------------------------------------------------------------------------------------------
--- ************************************* Usuarios ************************************
+-- ************************************* Usuarios ************************************ 
 ------------------------------------------------------------------------------------------
 
 create or replace procedure INSERCION_USUARIO(
@@ -167,39 +167,7 @@ begin
 end UPDATE_USUARIO;
 /
 show error
-------------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------------
-create or replace procedure GET_RUTAS()
-begin
-	SELECT * FROM Rutas;
-	commit;
-end INSERCION_RUTA;
-/
-show error
-------------------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------------------
-create or replace procedure INSERCION_RUTA(
-ArgId in INT,
-ArgDuracion in INT,
-ArgHorario in INT,
-ArgCiudadOrg in INT,
-ArgCiudadDest in INT,
-ArgPrecio in DOUBLE,
-ArgDescuento in DOUBLE)
-begin
-	insert into Horarios values (ArgId,ArgDuracion,ArgHorario,ArgCiudadOrg,ArgCiudadDest,ArgPrecio,ArgDescuento);
-	commit;
-end INSERCION_RUTA;
-create or replace procedure DELETE_USUARIO(ArgId in VARCHAR2) as
-begin
-	delete Usuarios where id = ARgId;	
-	commit;
-end DELETE_USUARIO;
-/
-show error
-------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
 
 create or replace function GET_USUARIO(ArgId in VARCHAR2)
 return TYPES.ref_cursor
@@ -225,6 +193,152 @@ begin
 end LISTAR_USUARIO;
 /
 show error
+------------------------------------------------------------------------------------------
+
+create or replace procedure DELETE_USUARIO(ArgId in VARCHAR2) as
+begin
+	delete Usuarios where id = ARgId;	
+	commit;
+end DELETE_USUARIO;
+/
+show error
+
+------------------------------------------------------------------------------------------
+-- !****************************** PROCEDIMIENTOS DE RUTAS ********************************
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace function LISTAR_RUTAS
+return TYPES.ref_cursor
+as
+rutas_cursor TYPES.ref_cursor;
+begin
+  OPEN rutas_cursor for
+	SELECT * FROM Rutas;
+  return rutas_cursor;
+end LISTAR_RUTAS;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace function GET_RUTA(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+ruta_cursor TYPES.ref_cursor;
+begin
+	open ruta_cursor for
+	select * from Rutas where id = ArgId;	
+	return ruta_cursor;
+end GET_RUTA;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace procedure INSERCION_RUTA(
+ArgId in INT,
+ArgDuracion in INT,
+ArgHorario in INT,
+ArgCiudadOrg in INT,
+ArgCiudadDest in INT,
+ArgPrecio in DOUBLE,
+ArgDescuento in DOUBLE)
+begin
+	insert into Horarios values (ArgId,ArgDuracion,ArgHorario,ArgCiudadOrg,ArgCiudadDest,ArgPrecio,ArgDescuento);
+	commit;
+end INSERCION_RUTA;
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure UPDATE_RUTA(
+ArgId in INT,
+ArgDuracion in INT,
+ArgHorario in INT,
+ArgCiudadOrg in INT,
+ArgCiudadDest in INT,
+ArgPrecio in DOUBLE,
+ArgDescuento in DOUBLE) as
+begin
+	update Usuario set duracion=ArgDuracion , ciudad_destino=ArgCiudadOrg,  ciudad_destino=ArgCiudadDest, precio=ArgPrecio, porcentaje_descuento=ArgDescuento where id = ArgId;
+	commit;
+end UPDATE_RUTA;
+
+------------------------------------------------------------------------------------------
+create or replace procedure DELETE_RUTA(
+ArgId in INT) as
+begin
+	DELETE from rutas where id = ArgId;
+	commit;
+end DELETE_RUTA;
+/
+show error
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+-- ****************************** PROCEDIMIENTOS DE vuelos ********************************
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace function LISTAR_VUELOS
+return TYPES.ref_cursor
+as
+vuelos_cursor TYPES.ref_cursor;
+begin
+  OPEN vuelos_cursor for
+	SELECT * FROM vuelos;
+  return vuelos_cursor;
+end LISTAR_VUELOS;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace function GET_VUELOS(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+vuelo_cursor TYPES.ref_cursor;
+begin
+	open vuelo_cursor for
+	select * from vuelos where id = ArgId;	
+	return vuelo_cursor;
+end GET_HORARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace procedure INSERCION_VUELOS(
+ArgId in INT,
+ArgModalidad in INT,
+ArgRuta in INT,
+ArgAvion in INT,
+ArgFecha in DATE)
+begin
+	insert into vuelos values (ArgId,ArgModalidad,ArgRuta,ArgAvion,ArgFecha);
+	commit;
+end INSERCION_VUELOS;
+/
+show error
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure UPDATE_VUELOS(
+ArgId in INT,
+ArgModalidad in INT,
+ArgRuta in tINT,
+ArgAvion in INT,
+ArgFecha in DATE) as
+begin
+	update Vuelos set modalidad=ArgModalidad , ruta_id=ArgRuta,  avion_id=ArgAvion, fecha=ArgFecha where id = ArgId;
+	commit;
+end UPDATE_VUELOS;
+
+------------------------------------------------------------------------------------------
+create or replace procedure DELETE_VUELO(
+ArgId in INT) as
+begin
+	DELETE from vuelos where id = ArgId;
+	commit;
+end DELETE_VUELO;
+/
+show error
+------------------------------------------------------------------------------------------
+
 ------------------------------------------------------------------------------------------
 -- ************************************* Horarios ************************************
 ------------------------------------------------------------------------------------------
@@ -290,6 +404,20 @@ show error
 -- ************************************* Ciudad ************************************
 ------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------
+create or replace function GET_CIUDAD(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+ciudad_cursor TYPES.ref_cursor;
+begin
+	open ciudad_cursor for
+	select id,nombre from Ciudad where id = ArgId;	
+	return ciudad_cursor;
+end GET_CIUDAD;
+/
+show error
+------------------------------------------------------------------------------------------
+
 create or replace procedure INSERCION_CIUDAD(
 ArgId in VARCHAR2,
 ArgNombre in VARCHAR2) as
@@ -321,31 +449,6 @@ end DELETE_CIUDAD;
 show error
 ------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------
-create or replace procedure UPDATE_RUTA(
-ArgId in INT,
-ArgDuracion in INT,
-ArgHorario in INT,
-ArgCiudadOrg in INT,
-ArgCiudadDest in INT,
-ArgPrecio in DOUBLE,
-ArgDescuento in DOUBLE) as
-begin
-	update Usuario set duracion=ArgDuracion , ciudad_destino=ArgCiudadOrg,  ciudad_destino=ArgCiudadDest, precio=ArgPrecio, porcentaje_descuento=ArgDescuento where id = ArgId;
-	commit;
-end UPDATE_USUARIO;
-create or replace function GET_CIUDAD(ArgId in VARCHAR2)
-return TYPES.ref_cursor
-as
-ciudad_cursor TYPES.ref_cursor;
-begin
-	open ciudad_cursor for
-	select id,nombre from Ciudad where id = ArgId;	
-	return ciudad_cursor;
-end GET_CIUDAD;
-/
-show error
-------------------------------------------------------------------------------------------
 
 create or replace function LISTAR_CIUDAD 
 return TYPES.ref_cursor
@@ -358,6 +461,7 @@ begin
 end LISTAR_CIUDAD;
 /
 show error
+
 ------------------------------------------------------------------------------------------
 -- ************************************* Aviones ************************************
 ------------------------------------------------------------------------------------------
@@ -377,16 +481,6 @@ end INSERCION_AVIONES;
 show error
 ------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------
-create or replace procedure DELETE_RUTA(
-ArgId in INT) as
-begin
-	DELETE from rutas where id = ArgId;
-	commit;
-end UPDATE_USUARIO;
-/
-show error
-------------------------------------------------------------------------------------------
 create or replace procedure UPDATE_AVIONES(
 ArgId in VARCHAR2,
 ArgTipo in VARCHAR2,
@@ -436,6 +530,80 @@ begin
 end LISTAR_AVIONES;
 /
 show error
+
+
+------------------------------------------------------------------------------------------
+-- ****************************** PROCEDIMIENTOS DE TIQUETES ********************************
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace function LISTAR_TIQUETES
+return TYPES.ref_cursor
+as
+tiquetes_cursor TYPES.ref_cursor;
+begin
+  OPEN tiquetes_cursor for
+	SELECT * FROM Tiquetes;
+  return tiquetes_cursor;
+end LISTAR_TIQUETES;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace function GET_TIQUETE(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+tiquete_cursor TYPES.ref_cursor;
+begin
+	open tiquete_cursor for
+	select * from Tiquetes where id = ArgId;	
+	return tiquete_cursor;
+end GET_TIQUETE;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace procedure INSERCION_TIQUETE(
+ArgId in INT,
+ArgUsuario in INT,
+ArgVuelo in INT,
+ArgPrecio in INT,
+ArgFila in INT,
+ArgColumna in INT,
+ArgFormaPago in VARCHAR2)
+begin
+	insert into Tiquetes values (ArgId,ArgUsuario,ArgVuelo,ArgPrecio,ArgFila,ArgFila,ArgColumna,ArgFormaPago);
+	commit;
+end INSERCION_TIQUETE;
+/
+show error
+
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure UPDATE_TIQUETE(
+ArgId in INT,
+ArgUsuario in INT,
+ArgVuelo in INT,
+ArgPrecio in INT,
+ArgFila in INT,
+ArgColumna in INT,
+ArgFormaPago in VARCHAR2)
+as
+begin
+	update Tiquetes set usuario_id=ArgUsuario , vuelo_id=ArgVuelo,  precio_final=ArgPrecio, fila_asisento=ArgFila,, columna_asiento=ArgColumna, forma_pago=ArgFormaPago where id = ArgId;
+	commit;
+end UPDATE_VUELOS;
+
+------------------------------------------------------------------------------------------
+create or replace procedure DELETE_VUELO(
+ArgId in INT) as
+begin
+	DELETE from vuelos where id = ArgId;
+	commit;
+end DELETE_VUELO;
+/
+show error
+------------------------------------------------------------------------------------------
+
 
 
 -- 0 admin / 1 user
