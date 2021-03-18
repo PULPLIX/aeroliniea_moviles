@@ -4,9 +4,9 @@ drop table Usuario cascade constraint;
 drop table Horarios;
 drop table Ciudad;
 drop table Avion;
-drop table Rutas cascade constraint;
-drop table Vuelos cascade constraint;
-drop table Tiquetes;
+drop table Rutas cascade constraint; //
+drop table Vuelos cascade constraint; //
+drop table Tiquetes; //
 
 set linesize 300;
 set pagesize 300;
@@ -34,7 +34,7 @@ CREATE TABLE Ciudad (
 -- -----------------------------------------------------
 CREATE TABLE Rutas (
   id INT NOT NULL,
-  duracion TIME NOT NULL,
+  duracion INT NOT NULL,
   horario_id INT NOT NULL,
   ciudad_origen INT NOT NULL,
   ciudad_destino INT NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE Aviones (
 CREATE TABLE Vuelos (
   id INT NOT NULL AUTO_INCREMENT,
   modalidad VARCHAR2(45) NULL,
-  duracion TIME NULL,
+  duracion INT NULL, --REVUSAR LA DURACION
   ruta_id INT NOT NULL,
   avion_id INT NOT NULL,
   fecha DATE NULL,
@@ -153,6 +153,61 @@ ArgClave in VARCHAR2,
 ArgRol in NUMBER ) as
 begin
 	update Usuario set clave=ArgClave , rol=ArgRol where cedula = ArgCedula;
+	commit;
+end UPDATE_USUARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure GET_RUTAS()
+begin
+	SELECT * FROM Rutas;
+	commit;
+end INSERCION_RUTA;
+/
+show error
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure INSERCION_RUTA(
+ArgId in INT,
+ArgDuracion in INT,
+ArgHorario in INT,
+ArgCiudadOrg in INT,
+ArgCiudadDest in INT,
+ArgPrecio in DOUBLE,
+ArgDescuento in DOUBLE)
+begin
+	insert into Horarios values (ArgId,ArgDuracion,ArgHorario,ArgCiudadOrg,ArgCiudadDest,ArgPrecio,ArgDescuento);
+	commit;
+end INSERCION_RUTA;
+/
+show error
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure UPDATE_RUTA(
+ArgId in INT,
+ArgDuracion in INT,
+ArgHorario in INT,
+ArgCiudadOrg in INT,
+ArgCiudadDest in INT,
+ArgPrecio in DOUBLE,
+ArgDescuento in DOUBLE) as
+begin
+	update Usuario set duracion=ArgDuracion , ciudad_destino=ArgCiudadOrg,  ciudad_destino=ArgCiudadDest, precio=ArgPrecio, porcentaje_descuento=ArgDescuento where id = ArgId;
+	commit;
+end UPDATE_USUARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+create or replace procedure DELETE_RUTA(
+ArgId in INT) as
+begin
+	DELETE from rutas where id = ArgId;
 	commit;
 end UPDATE_USUARIO;
 /
