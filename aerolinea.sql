@@ -118,6 +118,9 @@ CREATE TABLE Tiquetes (
     REFERENCES Vuelos (id));
 
 ------------------------------------------------------------------------------------------
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Procedimientos <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+------------------------------------------------------------------------------------------
+
 create or replace package TYPES
 as
 type ref_cursor is ref cursor;
@@ -125,8 +128,9 @@ end;
 /
 show error
 ------------------------------------------------------------------------------------------
-
+-- ************************************* Usuarios ************************************
 ------------------------------------------------------------------------------------------
+
 create or replace procedure INSERCION_USUARIO(
 ArgId in VARCHAR2,
 ArgContra in VARCHAR2,
@@ -146,15 +150,258 @@ end INSERCION_USUARIO;
 show error
 ------------------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------------------
 create or replace procedure UPDATE_USUARIO(
-ArgCedula in VARCHAR2,
-ArgClave in VARCHAR2, 
+ArgId in VARCHAR2,
+ArgContra in VARCHAR2,
+ArgNombre in VARCHAR2,
+ArgApellido in VARCHAR2,
+ArgCorreo in VARCHAR2,
+ArgFecha_N in VARCHAR2,
+ArgDireccion in VARCHAR2,
+ArgTelefono in VARCHAR2,
+ArgCelular in VARCHAR2,
 ArgRol in NUMBER ) as
 begin
-	update Usuario set clave=ArgClave , rol=ArgRol where cedula = ArgCedula;
+	update Usuarios set contrasena=ArgContra,nombre=ArgNombre,apellidos=ArgApellido,correo=ArgCorreo,direccion=ArgDireccion,telefono_trabajo=ArgTelefono,celular=ArgCelular,rol=ArgRol where id = ArgId;
 	commit;
 end UPDATE_USUARIO;
 /
 show error
 ------------------------------------------------------------------------------------------
+
+create or replace procedure DELETE_USUARIO(ArgId in VARCHAR2) as
+begin
+	delete Usuarios where id = ARgId;	
+	commit;
+end DELETE_USUARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function GET_USUARIO(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+usuario_cursor TYPES.ref_cursor;
+begin
+	open usuario_cursor for
+	select id,contrasena,nombre,apellidos,correo,direccion,telefono_trabajo,celular,rol from Usuarios where id = ArgId;	
+	return usuario_cursor;
+end GET_USUARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function LISTAR_USUARIO 
+return TYPES.ref_cursor
+as
+usuario_cursor TYPES.ref_cursor;
+begin
+	open usuario_cursor for
+	select id,nombre,apellidos,correo,direccion,celular,rol from USUARIOS;
+	return usuario_cursor;
+end LISTAR_USUARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+-- ************************************* Horarios ************************************
+------------------------------------------------------------------------------------------
+
+create or replace procedure INSERCION_HORARIO(
+ArgId in VARCHAR2,
+ArgDia_semana in VARCHAR2,
+ArgHora_llegada in NUMBER) as
+begin
+	insert into Horarios(id,dia_semana,hora_llegada) values (ArgId,ArgDia_semana,ArgHora_llegada);
+	commit;
+end INSERCION_HORARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace procedure UPDATE_HORARIO(
+ArgId in VARCHAR2,
+ArgDia_semana in VARCHAR2,
+ArgHora_llegada in NUMBER) as
+begin
+	update Horarios set dia_semana=ArgDia_semana,hora_llegada=ArgHora_llegada where id = ArgId;
+	commit;
+end UPDATE_HORARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace procedure DELETE_HORARIO(ArgId in VARCHAR2) as
+begin
+	delete Horarios where id = ARgId;	
+	commit;
+end DELETE_HORARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function GET_HORARIO(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+horario_cursor TYPES.ref_cursor;
+begin
+	open horario_cursor for
+	select id,dia_semana,hora_llegada from Horarios where id = ArgId;	
+	return horario_cursor;
+end GET_HORARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function LISTAR_HORARIO 
+return TYPES.ref_cursor
+as
+horario_cursor TYPES.ref_cursor;
+begin
+	open horario_cursor for
+	select id,dia_semana,hora_llegada from Horarios;
+	return horario_cursor;
+end LISTAR_HORARIO;
+/
+show error
+------------------------------------------------------------------------------------------
+-- ************************************* Ciudad ************************************
+------------------------------------------------------------------------------------------
+
+create or replace procedure INSERCION_CIUDAD(
+ArgId in VARCHAR2,
+ArgNombre in VARCHAR2) as
+begin
+	insert into CIUDAD(id,nombre) values (ArgId,ArgNombre);
+	commit;
+end INSERCION_CIUDAD;
+/
+show error
+
+------------------------------------------------------------------------------------------
+create or replace procedure UPDATE_CIUDAD(
+ArgId in VARCHAR2,
+ArgNombre in VARCHAR2) as
+begin
+	update CIUDAD set nombre=ArgNombre where id = ArgId;
+	commit;
+end UPDATE_CIUDAD;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace procedure DELETE_CIUDAD(ArgId in VARCHAR2) as
+begin
+	delete CIUDAD where id = ARgId;	
+	commit;
+end DELETE_CIUDAD;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function GET_CIUDAD(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+ciudad_cursor TYPES.ref_cursor;
+begin
+	open ciudad_cursor for
+	select id,nombre from Ciudad where id = ArgId;	
+	return ciudad_cursor;
+end GET_CIUDAD;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function LISTAR_CIUDAD 
+return TYPES.ref_cursor
+as
+ciudad_cursor TYPES.ref_cursor;
+begin
+	open ciudad_cursor for
+	select id,nombre from CIUDAD;
+	return ciudad_cursor;
+end LISTAR_CIUDAD;
+/
+show error
+------------------------------------------------------------------------------------------
+-- ************************************* Aviones ************************************
+------------------------------------------------------------------------------------------
+create or replace procedure INSERCION_AVIONES(
+ArgId in VARCHAR2,
+ArgTipo in VARCHAR2,
+ArgCapacidad in NUMBER,
+ArgAnio in NUMBER,
+ArgMarca in VARCHAR2,
+ArgAsientos_fila in NUMBER,
+ArgCantidad_filas in NUMBER) as
+begin
+	insert into AVIONES(id,tipo,capacidad,anio,marca,asientos_fila,cantidad_filas) values (ArgId,ArgTipo,ArgCapacidad,ArgAnio,ArgMarca,ArgAsientos_fila,ArgCantidad_filas);
+	commit;
+end INSERCION_AVIONES;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace procedure UPDATE_AVIONES(
+ArgId in VARCHAR2,
+ArgTipo in VARCHAR2,
+ArgCapacidad in NUMBER,
+ArgAnio in NUMBER,
+ArgMarca in VARCHAR2,
+ArgAsientos_fila in NUMBER,
+ArgCantidad_filas in NUMBER) as
+begin
+	update AVIONES set tipo=ArgTipo,capacidad=ArgCapacidad,anio=ArgAnio,marca=ArgMarca,asientos_fila=ArgAsientos_fila,cantidad_filas=ArgCantidad_filas where id = ArgId;
+	commit;
+end UPDATE_AVIONES;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace procedure DELETE_AVIONES(ArgId in VARCHAR2) as
+begin
+	delete AVIONES where id = ARgId;	
+	commit;
+end DELETE_AVIONES;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function GET_AVIONES(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+avion_cursor TYPES.ref_cursor;
+begin
+	open avion_cursor for
+	select id,tipo,capacidad,anio,marca,asientos_fila,cantidad_filas from Aviones where id = ArgId;	
+	return avion_cursor;
+end GET_AVIONES;
+/
+show error
+------------------------------------------------------------------------------------------
+
+create or replace function LISTAR_AVIONES 
+return TYPES.ref_cursor
+as
+avion_cursor TYPES.ref_cursor;
+begin
+	open avion_cursor for
+	select id,tipo,capacidad,anio,marca,asientos_fila,cantidad_filas from Aviones;
+	return avion_cursor;
+end LISTAR_AVIONES;
+/
+show error
+
+
+-- 0 admin / 1 user
+execute INSERCION_USUARIO('12345678','admin','David','Cordero Aguilar','David@gmial.com',sysdate,'Heredia','8888888','78787878',0);
+
+execute UPDATE_USUARIO('12345678','admin','David','Cordero Aguilar','lol@gmial.com',sysdate,'San Carlos','88888888','77777777',1);
+
+
+variable x refcursor
+exec :x:= GET_USUARIO('12345678');
+print x;
+
+variable x refcursor
+exec :x:= LISTAR_USUARIO;
+print x;
