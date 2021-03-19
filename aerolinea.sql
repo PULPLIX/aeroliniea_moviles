@@ -20,6 +20,11 @@ CREATE TABLE Horarios (
   hora_llegada TIME NULL,
   constraint PKHorario primary key(id);
 
+	
+-- INSERT INTO Persons (Personid,FirstName,LastName)
+-- VALUES (seq_person.nextval,'Lars','Monsen');
+
+CREATE SEQUENCE seq_horarios MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 
 -- -----------------------------------------------------
 -- Table Ciudad
@@ -28,6 +33,8 @@ CREATE TABLE Ciudad (
   id INT NOT NULL,
   nombre VARCHAR2(250) NULL,
   constraint PKCiudad primary key(id);
+
+CREATE SEQUENCE seq_cuidad MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 
 -- -----------------------------------------------------
 -- Table Rutas
@@ -51,6 +58,7 @@ CREATE TABLE Rutas (
     FOREIGN KEY (ciudad_origen)
     REFERENCES ciudad (id);
 
+CREATE SEQUENCE seq_rutas MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 -- -----------------------------------------------------
 -- Table Usuarios
 -- -----------------------------------------------------
@@ -80,6 +88,7 @@ CREATE TABLE Aviones (
   cantidad_filas INT NULL,
   CONSTRAINT PKAviones primary key(id));
 
+CREATE SEQUENCE seq_aviones MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 -- -----------------------------------------------------
 -- Table Vuelos
 -- -----------------------------------------------------
@@ -97,7 +106,8 @@ CREATE TABLE Vuelos (
   CONSTRAINT fk_vuelos_aviones1
     FOREIGN KEY (avion_id)
     REFERENCES Aviones (id));
-
+			
+CREATE SEQUENCE seq_vuelos MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 -- -----------------------------------------------------
 -- Table Tiquetes
 -- -----------------------------------------------------
@@ -116,7 +126,8 @@ CREATE TABLE Tiquetes (
   CONSTRAINT fk_tiquetes_vuelos1
     FOREIGN KEY (vuelo_id)
     REFERENCES Vuelos (id));
-
+		       
+CREATE SEQUENCE seq_tiquetes MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 ------------------------------------------------------------------------------------------
 -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Procedimientos <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 ------------------------------------------------------------------------------------------
