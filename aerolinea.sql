@@ -21,8 +21,6 @@ CREATE TABLE Horarios (
   constraint PKHorario primary key(id);
 
 	
--- INSERT INTO Persons (Personid,FirstName,LastName)
--- VALUES (seq_person.nextval,'Lars','Monsen');
 
 CREATE SEQUENCE seq_horarios MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 
@@ -244,7 +242,6 @@ end GET_RUTA;
 show error
 ------------------------------------------------------------------------------------------
 create or replace procedure INSERCION_RUTA(
-ArgId in INT,
 ArgDuracion in INT,
 ArgHorario in INT,
 ArgCiudadOrg in INT,
@@ -252,7 +249,7 @@ ArgCiudadDest in INT,
 ArgPrecio in DOUBLE,
 ArgDescuento in DOUBLE)
 begin
-	insert into Horarios values (ArgId,ArgDuracion,ArgHorario,ArgCiudadOrg,ArgCiudadDest,ArgPrecio,ArgDescuento);
+	insert into Horarios values (seq_rutas.nextval,ArgDuracion,ArgHorario,ArgCiudadOrg,ArgCiudadDest,ArgPrecio,ArgDescuento);
 	commit;
 end INSERCION_RUTA;
 
@@ -313,13 +310,12 @@ end GET_HORARIO;
 show error
 ------------------------------------------------------------------------------------------
 create or replace procedure INSERCION_VUELOS(
-ArgId in INT,
 ArgModalidad in INT,
 ArgRuta in INT,
 ArgAvion in INT,
 ArgFecha in DATE)
 begin
-	insert into vuelos values (ArgId,ArgModalidad,ArgRuta,ArgAvion,ArgFecha);
+	insert into vuelos values (seq_vuelos.nextval,ArgModalidad,ArgRuta,ArgAvion,ArgFecha);
 	commit;
 end INSERCION_VUELOS;
 /
@@ -355,11 +351,10 @@ show error
 ------------------------------------------------------------------------------------------
 
 create or replace procedure INSERCION_HORARIO(
-ArgId in VARCHAR2,
 ArgDia_semana in VARCHAR2,
 ArgHora_llegada in NUMBER) as
 begin
-	insert into Horarios(id,dia_semana,hora_llegada) values (ArgId,ArgDia_semana,ArgHora_llegada);
+	insert into Horarios(seq_horarios.nextval,dia_semana,hora_llegada) values (ArgId,ArgDia_semana,ArgHora_llegada);
 	commit;
 end INSERCION_HORARIO;
 /
@@ -430,10 +425,9 @@ show error
 ------------------------------------------------------------------------------------------
 
 create or replace procedure INSERCION_CIUDAD(
-ArgId in VARCHAR2,
 ArgNombre in VARCHAR2) as
 begin
-	insert into CIUDAD(id,nombre) values (ArgId,ArgNombre);
+	insert into CIUDAD(ciudad.nextval,nombre) values (ArgId,ArgNombre);
 	commit;
 end INSERCION_CIUDAD;
 /
@@ -477,7 +471,6 @@ show error
 -- ************************************* Aviones ************************************
 ------------------------------------------------------------------------------------------
 create or replace procedure INSERCION_AVIONES(
-ArgId in VARCHAR2,
 ArgTipo in VARCHAR2,
 ArgCapacidad in NUMBER,
 ArgAnio in NUMBER,
@@ -485,7 +478,7 @@ ArgMarca in VARCHAR2,
 ArgAsientos_fila in NUMBER,
 ArgCantidad_filas in NUMBER) as
 begin
-	insert into AVIONES(id,tipo,capacidad,anio,marca,asientos_fila,cantidad_filas) values (ArgId,ArgTipo,ArgCapacidad,ArgAnio,ArgMarca,ArgAsientos_fila,ArgCantidad_filas);
+	insert into AVIONES(seq_aviones.nextval,tipo,capacidad,anio,marca,asientos_fila,cantidad_filas) values (ArgId,ArgTipo,ArgCapacidad,ArgAnio,ArgMarca,ArgAsientos_fila,ArgCantidad_filas);
 	commit;
 end INSERCION_AVIONES;
 /
@@ -573,7 +566,6 @@ end GET_TIQUETE;
 show error
 ------------------------------------------------------------------------------------------
 create or replace procedure INSERCION_TIQUETE(
-ArgId in INT,
 ArgUsuario in INT,
 ArgVuelo in INT,
 ArgPrecio in INT,
@@ -581,7 +573,7 @@ ArgFila in INT,
 ArgColumna in INT,
 ArgFormaPago in VARCHAR2)
 begin
-	insert into Tiquetes values (ArgId,ArgUsuario,ArgVuelo,ArgPrecio,ArgFila,ArgFila,ArgColumna,ArgFormaPago);
+	insert into Tiquetes values (seq_tiquetes.nextval,ArgUsuario,ArgVuelo,ArgPrecio,ArgFila,ArgFila,ArgColumna,ArgFormaPago);
 	commit;
 end INSERCION_TIQUETE;
 /

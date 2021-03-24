@@ -7,14 +7,16 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import logic.Tiquete;
 import logic.Usuario;
 import oracle.jdbc.OracleTypes;
 
 
 public class ServicioUsuario extends Servicio {
     
-    private static final String INSERCION_USUARIO = "{call INSERCION_USUARIO(?,?,?)}";
-    private static final String UPDATE_USUARIO = "{call UPDATE_USUARIO(?,?,?)}";
+    private static final String INSERCION_USUARIO = "{call INSERCION_USUARIO(?,?,?,?,?,?,?,?,?)}";
+    private static final String UPDATE_USUARIO = "{call UPDATE_USUARIO(?,?,?,?,?,?,?,?,?,?)}";
     private static final String GET_USUARIO = "{?=call GET_USUARIO(?)}";
     private static  final String VALIDA_USUARIO ="{?=call Valida_Usuario(?,?)}";
     private static final String DELETE_USUARIO = "{call DELETE_USUARIO(?)}";
@@ -50,9 +52,17 @@ public class ServicioUsuario extends Servicio {
 
         try {
             toDo = conexion.prepareCall(INSERCION_USUARIO);
-            toDo.setString(1, newUsuario.getCedula());
-            toDo.setString(2, newUsuario.getClave());
-            toDo.setInt(3, newUsuario.getRol());
+            toDo.setInt(1, newUsuario.getId());
+            toDo.setString(2, newUsuario.getContrasena());
+            toDo.setString(3, newUsuario.getNombre());
+            toDo.setString(4, newUsuario.getApellidos());
+            toDo.setString(5, newUsuario.getCorreo());
+            toDo.setString(6, newUsuario.getFechaNacimiento().toString());
+            toDo.setString(7, newUsuario.getDireccion());
+            toDo.setString(8, newUsuario.getTelefonoTrabajo());
+            toDo.setString(9, newUsuario.getCelular());
+            toDo.setInt(10, newUsuario.getRol());
+
 
             boolean resultado = toDo.execute();
             
@@ -93,9 +103,17 @@ public class ServicioUsuario extends Servicio {
         
         try {
             toDo = conexion.prepareCall(UPDATE_USUARIO);
-            toDo.setString(1, newUsuario.getCedula());
-            toDo.setString(2, newUsuario.getClave());
-            toDo.setInt(3, newUsuario.getRol());
+            toDo.setInt(1, newUsuario.getId());
+            toDo.setString(2, newUsuario.getContrasena());
+            toDo.setString(3, newUsuario.getNombre());
+            toDo.setString(4, newUsuario.getApellidos());
+            toDo.setString(5, newUsuario.getCorreo());
+            toDo.setString(6, newUsuario.getFechaNacimiento().toString());
+            toDo.setString(7, newUsuario.getDireccion());
+            toDo.setString(8, newUsuario.getTelefonoTrabajo());
+            toDo.setString(9, newUsuario.getCelular());
+            toDo.setInt(10, newUsuario.getRol());
+
 
             int resultado = toDo.executeUpdate();
 
@@ -121,7 +139,7 @@ public class ServicioUsuario extends Servicio {
     
     
     
-    public Usuario validaUsario(String id, String clave) throws GeneralException, DbException {
+    public boolean validaUsario(String id, String clave) throws GeneralException, DbException {
 
         try {
             conectar();
@@ -132,7 +150,7 @@ public class ServicioUsuario extends Servicio {
         }
 
         ResultSet rs = null;
-        Usuario user = null;
+        boolean userExist = false;
         CallableStatement toDo = null;
 
         try {
@@ -144,7 +162,7 @@ public class ServicioUsuario extends Servicio {
             rs = (ResultSet) toDo.getObject(1);
 
             if (rs.next()) {
-                user = new Usuario(rs.getString("cedula"), "", rs.getInt("rol"));
+                userExist = true;
             }
 
         } catch (SQLException e) {
@@ -166,18 +184,18 @@ public class ServicioUsuario extends Servicio {
             }
         }
 
-        if (user == null) {
+        if (!userExist) {
             throw new DbException("No hay datos");
         }
 
-        return user;
+        return userExist;
     }
     
     
     
     
     
-    public Usuario getUsuario(String id) throws GeneralException, DbException {
+    public Usuario getUsuario(int id) throws GeneralException, DbException {
 
         try {
             conectar();
@@ -194,12 +212,21 @@ public class ServicioUsuario extends Servicio {
         try {
             toDo = conexion.prepareCall(GET_USUARIO);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
-            toDo.setString(2, id);
+            toDo.setInt(2, id);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
+            
 
-            if (rs.next()) {
-                user = new Usuario(rs.getString("cedula"), "", rs.getInt("rol"));
+            
+            if (rs.next()) { 
+                user = new Usuario(rs.getInt("id"),rs.getString("contrasena"),
+                        rs.getString("nombre"),rs.getString("apellidos"),
+                        rs.getString("correo"), rs.getDate("fecha_nacimiento"),
+                        rs.getString("direccion"), rs.getString("telefeno_trabajo"),
+                        rs.getString("celular"), rs.getInt("rol")
+                );
+                ArrayList<Tiquete> historialTiquetes = ServicioTiquete.getSingletonInstance().getHistorialTiquetes(user.getId());
+                user.setHistorialTiquetes(historialTiquetes);
             }
 
         } catch (SQLException e) {
@@ -234,7 +261,7 @@ public class ServicioUsuario extends Servicio {
     
     
     
-    public void deleteUsuario(String id) throws GeneralException, DbException {
+    public void deleteUsuario(int id) throws GeneralException, DbException {
 
         try {
             conectar();
@@ -247,7 +274,7 @@ public class ServicioUsuario extends Servicio {
         PreparedStatement toDo = null;
         try {
             toDo = conexion.prepareStatement(DELETE_USUARIO);
-            toDo.setString(1, id);
+            toDo.setInt(1, id);
 
             int resultado = toDo.executeUpdate();
 
