@@ -1,4 +1,3 @@
-a/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,7 +15,7 @@ import java.util.Date;
 
 public class Vuelo implements Serializable {
     private int id;
-    private String modalidad;
+    private int modalidad; 
     private int duracion;
     private Date fecha;
     private Avion avionId;
@@ -26,14 +25,14 @@ public class Vuelo implements Serializable {
     public Vuelo() {
     }
     
-    public Vuelo(int id, String modalidad, int duracion, Date fecha, Avion avionId, Ruta rutaId, Collection<Tiquete> tiquetesCollection) {
+    public Vuelo(int id, int modalidad, int duracion, Date fecha, Avion avionId, Ruta rutaId) {
         this.id = id;
         this.modalidad = modalidad;
         this.duracion = duracion;
         this.fecha = fecha;
         this.avionId = avionId;
         this.rutaId = rutaId;
-        this.tiquetesCollection = tiquetesCollection;
+        this.tiquetesCollection = new Collection();
     }
 
     public Vuelo(int id) {
@@ -48,11 +47,11 @@ public class Vuelo implements Serializable {
         this.id = id;
     }
 
-    public String getModalidad() {
+    public int getModalidad() {
         return modalidad;
     }
 
-    public void setModalidad(String modalidad) {
+    public void setModalidad(int modalidad) {
         this.modalidad = modalidad;
     }
 

@@ -52,11 +52,11 @@ public class ServicioVuelo extends Servicio {
 
         try {
             toDo = conexion.prepareCall(INSERCION_VUELO);
-            toDo.setString(1, newVuelo.getModalidad());            
+            toDo.setInt(1, newVuelo.getModalidad());            
             toDo.setInt(2, newVuelo.getDuracion());
-            toDo.setInt(3, newVuelo.getRutaId().get);
-            toDo.setInt(4, newVuelo.getDuracion());
-            toDo.setInt(2, newVuelo.getDuracion());
+            toDo.setInt(3, newVuelo.getRutaId().getId())  ;
+            toDo.setInt(4, newVuelo.getAvionId().getId());
+            toDo.setString(5, newVuelo.getFecha().toString());
             
             
             boolean resultado = toDo.execute();
@@ -94,9 +94,13 @@ public class ServicioVuelo extends Servicio {
         PreparedStatement toDo = null;
         try {
             toDo = conexion.prepareCall(UPDATE_VUELO);
-            toDo.setInt(1, newVuelo.getId());
-            toDo.setString(2, newVuelo.getDiaSemana());            
-            toDo.setInt(3, newVuelo.getHoraLlegada());
+            toDo.setInt(1, newVuelo.getId());  
+            toDo.setInt(2, newVuelo.getModalidad());            
+            toDo.setInt(3, newVuelo.getDuracion());
+            toDo.setInt(4, newVuelo.getRutaId().getId())  ;
+            toDo.setInt(5, newVuelo.getAvionId().getId());
+            toDo.setString(6, newVuelo.getFecha().toString());
+
 
             
             int resultado = toDo.executeUpdate();
@@ -151,11 +155,11 @@ public class ServicioVuelo extends Servicio {
             if (rs.next()) {           
                 Ruta ruta = ServicioRutas.getSingletonInstance().getRuta(rs.getInt("ruta_id"));
 
-                Avion avion = ServicioAvion.getSingletonInstance().getAvion(rs.getInt("avion_id"));
+                Avion avion = ServicioAviones.getSingletonInstance().getAvion(rs.getInt("avion_id"));
 
-                Vuelo = new Vuelo(rs.getInt("id"), rs.getString("modalidad"),
-                            ruta,avion,
-                            rs.getString("fecha"));               
+                Vuelo = new Vuelo(rs.getInt("id"), rs.getInt("modalidad"),
+                             rs.getInt("duracion"),rs.getDate("fecha"),
+                            avion,ruta);               
             }
             
         } catch (SQLException e) {
@@ -199,14 +203,19 @@ public class ServicioVuelo extends Servicio {
         CallableStatement toDo = null;
         
         try {
-            toDo = conexion.prepareCall(LISTAR_Vuelo);
+            toDo = conexion.prepareCall(LISTAR_VUELO);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
             
             while (rs.next()) {
-                Vuelo = new Vuelo(rs.getInt("id"), rs.getString("dia_semana"), 
-                    rs.getInt("hora_llegada") ); 
+                Ruta ruta = ServicioRutas.getSingletonInstance().getRuta(rs.getInt("ruta_id"));
+
+                Avion avion = ServicioAviones.getSingletonInstance().getAvion(rs.getInt("avion_id"));
+
+                Vuelo = new Vuelo(rs.getInt("id"), rs.getInt("modalidad"),
+                             rs.getInt("duracion"),rs.getDate("fecha"),
+                            avion,ruta);  
                 coleccion.add(Vuelo);
                 
             }
