@@ -60,23 +60,10 @@ public class BackEnd {
         ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
         Horario horario = new Horario(12,"Lunes",2);
         //servHorario.insercionHorario(horario);
-        System.out.println("GET: " + servHorario.getHorario(1).toString());
-        for (Object horar : servHorario.listar_horario()) {
-            System.out.println(horar.toString());
-        }
-        servHorario.deleteHorario(1);
-        
-        System.out.println("=====================================================");
-        System.out.println("==========================HORARIOS===========================");
-
-        //ervicioHorario servHorario = ServicioHorario.getSingletonInstance();
-        //Horario horario = new Horario(12,"Lunes",2);
-        servHorario.insercionHorario(horario);
         System.out.println("GET: " + servHorario.getHorario(2).toString());
-        for (Object horar : servHorario.listar_horario()) {
-            System.out.println(horar.toString());
-        }
-        servHorario.deleteHorario(1);
+//        for (Object horar : servHorario.listar_horario()) {
+//            System.out.println(horar.toString());
+//        }
 
 //        Carrera carrera = new Carrera("SE", "Ing. Sistemas", "Bachiller");
 //
