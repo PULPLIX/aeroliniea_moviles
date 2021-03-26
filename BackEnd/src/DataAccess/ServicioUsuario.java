@@ -52,7 +52,7 @@ public class ServicioUsuario extends Servicio {
 
         try {
             toDo = conexion.prepareCall(INSERCION_USUARIO);
-            toDo.setInt(1, newUsuario.getId());
+            toDo.setString(1, newUsuario.getId());
             toDo.setString(2, newUsuario.getContrasena());
             toDo.setString(3, newUsuario.getNombre());
             toDo.setString(4, newUsuario.getApellidos());
@@ -103,7 +103,7 @@ public class ServicioUsuario extends Servicio {
         
         try {
             toDo = conexion.prepareCall(UPDATE_USUARIO);
-            toDo.setInt(1, newUsuario.getId());
+            toDo.setString(1, newUsuario.getId());
             toDo.setString(2, newUsuario.getContrasena());
             toDo.setString(3, newUsuario.getNombre());
             toDo.setString(4, newUsuario.getApellidos());
@@ -195,7 +195,7 @@ public class ServicioUsuario extends Servicio {
     
     
     
-    public Usuario getUsuario(int id) throws GeneralException, DbException {
+    public Usuario getUsuario(String id) throws GeneralException, DbException {
 
         try {
             conectar();
@@ -212,14 +212,14 @@ public class ServicioUsuario extends Servicio {
         try {
             toDo = conexion.prepareCall(GET_USUARIO);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
-            toDo.setInt(2, id);
+            toDo.setString(2, id);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
             
 
             
             if (rs.next()) { 
-                user = new Usuario(rs.getInt("id"),rs.getString("contrasena"),
+                user = new Usuario(rs.getString("id"),rs.getString("contrasena"),
                         rs.getString("nombre"),rs.getString("apellidos"),
                         rs.getString("correo"), rs.getDate("fecha_nacimiento"),
                         rs.getString("direccion"), rs.getString("telefeno_trabajo"),

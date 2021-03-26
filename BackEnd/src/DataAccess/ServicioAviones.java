@@ -176,7 +176,7 @@ public class ServicioAviones extends Servicio {
         }
         
         if (Avion == null) {
-            throw new DbException("El curso no existe");
+            throw new DbException("El avión no existe");
         }
         
         return Avion;

@@ -9,70 +9,44 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 /**
  *
  * @author david
  */
-@Entity
-@Table(name = "USUARIOS")
-@NamedQueries({
-    @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u"),
-    @NamedQuery(name = "Usuarios.findById", query = "SELECT u FROM Usuarios u WHERE u.id = :id"),
-    @NamedQuery(name = "Usuarios.findByContrasena", query = "SELECT u FROM Usuarios u WHERE u.contrasena = :contrasena"),
-    @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre"),
-    @NamedQuery(name = "Usuarios.findByApellidos", query = "SELECT u FROM Usuarios u WHERE u.apellidos = :apellidos"),
-    @NamedQuery(name = "Usuarios.findByCorreo", query = "SELECT u FROM Usuarios u WHERE u.correo = :correo"),
-    @NamedQuery(name = "Usuarios.findByFechaNacimiento", query = "SELECT u FROM Usuarios u WHERE u.fechaNacimiento = :fechaNacimiento"),
-    @NamedQuery(name = "Usuarios.findByDireccion", query = "SELECT u FROM Usuarios u WHERE u.direccion = :direccion"),
-    @NamedQuery(name = "Usuarios.findByTelefonoTrabajo", query = "SELECT u FROM Usuarios u WHERE u.telefonoTrabajo = :telefonoTrabajo"),
-    @NamedQuery(name = "Usuarios.findByCelular", query = "SELECT u FROM Usuarios u WHERE u.celular = :celular"),
-    @NamedQuery(name = "Usuarios.findByRol", query = "SELECT u FROM Usuarios u WHERE u.rol = :rol")})
+
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID")
-    private int id;
-    @Column(name = "CONTRASENA")
+    private String id;
     private String contrasena;
-    @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "APELLIDOS")
     private String apellidos;
-    @Column(name = "CORREO")
     private String correo;
-    @Column(name = "FECHA_NACIMIENTO")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacimiento;
-    @Column(name = "DIRECCION")
     private String direccion;
-    @Column(name = "TELEFONO_TRABAJO")
     private String telefonoTrabajo;
-    @Column(name = "CELULAR")
     private String celular;
-    @Column(name = "ROL")
     private int rol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarioId")
     private ArrayList<Tiquete> historialTiquetes;
 
     public Usuario() {
+        this.id = "";
+        this.contrasena = "";
+        this.nombre = "";
+        this.apellidos = "";
+        this.correo = "";
+        this.fechaNacimiento = new Date();
+        this.direccion = "";
+        this.telefonoTrabajo = "";
+        this.celular = "";
+        this.rol = -1;
+        this.historialTiquetes =  new ArrayList<>();
     }
 
-    public Usuario(int id, String contrasena, String nombre, String apellidos, String correo, Date fechaNacimiento, String direccion, String telefonoTrabajo, String celular, int rol) {
+    public Usuario(String id, String contrasena, String nombre, String apellidos, String correo, Date fechaNacimiento, String direccion, String telefonoTrabajo, String celular, int rol) {
         this.id = id;
         this.contrasena = contrasena;
         this.nombre = nombre;
@@ -86,11 +60,11 @@ public class Usuario implements Serializable {
         this.historialTiquetes =  new ArrayList<Tiquete>();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

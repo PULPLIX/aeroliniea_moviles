@@ -53,7 +53,7 @@ public class ServicioTiquete extends Servicio {
 
         try {
             toDo = conexion.prepareCall(INSERCION_TIQUETE);
-            toDo.setInt(1, newTiquete.getUsuarioId().getId());            
+            toDo.setString(1, newTiquete.getUsuarioId().getId());            
             toDo.setInt(2, newTiquete.getVueloId().getId());            
             toDo.setString(3, newTiquete.getPrecioFinal());            
             toDo.setInt(4, newTiquete.getFilaAsisento());            
@@ -95,7 +95,7 @@ public class ServicioTiquete extends Servicio {
         PreparedStatement toDo = null;
         try {
             toDo = conexion.prepareCall(UPDATE_TIQUETE);
-            toDo.setInt(1, tiquete.getUsuarioId().getId());            
+            toDo.setString(1, tiquete.getUsuarioId().getId());            
             toDo.setInt(2, tiquete.getVueloId().getId());            
             toDo.setString(3, tiquete.getPrecioFinal());            
             toDo.setInt(4, tiquete.getFilaAsisento());            
@@ -150,7 +150,7 @@ public class ServicioTiquete extends Servicio {
             rs = (ResultSet) toDo.getObject(1);
             
             if (rs.next()) {                
-                Usuario usuarioTem = ServicioUsuario.getSingletonInstance().getUsuario(rs.getInt("usuario_id"));
+                Usuario usuarioTem = ServicioUsuario.getSingletonInstance().getUsuario(rs.getString("usuario_id"));
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
                 Tiquete = new Tiquete(rs.getInt("id"),usuarioTem, vueloTem,
                     rs.getString("precio_final"),rs.getInt("fila_asisento"),
@@ -204,7 +204,7 @@ public class ServicioTiquete extends Servicio {
             rs = (ResultSet) toDo.getObject(1);
             
             while (rs.next()) {
-                Usuario usuarioTem = ServicioUsuario.getSingletonInstance().getUsuario(rs.getInt("usuario_id"));
+                Usuario usuarioTem = ServicioUsuario.getSingletonInstance().getUsuario(rs.getString("usuario_id"));
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
                 
                 Tiquete = new Tiquete(rs.getInt("id"),usuarioTem, vueloTem,
@@ -237,7 +237,7 @@ public class ServicioTiquete extends Servicio {
         return coleccion;
     }
     
-    public ArrayList getHistorialTiquetes(int id) throws GeneralException, DbException {
+    public ArrayList getHistorialTiquetes(String id) throws GeneralException, DbException {
         try {
             conectar();
         } catch (ClassNotFoundException ex) {

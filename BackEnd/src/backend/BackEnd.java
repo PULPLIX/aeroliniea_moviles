@@ -6,6 +6,7 @@ import Exceptions.GeneralException;
 //import DataAccess.ServicioCarrera;
 import DataAccess.ServicioAviones;
 import DataAccess.ServicioHorario;
+import DataAccess.ServicioUsuario;
 import logic.Avion;
 import logic.Horario;
 //import DataAccess.ServicioUsuario;
@@ -47,20 +48,25 @@ public class BackEnd {
 
         ServicioAviones servAviones = ServicioAviones.getSingletonInstance();
         Avion avioncito = new Avion(360,"Volador",128,2021,"Veloz",5,26);
-        //servAviones.insercionAviones(avioncito);
-        //System.out.println("GET: " + servAviones.getAvion(360).toString());
-        for (Object avion : servAviones.listar_aviones()) {
+        servAviones.insercionAviones(avioncito);
+        System.out.println("GET: " + servAviones.getAvion(1).toString());
+        for (Object avion : servAviones.listar_aviones()){
             System.out.println(avion.toString());
         }
-        servAviones.deleteAvion(3);
+        ServicioUsuario servUs = ServicioUsuario.getSingletonInstance();
+        if(servUs.validaUsario("12", "1234")){
+           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO");
+        }
+        
+        //servAviones.deleteAvion(3);
         
         System.out.println("=====================================================");
         System.out.println("==========================HORARIOS===========================");
 
-        ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
-        Horario horario = new Horario(12,"Lunes",2);
+        //ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
+        //Horario horario = new Horario(12,"Lunes",2);
         //servHorario.insercionHorario(horario);
-        System.out.println("GET: " + servHorario.getHorario(2).toString());
+        //System.out.println("GET: " + servHorario.getHorario(2).toString());
 //        for (Object horar : servHorario.listar_horario()) {
 //            System.out.println(horar.toString());
 //        }
