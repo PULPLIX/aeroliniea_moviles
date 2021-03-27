@@ -23,7 +23,7 @@ public class ServicioTiquete extends Servicio {
     private static final String GET_TIQUETE = "{?=call GET_TIQUETE(?)}";
     private static final String LISTAR_TIQUETE = "{?=call LISTAR_TIQUETE()}";
     private static final String DELETE_TIQUETE = "{call DELETE_TIQUETE(?)}";
-    private static final String HISTORIAL_TIQUETES = "{?=call HISTORIAL_TIQUETES(?)}";
+    private static final String HISTORIAL_TIQUETES = "{?=call HISTORIAL_TIQUETE(?)}";
 
     
     private static  ServicioTiquete serviceTiquete; 
@@ -254,6 +254,7 @@ public class ServicioTiquete extends Servicio {
         try {
             toDo = conexion.prepareCall(HISTORIAL_TIQUETES);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
+            toDo.setString(2, id);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
             Usuario usuarioTem = ServicioUsuario.getSingletonInstance().getUsuario(id);

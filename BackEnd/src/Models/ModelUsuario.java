@@ -30,7 +30,7 @@ public class ModelUsuario {
     
     public boolean validarUsuario(String id, String contrasena) throws GeneralException, DbException {
         ServicioUsuario servUsuario =  ServicioUsuario.getSingletonInstance();
-        return servUsuario.validaUsario(id, contrasena);
+        return servUsuario.validaUsuario(id, contrasena);
     }
     public Usuario getUsuario() {
         return usuario;

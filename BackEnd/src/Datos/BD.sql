@@ -1,6 +1,5 @@
 host cls
 
-
 drop table Horarios cascade constraints;
 drop table Ciudad cascade constraints;
 drop table Rutas cascade constraints; 
@@ -193,7 +192,7 @@ as
 usuario_cursor TYPES.ref_cursor;
 begin
 	open usuario_cursor for
-	select * from Usuarios where id = ArgId;	
+	select ID,CONTRASENA,NOMBRE,APELLIDOS,CORREO,FECHA_NACIMIENTO,DIRECCION,TELEFONO_TRABAJO,CELULAR,ROL from Usuarios where id = ArgId;	
 	return usuario_cursor;
 end GET_USUARIO;
 /
@@ -228,7 +227,7 @@ as
 usuario_cursor TYPES.ref_cursor;
 begin
 	open usuario_cursor for
-	select id,rol from Usuarios where id = ArgId and contrasena=ArgClave;	
+	select ID,CONTRASENA,NOMBRE,APELLIDOS,CORREO,FECHA_NACIMIENTO,DIRECCION,TELEFONO_TRABAJO,CELULAR,ROL from Usuarios where id = ArgId and contrasena=ArgClave;	
 	return usuario_cursor;
 end Valida_Usuario;
 /
@@ -644,7 +643,7 @@ as
 tiquete_cursor TYPES.ref_cursor;
 begin
 	open tiquete_cursor for
-	select * from Tiquetes where USUARIO_ID = ArgUsuarioId;	
+	select ID,USUARIO_ID,VUELO_ID,PRECIO_FINAL,FILA_ASISENTO,COLUMNA_ASIENTO,FORMA_PAGO from Tiquetes where USUARIO_ID = ArgUsuarioId;	
 	return tiquete_cursor;
 end HISTORIAL_TIQUETE;
 /

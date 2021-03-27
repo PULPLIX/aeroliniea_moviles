@@ -139,7 +139,7 @@ public class ServicioUsuario extends Servicio {
     
     
     
-    public boolean validaUsario(String id, String clave) throws GeneralException, DbException {
+    public boolean validaUsuario(String id, String clave) throws GeneralException, DbException {
 
         try {
             conectar();
@@ -160,7 +160,7 @@ public class ServicioUsuario extends Servicio {
             toDo.setString(3,clave);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
-
+            
             if (rs.next()) {
                 userExist = true;
             }
@@ -219,10 +219,12 @@ public class ServicioUsuario extends Servicio {
 
             
             if (rs.next()) { 
+                String Dir = rs.getString("direccion");
+                String Tel = rs.getString("telefono_trabajo");
                 user = new Usuario(rs.getString("id"),rs.getString("contrasena"),
                         rs.getString("nombre"),rs.getString("apellidos"),
                         rs.getString("correo"), rs.getDate("fecha_nacimiento"),
-                        rs.getString("direccion"), rs.getString("telefeno_trabajo"),
+                        rs.getString("direccion"), rs.getString("telefono_trabajo"),
                         rs.getString("celular"), rs.getInt("rol")
                 );
                 ArrayList<Tiquete> historialTiquetes = ServicioTiquete.getSingletonInstance().getHistorialTiquetes(user.getId());

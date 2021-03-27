@@ -42,21 +42,29 @@ public class BackEnd {
 //            System.out.println(curs.toString());
 //        }
 
+        System.out.println("=====================================================");
+        System.out.println("==========================USUARIO===========================");
+
+        ServicioUsuario servUsuario = ServicioUsuario.getSingletonInstance();
+//        System.out.println("GET: " + servUsuario.getUsuario("12").toString());
+
+        ServicioUsuario servUs = ServicioUsuario.getSingletonInstance();
+        if(servUs.validaUsuario("12", "1234")){
+           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO");
+        }
+        
         
         System.out.println("=====================================================");
         System.out.println("==========================AVIONES===========================");
 
         ServicioAviones servAviones = ServicioAviones.getSingletonInstance();
         Avion avioncito = new Avion(360,"Volador",128,2021,"Veloz",5,26);
-        servAviones.insercionAviones(avioncito);
+        //servAviones.insercionAviones(avioncito);
         System.out.println("GET: " + servAviones.getAvion(1).toString());
         for (Object avion : servAviones.listar_aviones()){
             System.out.println(avion.toString());
         }
-        ServicioUsuario servUs = ServicioUsuario.getSingletonInstance();
-        if(servUs.validaUsario("12", "1234")){
-           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO");
-        }
+
         
         //servAviones.deleteAvion(3);
         
