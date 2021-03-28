@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex align-items-center" href="#"style="font-size: 16px; font-weight: 700;">
-                    <img src="/aerolinea/resources/images/logoSinLetras2.png" alt="" width="44" height="44" class="d-inline-block align-text-top rounded ">
+                    <img src="/aerolinea/resources/images/logoSinLetras2.png" alt="Logo" width="44" height="44" class="d-inline-block align-text-top rounded ">
                     DAVID's AIRLINES
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Features</a>
