@@ -30,7 +30,6 @@ public class Usuario implements Serializable {
     private String telefonoTrabajo;
     private String celular;
     private int rol;
-    private ArrayList<Tiquete> historialTiquetes;
 
     public Usuario() {
         this.id = "";
@@ -43,7 +42,6 @@ public class Usuario implements Serializable {
         this.telefonoTrabajo = "";
         this.celular = "";
         this.rol = -1;
-        this.historialTiquetes =  new ArrayList<>();
     }
 
     public Usuario(String id, String contrasena, String nombre, String apellidos, String correo, Date fechaNacimiento, String direccion, String telefonoTrabajo, String celular, int rol) {
@@ -57,7 +55,6 @@ public class Usuario implements Serializable {
         this.telefonoTrabajo = telefonoTrabajo;
         this.celular = celular;
         this.rol = rol;
-        this.historialTiquetes =  new ArrayList<Tiquete>();
     }
 
     public String getId() {
@@ -138,14 +135,6 @@ public class Usuario implements Serializable {
 
     public void setRol(int rol) {
         this.rol = rol;
-    }
-
-    public Collection<Tiquete> getHistorialTiquetes() {
-        return historialTiquetes;
-    }
-
-    public void setHistorialTiquetes(ArrayList<Tiquete> historialTiquetes) {
-        this.historialTiquetes = historialTiquetes;
     }
 
     @Override
