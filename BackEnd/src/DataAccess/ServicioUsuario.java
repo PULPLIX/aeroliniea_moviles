@@ -222,7 +222,7 @@ public class ServicioUsuario extends Servicio {
                         rs.getString("direccion"), rs.getString("telefono_trabajo"),
                         rs.getString("celular"), rs.getInt("rol")
                 );
-                ArrayList<Tiquete> historialTiquetes = ServicioTiquete.getSingletonInstance().getHistorialTiquetes(user.getId());
+                //ArrayList<Tiquete> historialTiquetes = ServicioTiquete.getSingletonInstance().getHistorialTiquetes(user.getId());
             }
 
         } catch (SQLException e) {

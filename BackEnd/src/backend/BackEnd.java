@@ -9,6 +9,7 @@ import DataAccess.ServicioHorario;
 import DataAccess.ServicioUsuario;
 import logic.Avion;
 import logic.Horario;
+import logic.Usuario;
 //import DataAccess.ServicioUsuario;
 
 
@@ -46,11 +47,11 @@ public class BackEnd {
         System.out.println("==========================USUARIO===========================");
 
         ServicioUsuario servUsuario = ServicioUsuario.getSingletonInstance();
-//        System.out.println("GET: " + servUsuario.getUsuario("12").toString());
+        Usuario usuario = servUsuario.getUsuario("12");
 
         ServicioUsuario servUs = ServicioUsuario.getSingletonInstance();
         if(servUs.validaUsuario("12", "1234")){
-           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO");
+           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO " + usuario.getNombre());
         }
         
         
