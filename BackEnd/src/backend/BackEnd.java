@@ -47,11 +47,14 @@ public class BackEnd {
         System.out.println("==========================USUARIO===========================");
 
         ServicioUsuario servUsuario = ServicioUsuario.getSingletonInstance();
-        Usuario usuario = servUsuario.getUsuario("12");
+//        Usuario usuario = servUsuario.getUsuario("12");
 
-        ServicioUsuario servUs = ServicioUsuario.getSingletonInstance();
-        if(servUs.validaUsuario("12", "1234")){
-           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO " + usuario.getNombre());
+//        ServicioUsuario servUs = ServicioUsuario.getSingletonInstance();
+//        if(servUs.validaUsuario("12", "1234")){
+//           System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO " + usuario.getNombre());
+//        }
+        for (Object Usuario : servUsuario.listar_usuario()){
+            System.out.println(Usuario.toString());
         }
         
         System.out.println("=====================================================");

@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import logic.Avion;
 import logic.Tiquete;
 import logic.Usuario;
 import oracle.jdbc.OracleTypes;
@@ -20,7 +22,7 @@ public class ServicioUsuario extends Servicio {
     private static final String GET_USUARIO = "{?=call GET_USUARIO(?)}";
     private static  final String VALIDA_USUARIO ="{?=call VALIDA_USUARIO(?,?)}";
     private static final String DELETE_USUARIO = "{call DELETE_USUARIO(?)}";
-    //private static final String LISTAR_USUARIO = "{?=call LISTAR_USUARIO()}";
+    private static final String LISTAR_USUARIO = "{?=call LISTAR_USUARIO()}";
     
     private static  ServicioUsuario serviceUser;
     
@@ -288,6 +290,61 @@ public class ServicioUsuario extends Servicio {
             }
         }
     }
-    
+        
+    public Collection listar_usuario() throws GeneralException, DbException {
+        try {
+            conectar();
+        } catch (ClassNotFoundException ex) {
+            throw new GeneralException("No se ha localizado el Driver");
+        } catch (SQLException e) {
+            throw new DbException("No se puede establecer una conexion con la base de datos");
+        }
+
+        ResultSet rs = null;
+        ArrayList coleccion = new ArrayList();
+        Usuario user = null;
+        CallableStatement toDo = null;
+        
+        try {
+            toDo = conexion.prepareCall(LISTAR_USUARIO);
+            toDo.registerOutParameter(1, OracleTypes.CURSOR);
+            toDo.execute();
+            rs = (ResultSet) toDo.getObject(1);
+            
+            while (rs.next()) { 
+                user = new Usuario(rs.getString("id"),rs.getString("contrasena"),
+                        rs.getString("nombre"),rs.getString("apellidos"),
+                        rs.getString("correo"), rs.getDate("fecha_nacimiento"),
+                        rs.getString("direccion"), rs.getString("telefono_trabajo"),
+                        rs.getString("celular"), rs.getInt("rol")
+                );
+                coleccion.add(user);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new GeneralException("Sentencia no valida");
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (toDo != null) {
+                    toDo.close();
+                }
+                desconectar();
+            } catch (SQLException e) {
+                throw new GeneralException("Datos invalidos o nulos");
+            }
+        }
+        
+        if (coleccion.isEmpty()) {
+            throw new DbException("No hay datos");
+        }
+        
+        return coleccion;
+    }
+
+
 
 }
