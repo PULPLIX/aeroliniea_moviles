@@ -60,7 +60,7 @@ public class BackEnd {
 
         ServicioAviones servAviones = ServicioAviones.getSingletonInstance();
         Avion avioncito = new Avion(360,"Volador",128,2021,"Veloz",5,26);
-        servAviones.insercionAviones(avioncito);
+        //servAviones.insercionAviones(avioncito);
         System.out.println("GET: " + servAviones.getAvion(1).toString());
         for (Object avion : servAviones.listar_aviones()){
             System.out.println(avion.toString());

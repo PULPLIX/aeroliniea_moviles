@@ -6,7 +6,7 @@ drop table Rutas cascade constraints;
 drop table Usuarios cascade constraints;
 drop table Aviones cascade constraints;
 drop table Vuelos cascade constraints; 
-drop table Tiquetes; 
+drop table Tiquetes cascade constraints; 
 
 drop sequence seq_horarios;
 drop sequence seq_cuidad;
@@ -192,7 +192,7 @@ as
 usuario_cursor TYPES.ref_cursor;
 begin
 	open usuario_cursor for
-	select ID,CONTRASENA,NOMBRE,APELLIDOS,CORREO,FECHA_NACIMIENTO,DIRECCION,TELEFONO_TRABAJO,CELULAR,ROL from Usuarios where id = ArgId;	
+	select * from Usuarios where id = ArgId;	
 	return usuario_cursor;
 end GET_USUARIO;
 /
@@ -227,11 +227,11 @@ as
 usuario_cursor TYPES.ref_cursor;
 begin
 	open usuario_cursor for
-	select ID,CONTRASENA,NOMBRE,APELLIDOS,CORREO,FECHA_NACIMIENTO,DIRECCION,TELEFONO_TRABAJO,CELULAR,ROL from Usuarios where id = ArgId and contrasena=ArgClave;	
+	select id,rol from Usuarios where id = ArgId and contrasena=ArgClave;	
 	return usuario_cursor;
-end VALIDA_USUARIO;
+end Valida_Usuario;
 /
-show error
+show errors
 ------------------------------------------------------------------------------------------
 -- !****************************** PROCEDIMIENTOS DE RUTAS ********************************
 ------------------------------------------------------------------------------------------
@@ -611,7 +611,7 @@ show error
 
 create or replace procedure UPDATE_TIQUETE(
 ArgId in INT,
-ArgUsuario in VARCHAR,
+ArgUsuario in INT,
 ArgVuelo in INT,
 ArgPrecio in INT,
 ArgFila in INT,
@@ -658,13 +658,13 @@ show error
 --execute UPDATE_USUARIO('12345678','admin','David','Cordero Aguilar','lol@gmial.com',sysdate,'San Carlos','88888888','77777777',1);
 
 
---variable x refcursor
---exec :x:= GET_USUARIO('12345678');
---print x;
+variable x refcursor
+exec :x:= GET_USUARIO('12');
+print x;
 
---variable x refcursor
---exec :x:= LISTAR_USUARIO;
---print x;
+variable x refcursor
+exec :x:= LISTAR_USUARIO;
+print x;
 
 
 -------------------------------------------INSERT-----------------------------------------
@@ -680,3 +680,9 @@ INSERT INTO "SYSTEM"."RUTAS" (ID, HORARIO_ID, CIUDAD_ORIGEN, CIUDAD_DESTINO, PRE
 INSERT INTO "SYSTEM"."VUELOS" (ID, MODALIDAD, DURACION, RUTA_ID, AVION_ID, FECHA) VALUES ('21', 'voladora', '1', '25', '1', TO_DATE('2020-12-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 INSERT INTO "SYSTEM"."TIQUETES" (ID, USUARIO_ID, VUELO_ID, PRECIO_FINAL, FILA_ASISENTO, COLUMNA_ASIENTO, FORMA_PAGO) VALUES ('88', '12', '21', '1288', '5', '6', 'Contado');
+
+select Valida_Usuario('12','1234') from dual;
+
+variable x refcursor
+exec :x:= Valida_Usuario('12','1234');
+print x;
