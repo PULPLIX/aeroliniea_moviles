@@ -7,9 +7,8 @@
             </jsp:attribute>
 
 
-
             <jsp:body>
                 <p>Hi I'm the heart of the message</p>
-                <div class="btn btn-info">Esto es un boton</div>
+                <div class="btn btn-info"><a href="./global/login.jsp">Esto es un boton</a></div>
             </jsp:body>
         </t:template>
