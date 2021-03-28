@@ -183,11 +183,6 @@ public class ServicioUsuario extends Servicio {
                 throw new GeneralException("Datos invalidos o nulos");
             }
         }
-
-        if (!userExist) {
-            throw new DbException("No hay datos");
-        }
-
         return userExist;
     }
     
