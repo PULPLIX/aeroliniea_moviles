@@ -54,7 +54,6 @@ public class BackEnd {
            System.out.println("TODO CORRECTO Y YO QUE ME ALEGRO " + usuario.getNombre());
         }
         
-        
         System.out.println("=====================================================");
         System.out.println("==========================AVIONES===========================");
 
