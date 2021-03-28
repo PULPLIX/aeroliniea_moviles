@@ -205,7 +205,7 @@ as
 usuario_cursor TYPES.ref_cursor;
 begin
 	open usuario_cursor for
-	select id,nombre,apellidos,correo,direccion,celular,rol from USUARIOS;
+	select id,contrasena,nombre,apellidos,correo,fecha_nacimiento,direccion,telefono_trabajo,celular,rol from USUARIOS;
 	return usuario_cursor;
 end LISTAR_USUARIO;
 /
@@ -686,4 +686,4 @@ select Valida_Usuario('12','1234') from dual;
 variable x refcursor
 exec :x:= Valida_Usuario('12','1234');
 print x;
--- version 0.1
+-- version 0.2
