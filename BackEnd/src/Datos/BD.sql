@@ -118,7 +118,7 @@ CREATE SEQUENCE seq_vuelos MINVALUE 1 START WITH 1 INCREMENT BY 1 CACHE 10;
 -- -----------------------------------------------------
 CREATE TABLE Tiquetes (
   id INT NOT NULL,
-  usuario_id INT NOT NULL,
+  usuario_id VARCHAR2(100) NOT NULL,
   vuelo_id INT NOT NULL,
   precio_final VARCHAR2(45) NULL,
   fila_asisento INT NULL,
@@ -221,7 +221,7 @@ end DELETE_USUARIO;
 show error
 
 ------------------------------------------------------------------------------------------
-create or replace function Valida_Usuario(ArgId in VARCHAR2, ArgClave in VARCHAR2)
+create or replace function VALIDA_USUARIO(ArgId in VARCHAR2, ArgClave in VARCHAR2)
 return TYPES.ref_cursor
 as
 usuario_cursor TYPES.ref_cursor;
@@ -229,7 +229,7 @@ begin
 	open usuario_cursor for
 	select ID,CONTRASENA,NOMBRE,APELLIDOS,CORREO,FECHA_NACIMIENTO,DIRECCION,TELEFONO_TRABAJO,CELULAR,ROL from Usuarios where id = ArgId and contrasena=ArgClave;	
 	return usuario_cursor;
-end Valida_Usuario;
+end VALIDA_USUARIO;
 /
 show error
 ------------------------------------------------------------------------------------------
@@ -611,7 +611,7 @@ show error
 
 create or replace procedure UPDATE_TIQUETE(
 ArgId in INT,
-ArgUsuario in INT,
+ArgUsuario in VARCHAR,
 ArgVuelo in INT,
 ArgPrecio in INT,
 ArgFila in INT,

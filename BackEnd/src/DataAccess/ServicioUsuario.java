@@ -18,7 +18,7 @@ public class ServicioUsuario extends Servicio {
     private static final String INSERCION_USUARIO = "{call INSERCION_USUARIO(?,?,?,?,?,?,?,?,?)}";
     private static final String UPDATE_USUARIO = "{call UPDATE_USUARIO(?,?,?,?,?,?,?,?,?,?)}";
     private static final String GET_USUARIO = "{?=call GET_USUARIO(?)}";
-    private static  final String VALIDA_USUARIO ="{?=call Valida_Usuario(?,?)}";
+    private static  final String VALIDA_USUARIO ="{?=call VALIDA_USUARIO(?,?)}";
     private static final String DELETE_USUARIO = "{call DELETE_USUARIO(?)}";
     //private static final String LISTAR_USUARIO = "{?=call LISTAR_USUARIO()}";
     
