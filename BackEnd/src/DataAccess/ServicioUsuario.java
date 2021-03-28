@@ -211,11 +211,7 @@ public class ServicioUsuario extends Servicio {
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
             
-
-            
             if (rs.next()) { 
-                String Dir = rs.getString("direccion");
-                String Tel = rs.getString("telefono_trabajo");
                 user = new Usuario(rs.getString("id"),rs.getString("contrasena"),
                         rs.getString("nombre"),rs.getString("apellidos"),
                         rs.getString("correo"), rs.getDate("fecha_nacimiento"),
