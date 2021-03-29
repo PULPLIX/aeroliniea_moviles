@@ -1,4 +1,3 @@
-
 package DataAccess;
 
 import Exceptions.DbException;
@@ -9,40 +8,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import logic.Avion;
-import logic.Tiquete;
 import logic.Usuario;
 import oracle.jdbc.OracleTypes;
 
-
 public class ServicioUsuario extends Servicio {
-    
+
     private static final String INSERCION_USUARIO = "{call INSERCION_USUARIO(?,?,?,?,?,?,?,?,?)}";
     private static final String UPDATE_USUARIO = "{call UPDATE_USUARIO(?,?,?,?,?,?,?,?,?,?)}";
     private static final String GET_USUARIO = "{?=call GET_USUARIO(?)}";
-    private static  final String VALIDA_USUARIO ="{?=call VALIDA_USUARIO(?,?)}";
+    private static final String VALIDA_USUARIO = "{?=call VALIDA_USUARIO(?,?)}";
     private static final String DELETE_USUARIO = "{call DELETE_USUARIO(?)}";
     private static final String LISTAR_USUARIO = "{?=call LISTAR_USUARIO()}";
-    
-    private static  ServicioUsuario serviceUser;
-    
-    private ServicioUsuario(){
-        
+
+    private static ServicioUsuario serviceUser;
+
+    private ServicioUsuario() {
+
     }
-    
-    public static ServicioUsuario getSingletonInstance() throws GeneralException{
-        if(serviceUser == null){
+
+    public static ServicioUsuario getSingletonInstance()  {
+        if (serviceUser == null) {
             serviceUser = new ServicioUsuario();
         }
-        
+
         return serviceUser;
-        
+
     }
-    
-    
-    
+
     public void insercionUsuario(Usuario newUsuario) throws GeneralException, DbException {
-        
+
         try {
             conectar();
         } catch (ClassNotFoundException e) {
@@ -65,10 +59,9 @@ public class ServicioUsuario extends Servicio {
             toDo.setString(9, newUsuario.getCelular());
             toDo.setInt(10, newUsuario.getRol());
 
+            int resultado = toDo.executeUpdate();
 
-            boolean resultado = toDo.execute();
-            
-            if (resultado == true) {
+            if (resultado <= 0) {
                 throw new DbException("No se realizo la insercion");
             }
 
@@ -86,13 +79,9 @@ public class ServicioUsuario extends Servicio {
             }
         }
     }
-    
-    
-    
-    
+
     public void updateUsuario(Usuario newUsuario) throws GeneralException, DbException {
-        
-        
+
         try {
             conectar();
         } catch (ClassNotFoundException e) {
@@ -101,8 +90,7 @@ public class ServicioUsuario extends Servicio {
             throw new DbException("No se puede establecer una conexion con la base de datos");
         }
         PreparedStatement toDo = null;
-        
-        
+
         try {
             toDo = conexion.prepareCall(UPDATE_USUARIO);
             toDo.setString(1, newUsuario.getId());
@@ -115,7 +103,6 @@ public class ServicioUsuario extends Servicio {
             toDo.setString(8, newUsuario.getTelefonoTrabajo());
             toDo.setString(9, newUsuario.getCelular());
             toDo.setInt(10, newUsuario.getRol());
-
 
             int resultado = toDo.executeUpdate();
 
@@ -137,10 +124,7 @@ public class ServicioUsuario extends Servicio {
             }
         }
     }
-    
-    
-    
-    
+
     public boolean validaUsuario(String id, String clave) throws GeneralException, DbException {
 
         try {
@@ -159,10 +143,10 @@ public class ServicioUsuario extends Servicio {
             toDo = conexion.prepareCall(VALIDA_USUARIO);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
             toDo.setString(2, id);
-            toDo.setString(3,clave);
+            toDo.setString(3, clave);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
-            
+
             if (rs.next()) {
                 userExist = true;
             }
@@ -187,11 +171,7 @@ public class ServicioUsuario extends Servicio {
         }
         return userExist;
     }
-    
-    
-    
-    
-    
+
     public Usuario getUsuario(String id) throws GeneralException, DbException {
 
         try {
@@ -212,10 +192,10 @@ public class ServicioUsuario extends Servicio {
             toDo.setString(2, id);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
-            
-            if (rs.next()) { 
-                user = new Usuario(rs.getString("id"),rs.getString("contrasena"),
-                        rs.getString("nombre"),rs.getString("apellidos"),
+
+            if (rs.next()) {
+                user = new Usuario(rs.getString("id"), rs.getString("contrasena"),
+                        rs.getString("nombre"), rs.getString("apellidos"),
                         rs.getString("correo"), rs.getDate("fecha_nacimiento"),
                         rs.getString("direccion"), rs.getString("telefono_trabajo"),
                         rs.getString("celular"), rs.getInt("rol")
@@ -248,13 +228,7 @@ public class ServicioUsuario extends Servicio {
 
         return user;
     }
-    
-   
-    
-    
-    
-    
-    
+
     public void deleteUsuario(int id) throws GeneralException, DbException {
 
         try {
@@ -290,7 +264,7 @@ public class ServicioUsuario extends Servicio {
             }
         }
     }
-        
+
     public Collection listar_usuario() throws GeneralException, DbException {
         try {
             conectar();
@@ -304,23 +278,25 @@ public class ServicioUsuario extends Servicio {
         ArrayList coleccion = new ArrayList();
         Usuario user = null;
         CallableStatement toDo = null;
-        
+
         try {
             toDo = conexion.prepareCall(LISTAR_USUARIO);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
+
             toDo.execute();
+
             rs = (ResultSet) toDo.getObject(1);
-            
-            while (rs.next()) { 
-                user = new Usuario(rs.getString("id"),rs.getString("contrasena"),
-                        rs.getString("nombre"),rs.getString("apellidos"),
+
+            while (rs.next()) {
+                user = new Usuario(rs.getString("id"), rs.getString("contrasena"),
+                        rs.getString("nombre"), rs.getString("apellidos"),
                         rs.getString("correo"), rs.getDate("fecha_nacimiento"),
                         rs.getString("direccion"), rs.getString("telefono_trabajo"),
                         rs.getString("celular"), rs.getInt("rol")
                 );
                 coleccion.add(user);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new GeneralException("Sentencia no valida");
@@ -337,14 +313,12 @@ public class ServicioUsuario extends Servicio {
                 throw new GeneralException("Datos invalidos o nulos");
             }
         }
-        
+
         if (coleccion.isEmpty()) {
             throw new DbException("No hay datos");
         }
-        
+
         return coleccion;
     }
-
-
 
 }

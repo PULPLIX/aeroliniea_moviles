@@ -1,17 +1,23 @@
-<%-- 
-    Document   : perfil
-    Created on : Mar 26, 2021, 5:42:36 PM
-    Author     : david
---%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+    <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+        <t:template>
+            <jsp:attribute name="title">
+                Pagina principal
+            </jsp:attribute>
+
+            <jsp:attribute name="scripts">
+                <script src="/aerolinea/resources/js/socket.js"></script>
+            </jsp:attribute>
+
+            <jsp:body>
+                <div class="container">
+                    <div class="row">
+                        .col
+                    </div>
+                </div>
+            </jsp:body>
+
+
+
+        </t:template>

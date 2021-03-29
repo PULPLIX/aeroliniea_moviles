@@ -8,36 +8,39 @@ package Models;
 import DataAccess.ServicioUsuario;
 import Exceptions.DbException;
 import Exceptions.GeneralException;
+import java.io.Serializable;
 import logic.Usuario;
 
 /**
  *
  * @author david
  */
-public class ModelUsuario {
+public class ModelUsuario implements Serializable {
+    private final ServicioUsuario usuarioDao;
+    public static ModelUsuario ModelInstance = null;
 
-    Usuario usuario;
     public ModelUsuario() {
-        this.usuario = new Usuario();
+        usuarioDao = ServicioUsuario.getSingletonInstance();
     }
-    
-    public ModelUsuario(Usuario usuario) {
-        this.usuario = usuario;
+
+    public static ModelUsuario getInstance() {
+        if (ModelInstance == null) {
+            ModelInstance = new ModelUsuario();
+        }
+        return ModelInstance;
     }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-    
+
+
     public boolean validarUsuario(String id, String contrasena) throws GeneralException, DbException {
-        ServicioUsuario servUsuario =  ServicioUsuario.getSingletonInstance();
-        return servUsuario.validaUsuario(id, contrasena);
+        return usuarioDao.validaUsuario(id, contrasena);
     }
-    public Usuario getUsuario() {
-        return usuario;
+
+    public Usuario getUsuario(String id) throws GeneralException, DbException {
+        return usuarioDao.getUsuario(id);
     }
-    public void agrergar() throws Exception{
-    //aerolinea.logica.ModelUsuario.instanciar().agregar(usuario);
+
+    public void agrergar(Usuario nuevoUsuario) throws Exception {
+        usuarioDao.insercionUsuario(nuevoUsuario);
     }
-    
 
 }
