@@ -13,37 +13,42 @@
 
             <jsp:body>
                 <div class="container">
-                    <div class="row my-5 d-flex justify-content-center">
-                        <div class="col-md-6">
-                            <div class="card ">
-                                <div class="card-header d-flex justify-content-center align-items-center">
-                                    <img id="profile-img" class="profile-img-card"
-                                        src="/aerolinea/resources/images/logo.png" alt="Logo" width="200" height="200"
-                                        class="d-inline-block align-text-top rounded " />
-                                </div>
-                                <div class="card-body d-flex justify-content-center align-items-center ">
-                                    <form class="form-signin" method="POST" action="/aerolinea/usuario/login">
-                                        <div class="input-group mb-3">
-                                            <input type="id" name="id" id="inputEmail" value="12" class="form-control"
-                                                placeholder="Usuario id" autofocus required>
-                                            <span class="input-group-text"><i
-                                                    class="fas fa-user text-primary"></i></span>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <input type="contrasena" name="contrasena" value="1234" autocomplete="current-password" id="inputPassword" class="form-control"
-                                                placeholder="Contraseña" required>
-                                            <span class="input-group-text"><i
-                                                    class="fas fa-key text-primary"></i></span>
-                                        </div>
-
-                                        <br>
-                                        <div class="d-flex justify-content-center align-items-center "><button
-                                                class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign
-                                                in</button></div>
-                                    </form>
-                                </div>
-
+                    <div class="row my-5">
+                        <div class="col-sm-12 col-md-7 d-flex justify-content-end">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <img src="/aerolinea/resources/images/utiles/waiting.png" alt="" class="img-responsive"
+                                    style="max-width: 100%;">
                             </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3 float-sm-none d-flex justify-content-center align-items-center ">
+                            <div>
+                                <div class="d-flex justify-content-center my-3 ">
+                                    <img src="/aerolinea/resources/images/utiles/avatar2.png" alt="" class="img-fluid"
+                                        style="max-width: 50%;">
+                                </div>
+                                <form action="/aerolinea/usuario/login" method="post">
+                                    <div class="input-group mb-3">
+                                        <input type="text" name="id" class="form-control"
+                                            aria-label="Sizing example input"
+                                            aria-describedby="inputGroup-sizing-default">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"><i
+                                                class="fas fa-user texto-azul"></i></span>
+
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" name="contrasena" class="form-control"
+                                            aria-label="Sizing example input"
+                                            aria-describedby="inputGroup-sizing-default">
+                                        <span class="input-group-text" id="inputGroup-sizing-default"><i
+                                                class="fas fa-key texto-azul"></i></span>
+                                    </div>
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <button type="submit"
+                                            class="btn btn-outline-primary btn-lg w-100">Ingresar</button>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
                     </div>
                 </div>
