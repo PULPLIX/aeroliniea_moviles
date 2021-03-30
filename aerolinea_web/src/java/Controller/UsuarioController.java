@@ -79,7 +79,7 @@ public class UsuarioController extends HttpServlet {
 //            PrintWriter out = response.getWriter();
 //            out.write(gson.toJson(nuevoUsuario));
 //            response.setStatus(200);
-            request.getRequestDispatcher("/views/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/admin/gestionAviones.jsp").forward(request, response);
 
         } catch (Exception e) {
             response.setStatus(status(e));

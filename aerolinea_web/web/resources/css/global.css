@@ -45,3 +45,38 @@ i .footer-icon {
 .texto-azul {
     color: #0083CA !important;
 }
+
+.table-title {
+    background-color: #ffffff !important;
+    color: #0083CA !important;
+    font-weight: bold;
+}
+
+thead tr th {
+    background-color: #fff !important;
+    font-weight: bolder !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 2px solid #e4e4e4 !important;
+}
+
+.titulo {
+    background-color: #393f44 !important;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 300 !important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 2px solid #e4e4e4 !important;
+}
+
+tbody tr th, td {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 1px solid #e4e4e4 !important;
+}
+
+.card {
+    box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%);
+    margin-bottom: 1rem;
+}
