@@ -30,15 +30,15 @@
                                     <div class="input-group mb-3">
                                         <input type="text" name="id" class="form-control"
                                             aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default">
+                                            aria-describedby="inputGroup-sizing-default" value="12">
                                         <span class="input-group-text" id="inputGroup-sizing-default"><i
                                                 class="fas fa-user texto-azul"></i></span>
 
                                     </div>
                                     <div class="input-group mb-3">
-                                        <input type="text" name="contrasena" class="form-control"
+                                        <input type="password" name="contrasena" class="form-control"
                                             aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default">
+                                            aria-describedby="inputGroup-sizing-default" value="1234">
                                         <span class="input-group-text" id="inputGroup-sizing-default"><i
                                                 class="fas fa-key texto-azul"></i></span>
                                     </div>

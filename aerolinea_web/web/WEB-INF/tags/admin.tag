@@ -42,7 +42,7 @@
                             class="fas fa-tachometer-alt" id="item-dashboard"></i>&nbsp; Dashboard</a>
                     <a href="/aerolinea/aviones/show" class="list-group-item list-group-item-action "><i
                             class="fas fa-plane"></i>
-                        &nbsp;Aviones</a>
+                            &nbsp;Aviones</a>
                     <a href="/aerolinea/horarios/show" class="list-group-item list-group-item-action "
                        id="item-horarios"><i class="far fa-calendar"></i> &nbsp;Horarios</a>
                     <a href="/aerolinea/rutas/show" class="list-group-item list-group-item-action "
@@ -87,7 +87,7 @@
                                         </span>
                                         <ul class="dropdown-menu dropdown-menu-end"
                                             aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item text-primary" href="#"><i
+                                            <a class="dropdown-item text-primary" href="../usuario/perfil"><i
                                                     class="fas fa-user"></i> &nbsp;Mi perfil</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-primary" href="#"> <i
