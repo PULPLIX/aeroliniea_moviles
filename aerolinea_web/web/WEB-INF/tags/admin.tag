@@ -40,16 +40,16 @@
                     <a href="/aerolinea/dashboard/show"
                        class="list-group-item list-group-item-action active" id="item-dashboard"> <i
                             class="fas fa-tachometer-alt" id="item-dashboard"></i>&nbsp; Dashboard</a>
-                    <a href="/aerolinea/aviones/show" class="list-group-item list-group-item-action" id="item-aviones"><i
+                    <a href="/aerolinea/views/admin/gestionAviones.jsp" class="list-group-item list-group-item-action" id="item-aviones"><i
                             class="fas fa-plane"></i>
                         &nbsp;Aviones</a>
-                    <a href="/aerolinea/horarios/show" class="list-group-item list-group-item-action "
+                    <a href="/aerolinea/views/admin/gestionHorarios.jsp" class="list-group-item list-group-item-action "
                        id="item-horarios"><i class="far fa-calendar"></i> &nbsp;Horarios</a>
-                    <a href="/aerolinea/rutas/show" class="list-group-item list-group-item-action "
+                    <a href="/aerolinea/views/admin/gestionRutas.jsp" class="list-group-item list-group-item-action "
                        id="item-rutas"><i class="fas fa-map-marked-alt"></i> &nbsp;Rutas</a>
-                    <a href="/aerolinea/vuelos/show" class="list-group-item list-group-item-action "
+                    <a href="/aerolinea/views/admin/gestionVuelos.jsp" class="list-group-item list-group-item-action "
                        id="item-vuelos"><i class="fas fa-plane-departure"></i> &nbsp;Vuelos</a>
-                    <a href="/aerolinea/tiquetes/show" class="list-group-item list-group-item-action "
+                    <a href="/aerolinea/views/admin/gestioTiquetes.jsp" class="list-group-item list-group-item-action "
                        id="item-tiquetes"><i class="fas fa-ticket-alt"></i> &nbsp;Tiquetes</a>
                 </div>
             </div>
