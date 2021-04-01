@@ -13,10 +13,8 @@ $("#item-horarios").addClass("active");
 
 function getHorario(id) {
     $.ajax({
-        url: "/aerolinea/horarios/get",
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify(id),
+        url: "/aerolinea/api/horarios/get/"+id,
+        type: "GET",
         success: function (horario) {
             console.log(horario);
             llenarModal(horario);
@@ -31,7 +29,7 @@ function getHorario(id) {
 }
 function listarHorarios() {
     $.ajax({
-        url: "/aerolinea/horarios/listar",
+        url: "/aerolinea/api/horarios/listar",
         type: "get",
         success: function (listadoHorarios) {
             recargarTabla(listadoHorarios);
@@ -49,7 +47,7 @@ function insertarHorario() {
         horaLlegada: $("#horaLlegada").val(),
     };
     $.ajax({
-        url: "/aerolinea/horarios/insertar",
+        url: "/aerolinea/api/horarios/insertar",
         type: "post",
         contentType: "application/json",
         data: JSON.stringify(horario),
@@ -74,8 +72,8 @@ function actualizarHorario() {
     };
 
     $.ajax({
-        url: "/aerolinea/horarios/actualizar",
-        type: "post",
+        url: "/aerolinea/api/horarios/actualizar",
+        type: "put",
         contentType: "application/json",
         data: JSON.stringify(horario),
         success: function (listadoHorarios) {
@@ -94,8 +92,8 @@ function actualizarHorario() {
 function eliminarHorario(id) {
 
     $.ajax({
-        url: "/aerolinea/horarios/eliminar",
-        type: "post",
+        url: "/aerolinea/api/horarios/eliminar",
+        type: "delete",
         contentType: "application/json",
         data: JSON.stringify(id),
         success: function (listadoHorarios) {
@@ -104,7 +102,7 @@ function eliminarHorario(id) {
         },
         statusCode: {
             404: function () {
-            mostrarMensaje("error", "No se ha podido eliminar");
+                mostrarMensaje("error", "No se ha podido eliminar");
             }
         }
     });
