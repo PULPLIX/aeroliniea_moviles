@@ -17,7 +17,7 @@ import oracle.jdbc.OracleTypes;
 public class ServicioAviones extends Servicio {
     
     private static final String INSERCION_AVIONES   = "{call INSERCION_AVIONES(?,?,?,?,?,?)}";
-    private static final String UPDATE_AVIONES  = "{call UPDATE_AVIONES(?,?,?,?,?,?)}";
+    private static final String UPDATE_AVIONES  = "{call UPDATE_AVIONES(?,?,?,?,?,?,?)}";
     private static final String GET_AVIONES = "{?=call GET_AVIONES(?)}";
     private static final String LISTAR_AVIONES  = "{?=call LISTAR_AVIONES()}";
     private static final String DELETE_AVIONES  = "{call DELETE_AVIONES(?)}";
@@ -92,12 +92,13 @@ public class ServicioAviones extends Servicio {
         PreparedStatement toDo = null;
         try {
             toDo = conexion.prepareCall(UPDATE_AVIONES);
-            toDo.setString(1, newAviones.getTipo());            
-            toDo.setInt(2, newAviones.getCapacidad());
-            toDo.setInt(3, newAviones.getAnio());
-            toDo.setString(4, newAviones.getMarca());
-            toDo.setInt(5, newAviones.getAsientosFila());
-            toDo.setInt(6, newAviones.getCantidadFilas());           
+            toDo.setString(1, String.valueOf(newAviones.getId()));
+            toDo.setString(2, newAviones.getTipo());            
+            toDo.setInt(3, newAviones.getCapacidad());
+            toDo.setInt(4, newAviones.getAnio());
+            toDo.setString(5, newAviones.getMarca());
+            toDo.setInt(6, newAviones.getAsientosFila());
+            toDo.setInt(7, newAviones.getCantidadFilas());           
 
             
             int resultado = toDo.executeUpdate();

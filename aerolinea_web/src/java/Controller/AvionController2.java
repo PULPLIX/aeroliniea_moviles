@@ -26,7 +26,7 @@ import logic.Usuario;
  * @author david
  */
 @WebServlet(name = "aviones", urlPatterns = {"/aviones/show", "/aviones/insertar", "/aviones/perfil"})
-public class AvionController extends HttpServlet {
+public class AvionController2 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

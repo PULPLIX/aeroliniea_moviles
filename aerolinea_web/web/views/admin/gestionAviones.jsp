@@ -18,64 +18,62 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
+        <script src="/aerolinea/resources/js/global.js"></script>
         <script src="/aerolinea/resources/js/aviones.js"></script>
     </jsp:attribute>
     <jsp:attribute name="user_id">
         117380366
     </jsp:attribute>
     <jsp:body>
-
-
+        <div class="mensaje-container" id="mensaje-info" style="display:none;  ">
+            <div class="col-3 icono-mensaje d-flex align-items-center" id="icono-mensaje" ></div>
+            <div class="col-9 texto-mensaje d-flex align-items-center text-center mx-2" id="texto-mensaje" style="color: #046704e8; ">Participante agregado correctamente</div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Editar avión [id_avion]</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Editar avión # <span id="id-modal"></span></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Tipo</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" 
+                                   name="tipo" id="tipo-modal">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Capacidad</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1" 
+                                   name="capacidad" id="capacidad-modal">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Año</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1"
+                                   name="anio" id="anio-modal">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Marca</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1"
+                                   name="marca" id="marca-modal">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Asientos_x_Fila</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1"
+                                   name="asientosFila" id="asientosFila-modal">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="basic-addon1">@</span>
-                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                                   aria-describedby="basic-addon1">
+                            <span class="input-group-text" id="basic-addon1">Cantidad de filas</span>
+                            <input type="text" class="form-control" aria-describedby="basic-addon1"
+                                   name="contidadFilas" id="cantidadFilas-modal">
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrar-modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="actualizarAvion()">Guardar</button>
                     </div>
                 </div>
             </div>
@@ -92,38 +90,38 @@
                         <div class="card-body">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">Tipo: </span>
-                                <input type="text" class="form-control" placeholder="777" aria-label="tipo" id="tipo" name="tipo"
+                                <input type="text" class="form-control" placeholder="777" id="tipo" name="tipo"
                                        aria-describedby="basic-addon1">
                             </div>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon2">Capacidad:</span>
-                                <input type="text" class="form-control" placeholder="150"id="capacidad" name="capacidad"
-                                       aria-label="" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" placeholder="150" id="capacidad" name="capacidad"
+                                       aria-describedby="basic-addon2">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon2">Año:</span>
-                                <input type="text" class="form-control" placeholder="2018"id="anio" name="anio"
-                                       aria-label="" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control" placeholder="2018" id="anio" name="anio"
+                                       aria-describedby="basic-addon2">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon2">Marca:</span>
                                 <input type="text" class="form-control" placeholder="Boeing" id="marca" name="marca"
-                                       aria-label="" aria-describedby="basic-addon2">
+                                       aria-describedby="basic-addon2">
                             </div>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon2">Asientos fila</span>
                                 <input type="text" class="form-control" placeholder="5" id="asientosFila" name="asientosFila"
-                                       aria-label="" aria-describedby="basic-addon2">
+                                       aria-describedby="basic-addon2">
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Asientos columna</span>
-                                <input type="text" class="form-control" placeholder="5" id="asientosColumna" name="asientosColumna"
-                                       aria-label="" aria-describedby="basic-addon2">
+                                <span class="input-group-text" id="basic-addon2">Cantidad de filas</span>
+                                <input type="text" class="form-control" placeholder="5" id="cantidadFilas" name="cantidadFilas" 
+                                       aria-describedby="basic-addon2">
                             </div>
                         </div>
                         <div class="d-flex justify-content-center pb-4">
-                            <button class="btn btn-primary" onclick="registrar()"><i class="fas fa-plus"></i> &nbsp; Agregar</button>
+                            <button class="btn btn-primary" onclick="insertarAvion()"><i class="fas fa-plus"></i> &nbsp; Agregar</button>
                         </div>
                     </div>
                 </div>
