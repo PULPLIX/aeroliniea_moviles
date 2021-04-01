@@ -43,5 +43,12 @@ public class ModelAvion implements Serializable {
     public void agrergar(Avion nuevoAvion) throws Exception {
         avionDao.insercionAviones(nuevoAvion);
     }
-
+    
+    public void actualizar(Avion nuevoAvion) throws Exception {
+        avionDao.updateAvion(nuevoAvion);
+    }
+    
+    public void eliminar(int id) throws Exception {
+        avionDao.deleteAvion(id);
+    }
 }

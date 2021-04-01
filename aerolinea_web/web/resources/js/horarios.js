@@ -10,7 +10,6 @@ while (elements.length > 0) {
 }
 $("#item-horarios").addClass("active");
 
-
 function getHorario(id) {
     $.ajax({
         url: "/aerolinea/api/horarios/get/"+id,
@@ -27,6 +26,7 @@ function getHorario(id) {
     });
 
 }
+
 function listarHorarios() {
     $.ajax({
         url: "/aerolinea/api/horarios/listar",
@@ -41,6 +41,7 @@ function listarHorarios() {
         }
     });
 }
+
 function insertarHorario() {
     var horario = {
         diaSemana: $("#diaSemana").val(),
@@ -61,7 +62,6 @@ function insertarHorario() {
             }
         }
     });
-
 }
 
 function actualizarHorario() {
@@ -107,6 +107,7 @@ function eliminarHorario(id) {
         }
     });
 }
+
 function recargarTabla(listadoHorarios) {
 //.attr({class: ["class1", "class2", "class3"].join(' ')})
     $("#tabla-horarios").html("");
