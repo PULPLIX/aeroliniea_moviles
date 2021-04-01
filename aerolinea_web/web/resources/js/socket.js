@@ -9,7 +9,7 @@ var objeto = {
 console.log(JSON.stringify(objeto));
 
 
-const webSocket = new WebSocket("ws://localhost:8080/aerolinea/proceso");
+const webSocket = new WebSocket("ws://localhost:8081/aerolinea/proceso");
 
 webSocket.addEventListener("message", function (event) {
     writeResponse(event.data);
@@ -21,7 +21,6 @@ webSocket.addEventListener("open", function (event) {
 });
 
 function deleteUser() {
-
     var message = ["/delete", JSON.stringify(objeto)];
     webSocket.send(JSON.stringify(message));
 }
@@ -44,6 +43,7 @@ function send() {
 function closeSocket() {
     webSocket.close();
 }
+
 function writeResponse(text) {
     messages.innerHTML += "<br />" + text;
 }

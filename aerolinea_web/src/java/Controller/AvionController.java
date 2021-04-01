@@ -41,7 +41,7 @@ public class AvionController extends HttpServlet {
             throws ServletException, IOException {
         switch (request.getServletPath()) {
             case "/aviones/show":
-                this.showInsertar(request, response);
+                this.showAviones(request, response);
                 break;
             case "/aviones/insertar":
                 this.doInsertar(request, response);
@@ -49,7 +49,7 @@ public class AvionController extends HttpServlet {
         }
     }
 
-    protected void showInsertar(HttpServletRequest request,
+    protected void showAviones(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/views/admin/gestionAviones.jsp").forward(request, response);
     }

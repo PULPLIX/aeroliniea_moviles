@@ -38,11 +38,11 @@
                         class="img-responsive" style="max-width: 100%;"> </div>
                 <div class="list-group list-group-flush">
                     <a href="/aerolinea/dashboard/show"
-                       class="list-group-item list-group-item-action active"> <i
+                       class="list-group-item list-group-item-action active" id="item-dashboard"> <i
                             class="fas fa-tachometer-alt" id="item-dashboard"></i>&nbsp; Dashboard</a>
-                    <a href="/aerolinea/aviones/show" class="list-group-item list-group-item-action "><i
+                    <a href="/aerolinea/aviones/show" class="list-group-item list-group-item-action" id="item-aviones"><i
                             class="fas fa-plane"></i>
-                            &nbsp;Aviones</a>
+                        &nbsp;Aviones</a>
                     <a href="/aerolinea/horarios/show" class="list-group-item list-group-item-action "
                        id="item-horarios"><i class="far fa-calendar"></i> &nbsp;Horarios</a>
                     <a href="/aerolinea/rutas/show" class="list-group-item list-group-item-action "
@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-1">
                             <ul class="navbar-nav ml-auto mt-2 mt-lg-0 ">
-                                <li class="nav-item dropdown mx-5">
+                                <li class="nav-item dropdown ">
                                     <div class="dropdown">
                                         <span class=" nav-link dropdown-toggle" type="button"
                                               id="dropdownMenuButton1" data-bs-toggle="dropdown"
@@ -115,6 +115,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@2.0.9/src/input-spinner-custom-editors.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@2.0.9/src/input-spinner.js"></script>
+
+        <script>
+            $("input[type='number']").inputSpinner();
+        </script>
         <script src="/aerolinea/resources/js/menu.js" crossorigin="anonymous"></script>
 
         <jsp:invoke fragment="scripts" />
