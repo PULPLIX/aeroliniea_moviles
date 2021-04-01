@@ -8,9 +8,8 @@
 function llenarModal(objeto) {
 
     for (const atributo in objeto) {
-        $("#id-modal").val("");
-        if ($("#" + atributo + "-modal").val() === "") {
-            $("#" + atributo + "-modal").html(objeto[atributo]);
+        if (atributo === "id") {
+            $("#id-modal").html(objeto[atributo]);
         }
         $("#" + atributo + "-modal").val(objeto[atributo]);
     }

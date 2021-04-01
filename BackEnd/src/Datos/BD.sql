@@ -243,7 +243,11 @@ as
 rutas_cursor TYPES.ref_cursor;
 begin
   OPEN rutas_cursor for
-	SELECT * FROM Rutas;
+	select r.id id_ruta, r.precio, r.porcentaje_descuento, c.id id_origen,c.nombre nombre_origen, c2.id id_destino, c2.nombre nombre_destino, h.id id_horario, h.dia_semana, h.hora_llegada
+            from rutas r
+            inner join ciudad c on r.ciudad_origen = c.id 
+            inner join ciudad c2 on r.ciudad_destino = c2.id 
+            inner join horarios h on r.horario_id = h.id;
   return rutas_cursor;
 end LISTAR_RUTAS;
 /
@@ -254,9 +258,14 @@ return TYPES.ref_cursor
 as
 ruta_cursor TYPES.ref_cursor;
 begin
-	open ruta_cursor for
-	select * from Rutas where id = ArgId;	
-	return ruta_cursor;
+  OPEN ruta_cursor for
+    select r.id id_ruta, r.precio, r.porcentaje_descuento, c.id id_origen,c.nombre nombre_origen, c2.id id_destino, c2.nombre nombre_destino, h.id id_horario, h.dia_semana, h.hora_llegada
+        from rutas r
+        inner join ciudad c on r.ciudad_origen = c.id 
+        inner join ciudad c2 on r.ciudad_destino = c2.id 
+        inner join horarios h on r.horario_id = h.id
+        where r.id = ArgId;
+    return ruta_cursor;
 end GET_RUTA;
 /
 show error
@@ -687,3 +696,11 @@ variable x refcursor
 exec :x:= Valida_Usuario('12','1234');
 print x;
 -- version 0.2
+
+exec INSERCION_CIUDAD('Miami- US');
+exec INSERCION_CIUDAD('New York - US');
+exec INSERCION_CIUDAD('Guanacaste - Costa Rica');
+exec INSERCION_CIUDAD('Alajuela - Costa Rica');
+exec INSERCION_CIUDAD('Buenos Aires - Argentina Rica');
+exec INSERCION_CIUDAD('Ciudad de México - México');
+exec INSERCION_CIUDAD('PanamaCity - Panama');

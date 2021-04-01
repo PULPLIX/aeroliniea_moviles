@@ -165,7 +165,7 @@ public class ServicioCiudad extends Servicio {
 
     
     
-    public Collection listar_carrera() throws GeneralException, DbException {
+    public Collection listar_ciudades() throws GeneralException, DbException {
         try {
             conectar();
         } catch (ClassNotFoundException ex) {
@@ -176,7 +176,7 @@ public class ServicioCiudad extends Servicio {
 
         ResultSet rs = null;
         ArrayList coleccion = new ArrayList();
-        Ciudad carrera = null;
+        Ciudad ciudad = null;
         CallableStatement toDo = null;
 
         try {
@@ -186,8 +186,8 @@ public class ServicioCiudad extends Servicio {
             rs = (ResultSet) toDo.getObject(1);
 
             while (rs.next()) {
-                carrera = new Ciudad(rs.getInt("id"), rs.getString("nombre"));
-                coleccion.add(carrera);
+                ciudad = new Ciudad(rs.getInt("id"), rs.getString("nombre"));
+                coleccion.add(ciudad);
 
             }
         } catch (SQLException e) {

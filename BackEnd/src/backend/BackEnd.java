@@ -12,7 +12,7 @@ import logic.Usuario;
 //import DataAccess.ServicioUsuario;
 
 public class BackEnd {
-    
+
     public static void main(String[] args) throws GeneralException, DbException {
         System.out.println(" ##### ----> BACKEND EJECUTADO <---- #### ");
 
@@ -42,14 +42,14 @@ public class BackEnd {
         //servAviones.deleteAvion(3);
 //        System.out.println("=====================================================");
 //        System.out.println("==========================HORARIOS===========================");
-        ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
+ //       ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
         //Horario horario = new Horario(12, "Lunes", 2);
         //servHorario.insercionHorario(horario);
 //        System.out.println("GET: " + servHorario.getHorario(2).toString());
-        servHorario.deleteHorario(2);
-        for (Object horar : servHorario.listar_horario()) {
-            System.out.println(horar.toString());
-        }
+        //     servHorario.deleteHorario(2);
+//        for (Object horar : servHorario.listar_horario()) {
+//            System.out.println(horar.toString());
+//        }
 
 //        Carrera carrera = new Carrera("SE", "Ing. Sistemas", "Bachiller");
 //
@@ -67,5 +67,5 @@ public class BackEnd {
 //            System.out.println(carreras.toString());
 //        }
     }
-    
+
 }

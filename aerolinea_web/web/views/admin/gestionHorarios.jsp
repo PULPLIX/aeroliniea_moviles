@@ -7,10 +7,6 @@
 
 <%
     Usuario usu = (Usuario) session.getAttribute("usuario");
-
-    List<Avion> aviones = (List<Avion>) session.getAttribute("usuarioTem");
-    request.setAttribute("aviones", aviones);
-
 %>
 
 
@@ -39,7 +35,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Editar avión # <span id="id-modal"></span></h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Editar horario # <span id="id-modal"></span></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
                     </div>
@@ -82,7 +78,7 @@
         <div class="row  border-bottom">
             <div class="col-6 ">
                 <div class="card">
-                    <div class="card-header titulo"><i class="fas fa-plus"></i> &nbsp;Agregar avión</div>
+                    <div class="card-header titulo"><i class="fas fa-plus"></i> &nbsp;Agregar horario</div>
                     <div class="card-body d-flex justify-content-center">
                         <div class=" w-50">
                             <label for="diaSemana">Día de la semana:</label>
