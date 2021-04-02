@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Exceptions.DbException;
 import Exceptions.GeneralException;
 import Models.ModelAvion;
 import com.google.gson.Gson;
