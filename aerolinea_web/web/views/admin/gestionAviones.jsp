@@ -151,22 +151,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tabla-aviones">
-                                <tr >
-                                    <td>f</td>
-                                    <td>f</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>HA</td>
-                                    <td >
-                                        <!-- Button trigger modal  editar-->
-                                        <button class="btn btn-warning btn-sm mr-2" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop" ><i class="fas fa-pencil-alt"></i>
-                                            Editar</button>
-                                        <!-- Boton de eliminar -->
-                                        <button class="btn btn-danger btn-sm"> <i class="fas fa-times"></i>
-                                            Eliminar</button>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
