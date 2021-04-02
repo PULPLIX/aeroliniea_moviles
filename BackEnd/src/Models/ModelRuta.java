@@ -8,6 +8,7 @@ package Models;
 import DataAccess.ServicioRutas;
 import Exceptions.DbException;
 import Exceptions.GeneralException;
+import java.io.Serializable;
 import java.util.Collection;
 import logic.Ruta;
 
@@ -15,7 +16,7 @@ import logic.Ruta;
  *
  * @author david
  */
-public class ModelRuta {
+public class ModelRuta implements Serializable {
     
     private final ServicioRutas rutaDao;
     public static ModelRuta ModelInstance = null;

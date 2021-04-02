@@ -321,21 +321,38 @@ as
 vuelos_cursor TYPES.ref_cursor;
 begin
   OPEN vuelos_cursor for
-	SELECT * FROM vuelos;
+        select v.id id_vuelo, v.modalidad, v.duracion, v.fecha, r.id id_ruta, r.precio, r.porcentaje_descuento, 
+        c.id id_origen, c.nombre nombre_origen, c2.id id_destino, c2.nombre nombre_destino, h.id id_horario, h.dia_semana, h.hora_llegada,
+        a.id id_avion, a.tipo, a.capacidad, a.anio, a.marca, a.asientos_fila, a.cantidad_filas
+        from vuelos v
+            inner join rutas r on r.id = v.ruta_id
+            inner join ciudad c on r.ciudad_origen = c.id
+            inner join ciudad c2 on r.ciudad_destino = c2.id
+            inner join horarios h on r.horario_id = h.id
+            inner join aviones a on a.id = v.avion_id;
   return vuelos_cursor;
 end LISTAR_VUELOS;
 /
 show error
 ------------------------------------------------------------------------------------------
-create or replace function GET_VUELOS(ArgId in VARCHAR2)
+create or replace function GET_VUELO(ArgId in VARCHAR2)
 return TYPES.ref_cursor
 as
 vuelo_cursor TYPES.ref_cursor;
 begin
 	open vuelo_cursor for
-	select * from vuelos where id = ArgId;	
+                select v.id id_vuelo, v.modalidad, v.duracion, v.fecha, r.id id_ruta, r.precio, r.porcentaje_descuento, 
+                c.id id_origen, c.nombre nombre_origen, c2.id id_destino, c2.nombre nombre_destino, h.id id_horario, h.dia_semana, h.hora_llegada,
+                a.id id_avion, a.tipo, a.capacidad, a.anio, a.marca, a.asientos_fila, a.cantidad_filas
+                from vuelos v
+                    inner join rutas r on r.id = v.ruta_id
+                    inner join ciudad c on r.ciudad_origen = c.id
+                    inner join ciudad c2 on r.ciudad_destino = c2.id
+                    inner join horarios h on r.horario_id = h.id
+                    inner join aviones a on a.id = v.avion_id
+                    where v.id = ArgId;
 	return vuelo_cursor;
-end GET_VUELOS;
+end GET_VUELO;
 /
 show error
 ------------------------------------------------------------------------------------------
@@ -344,10 +361,10 @@ ArgModalidad in INT,
 ArgDuracion in INT,
 ArgRuta in INT,
 ArgAvion in INT,
-ArgFecha in DATE)
+ArgFecha in VARCHAR)
 as
 begin
-	insert into vuelos values (seq_vuelos.nextval,ArgDuracion,ArgModalidad,ArgRuta,ArgAvion,ArgFecha);
+	insert into vuelos values (seq_vuelos.nextval,ArgModalidad,ArgDuracion,ArgRuta,ArgAvion,TO_DATE(ArgFecha, 'DD/MM/YYYY HH:MI:SS'));
 	commit;
 end INSERCION_VUELOS;
 /
@@ -356,16 +373,17 @@ show error
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
-create or replace procedure UPDATE_VUELOS(
+create or replace procedure UPDATE_VUELO(
 ArgId in INT,
 ArgModalidad in INT,
+ArgDuracion in INT,
 ArgRuta in INT,
 ArgAvion in INT,
-ArgFecha in DATE) as
+ArgFecha in VARCHAR) as
 begin
-	update Vuelos set modalidad=ArgModalidad , ruta_id=ArgRuta,  avion_id=ArgAvion, fecha=ArgFecha where id = ArgId;
+	update Vuelos set modalidad=ArgModalidad , duracion=ArgDuracion, ruta_id=ArgRuta,  avion_id=ArgAvion, fecha=ArgFecha where id = ArgId;
 	commit;
-end UPDATE_VUELOS;
+end UPDATE_VUELO;
 /
 show error
 

@@ -17,6 +17,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
+
         <script src="/aerolinea/resources/js/global.js"></script>
         <script src="/aerolinea/resources/js/vuelos.js"></script>
 
@@ -89,7 +90,7 @@
 
         <div class="row my-3">
             <div class="col-sm-6">
-                <h1 class="display-6 fw-normal text-negro"><i class="fas fa-map-marked-alt text-primary"></i> &nbsp;Gestión de vuelos </h1>
+                <h1 class="display-6 fw-normal text-negro"><i class="fas fa-plane-departure text-primary"></i>&nbsp;Gestión de vuelos </h1>
             </div>
         </div>
         <div class="row  border-bottom">
@@ -99,39 +100,30 @@
                     <div class="card-body d-flex justify-content-center">
                         <div class="card-body d-flex justify-content-center">
                             <div class=" w-100">
-                                <div class="input-group mb-3 w-100">
-                                    <span class="input-group-text" id="basic-addon1">Origen: </span>
-                                    <select class="form-select" id="ciudadOrigen"  class="form-control">
+                                <div class="input-group mb-3 d-flex ">
+                                    <span class="input-group-text" id="basic-addon1">Modalidad: </span>
+                                    <select class="form-select" id="modalidad"  class="form-control">
                                         <option value="">Seleccione</option>
+                                        <option value="1">Solo ida</option>
+                                        <option value="2">Ida y retorno</option>
                                     </select>
-                                    <span class="input-group-text" id="basic-addon1">Destino: </span>
-                                    <select class="form-select" id="ciudadDestino" class="form-control">
+                                    <span class="input-group-text" id="basic-addon1"><i class="far fa-clock text-primary"></i>&nbsp;Duracion: </span>
+                                    <input type="text" id="precio" class="form-control" >
+                                </div>
+                                <div class="input-group mb-3 d-flex ">
+                                    <span class="input-group-text" id="basic-addon1">Fecha: </span>
+                                    <input type="date" class="form-control datetime-local" id="fecha" name="fecha" value="">
+                                    <span class="input-group-text" id="basic-addon1">Avión: </span>
+                                    <select class="form-select" id="avionId"  class="form-control">
                                         <option value="">Seleccione</option>
                                     </select>
                                 </div>
-                                <div class="input-group mb-3 w-50">
-                                    <span class="input-group-text" id="basic-addon1">Horario </span>
-                                    <select class="form-select" id="horarioId"  class="form-control">
+                                <div class="input-group mb-3 d-flex ">
+                                    <span class="input-group-text" id="basic-addon1">Ruta: </span>
+                                    <select class="form-select" id="rutaId"  class="form-control">
                                         <option value="">Seleccione</option>
                                     </select>
                                 </div>
-
-                                <div class="d-flex">
-                                    <div class="input-group w-50 mb-3 ">
-                                        <span class="input-group-text">₡</span>
-                                        <span class="input-group-text">0.00</span>
-                                        <input type="text" id="precio" class="form-control" >
-                                    </div> 
-                                    <div class="custom-control custom-checkbox mx-2" id="wrap-chec-video">
-                                        <input type="checkbox" class="custom-control-input" id="descuento-check" onclick="mostrarDescuento(this)">
-                                        <input type="hidden" id="check_descuento" name="descuento">
-                                        <label class="custom-control-label" for="descuento-check">Descuento</label>
-                                    </div>
-                                    <div class="w-25  " id="descuento-field" style="display: none;">
-                                        <input type="number" class="mb-3" min="0" step="5"  name="descuento" id="descuento"   value='0' />
-                                    </div>  
-                                </div>
-
                             </div>
 
                         </div>
@@ -139,7 +131,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center py-1">
-                            <button class="btn btn-primary" onclick="insertarRuta()"><i class="fas fa-plus"></i> &nbsp; Agregar</button>
+                            <button class="btn btn-primary" onclick="insertarVuelo()"><i class="fas fa-plus"></i> &nbsp; Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -159,12 +151,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col">id <i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Ciudad origen <i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Ciudad destino <i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Horario <i class="far fa-calendar-minus text-primary"></i></th>
-                                    <th scope="col">Precio <i class="fas fa-dollar-sign text-primary"></i></th>
-                                    <th scope="col">Descuento <i class="fas fa-percent text-primary"></i></th>
-
+                                    <th scope="col">Fecha <i class="fas fa-sort-down "></i></th>
+                                    <th scope="col">Modalidad<i class="fas fa-sort-down "></i></th>
+                                    <th scope="col">Duracion<i class="fas fa-sort-down "></i></th>
+                                    <th scope="col">Ruta<i class="far fa-calendar-minus text-primary"></i></th>
+                                    <th scope="col">Horario <i class="fas fa-dollar-sign text-primary"></i></th>
+                                    <th scope="col">Avion <i class="fas fa-percent text-primary"></i></th>
                                     <th scope="col" style="width: 300px;">Acciones</th>
                                 </tr>
                             </thead>

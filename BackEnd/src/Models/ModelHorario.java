@@ -16,7 +16,7 @@ import logic.Horario;
  *
  * @author david
  */
-public class ModelHorario {
+public class ModelHorario implements Serializable{
 
     private final ServicioHorario horarioDao;
     public static ModelHorario ModelInstance = null;

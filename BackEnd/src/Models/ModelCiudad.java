@@ -8,6 +8,7 @@ package Models;
 import DataAccess.ServicioCiudad;
 import Exceptions.DbException;
 import Exceptions.GeneralException;
+import java.io.Serializable;
 import java.util.Collection;
 import logic.Ciudad;
 
@@ -15,13 +16,13 @@ import logic.Ciudad;
  *
  * @author david
  */
-public class ModelCiudad {
+public class ModelCiudad implements Serializable {
 
-    private final ServicioCiudad rutaDao;
+    private final ServicioCiudad cudadDao;
     public static ModelCiudad ModelInstance = null;
 
     public ModelCiudad() throws GeneralException {
-        rutaDao = ServicioCiudad.getSingletonInstance();
+        cudadDao = ServicioCiudad.getSingletonInstance();
     }
 
     public static ModelCiudad getInstance() throws GeneralException {
@@ -32,22 +33,22 @@ public class ModelCiudad {
     }
 
     public Ciudad getCiudad(int id) throws GeneralException, DbException {
-        return rutaDao.getCiudad(id);
+        return cudadDao.getCiudad(id);
     }
 
     public Collection listarCiudades() throws GeneralException, DbException {
-        return rutaDao.listar_ciudades();
+        return cudadDao.listar_ciudades();
     }
 
     public void agrergar(Ciudad nuevaCiudad) throws Exception {
-        rutaDao.insercionCiudad(nuevaCiudad);
+        cudadDao.insercionCiudad(nuevaCiudad);
     }
 
     public void actualizar(Ciudad nuevaCiudad) throws Exception {
-        rutaDao.updateCiudad(nuevaCiudad);
+        cudadDao.updateCiudad(nuevaCiudad);
     }
 
     public void eliminar(int id) throws Exception {
-        rutaDao.deleteCiudad(id);
+        cudadDao.deleteCiudad(id);
     }
 }

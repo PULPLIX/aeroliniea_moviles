@@ -128,7 +128,7 @@ public class ServicioRutas extends Servicio {
         }
 
         ResultSet rs = null;
-        Ruta Ruta = null;
+        Ruta ruta = null;
         CallableStatement toDo = null;
 
         try {
@@ -156,7 +156,7 @@ public class ServicioRutas extends Servicio {
                 horario.setHoraLlegada(rs.getInt("hora_llegada"));
 
                 //Creación de la ruta 
-                Ruta = new Ruta(rs.getInt("id_ruta"), rs.getDouble("precio"),
+                ruta = new Ruta(rs.getInt("id_ruta"), rs.getDouble("precio"),
                         rs.getDouble("porcentaje_descuento"), ciudadOrigen,
                         ciudadDestino, horario
                 );
@@ -181,11 +181,11 @@ public class ServicioRutas extends Servicio {
             }
         }
 
-        if (Ruta == null) {
+        if (ruta == null) {
             throw new DbException("El curso no existe");
         }
 
-        return Ruta;
+        return ruta;
     }
 
     public Collection listar_rutas() throws GeneralException, DbException {

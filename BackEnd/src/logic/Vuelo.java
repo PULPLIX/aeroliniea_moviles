@@ -6,6 +6,10 @@
 package logic;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -14,10 +18,10 @@ import java.util.Date;
  *
  * @author david
  */
-
 public class Vuelo implements Serializable {
+
     private int id;
-    private int modalidad; 
+    private int modalidad;
     private int duracion;
     private Date fecha;
     private Avion avionId;
@@ -25,13 +29,20 @@ public class Vuelo implements Serializable {
     private Collection<Tiquete> tiquetesCollection;
 
     public Vuelo() {
+        this.id = -1;
+        this.modalidad = 0;
+        this.duracion = 0;
+        this.fecha = this.parseDate("01/01/1999");
+        this.avionId = new Avion();
+        this.rutaId = new Ruta();
+        this.tiquetesCollection = new ArrayList<>();
     }
-    
-    public Vuelo(int id, int modalidad, int duracion, Date fecha, Avion avionId, Ruta rutaId) {
+
+    public Vuelo(int id, int modalidad, int duracion, String fecha, Avion avionId, Ruta rutaId) {
         this.id = id;
         this.modalidad = modalidad;
         this.duracion = duracion;
-        this.fecha = fecha;
+        this.fecha = this.parseDate(fecha);
         this.avionId = avionId;
         this.rutaId = rutaId;
         this.tiquetesCollection = new ArrayList<>();
@@ -69,8 +80,8 @@ public class Vuelo implements Serializable {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFecha(String fecha) {
+        this.fecha = this.parseDate(fecha);
     }
 
     public Avion getAvionId() {
@@ -89,6 +100,14 @@ public class Vuelo implements Serializable {
         this.rutaId = rutaId;
     }
 
+    public Date parseDate(String dateStr) {
+        LocalDate fecha = LocalDate.parse(dateStr);
+        Date date = java.util.Date.from(fecha.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+        return date;
+    }
+
     public Collection<Tiquete> getTiquetesCollection() {
         return tiquetesCollection;
     }
@@ -96,5 +115,5 @@ public class Vuelo implements Serializable {
     public void setTiquetesCollection(Collection<Tiquete> tiquetesCollection) {
         this.tiquetesCollection = tiquetesCollection;
     }
-    
+
 }

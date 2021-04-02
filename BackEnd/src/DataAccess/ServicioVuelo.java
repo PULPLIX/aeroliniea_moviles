@@ -1,4 +1,3 @@
-
 package DataAccess;
 
 import Exceptions.DbException;
@@ -8,38 +7,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import logic.Avion;
+import logic.Ciudad;
+import logic.Horario;
 import logic.Ruta;
 import logic.Vuelo;
 import oracle.jdbc.OracleTypes;
 
-
 public class ServicioVuelo extends Servicio {
-    
-    private static final String INSERCION_VUELO = "{call INSERCION_VUELO(?,?,?,?,?)}";
+
+    private static final String INSERCION_VUELOS = "{call INSERCION_VUELOS(?,?,?,?,?)}";
     private static final String UPDATE_VUELO = "{call UPDATE_VUELO(?,?,?,?,?,?)}";
     private static final String GET_VUELO = "{?=call GET_VUELO(?)}";
-    private static final String LISTAR_VUELO = "{?=call LISTAR_VUELO()}";
+    private static final String LISTAR_VUELOS = "{?=call LISTAR_VUELOS()}";
     private static final String DELETE_VUELO = "{call DELETE_VUELO(?)}";
-    
-    private static  ServicioVuelo serviceVuelo;
-    
-    private ServicioVuelo(){
-        
-    }
-    
-    public static ServicioVuelo getSingletonInstance() throws GeneralException{
-        if(serviceVuelo == null){
-            serviceVuelo = new ServicioVuelo();
-        }
-        
-        return serviceVuelo;
-        
+
+    private static ServicioVuelo serviceVuelo;
+
+    private ServicioVuelo() {
+
     }
 
- 
+    public static ServicioVuelo getSingletonInstance() throws GeneralException {
+        if (serviceVuelo == null) {
+            serviceVuelo = new ServicioVuelo();
+        }
+
+        return serviceVuelo;
+
+    }
+
     public void insercionVuelo(Vuelo newVuelo) throws GeneralException, DbException {
         try {
             conectar();
@@ -51,14 +52,16 @@ public class ServicioVuelo extends Servicio {
         CallableStatement toDo = null;
 
         try {
-            toDo = conexion.prepareCall(INSERCION_VUELO);
-            toDo.setInt(1, newVuelo.getModalidad());            
+            toDo = conexion.prepareCall(INSERCION_VUELOS);
+            toDo.setInt(1, newVuelo.getModalidad());
             toDo.setInt(2, newVuelo.getDuracion());
-            toDo.setInt(3, newVuelo.getRutaId().getId())  ;
+            toDo.setInt(3, newVuelo.getRutaId().getId());
             toDo.setInt(4, newVuelo.getAvionId().getId());
+            DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");  
+            String fechaAux = dateFormat.format(newVuelo.getFecha());  
+            
             toDo.setString(5, newVuelo.getFecha().toString());
-            
-            
+
             boolean resultado = toDo.execute();
             if (resultado == true) {
                 throw new DbException("No se realizo la insercion del curso");
@@ -66,9 +69,7 @@ public class ServicioVuelo extends Servicio {
 
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new DbException("El identificador de curso ya está en uso o el codigo de carrera no existe");
-        }
-        
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             throw new GeneralException("Ha ocurrido un error, vuelva a intentar...");
         } finally {
@@ -82,7 +83,7 @@ public class ServicioVuelo extends Servicio {
             }
         }
     }
-    
+
     public void updateVuelo(Vuelo newVuelo) throws GeneralException, DbException {
         try {
             conectar();
@@ -94,27 +95,23 @@ public class ServicioVuelo extends Servicio {
         PreparedStatement toDo = null;
         try {
             toDo = conexion.prepareCall(UPDATE_VUELO);
-            toDo.setInt(1, newVuelo.getId());  
-            toDo.setInt(2, newVuelo.getModalidad());            
+            toDo.setInt(1, newVuelo.getId());
+            toDo.setInt(2, newVuelo.getModalidad());
             toDo.setInt(3, newVuelo.getDuracion());
-            toDo.setInt(4, newVuelo.getRutaId().getId())  ;
+            toDo.setInt(4, newVuelo.getRutaId().getId());
             toDo.setInt(5, newVuelo.getAvionId().getId());
             toDo.setString(6, newVuelo.getFecha().toString());
 
-
-            
             int resultado = toDo.executeUpdate();
 
             if (resultado == 0) {
                 throw new DbException("La actualizacion del curso no se realizo");
             } else {
-                  //La actualizacion se realizo con exito!
+                //La actualizacion se realizo con exito!
             }
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new DbException("El identificador de carrera no existe!");
-        }
-        
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new GeneralException("Sentencia no valida");
         } finally {
             try {
@@ -127,9 +124,6 @@ public class ServicioVuelo extends Servicio {
             }
         }
     }
-
-    
-    
 
     public Vuelo getVuelo(int id) throws GeneralException, DbException {
 
@@ -140,33 +134,57 @@ public class ServicioVuelo extends Servicio {
         } catch (SQLException e) {
             throw new DbException("No se puede establecer una conexion con la base de datos");
         }
-        
+
         ResultSet rs = null;
         Vuelo Vuelo = null;
+
         CallableStatement toDo = null;
-        
+
         try {
             toDo = conexion.prepareCall(GET_VUELO);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
             toDo.setInt(2, id);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
-            
-            if (rs.next()) {           
-                Ruta ruta = ServicioRutas.getSingletonInstance().getRuta(rs.getInt("ruta_id"));
 
-                Avion avion = ServicioAviones.getSingletonInstance().getAvion(rs.getInt("avion_id"));
+            if (rs.next()) {
+                //Obtención de los datos de ciudad origen
+                Ciudad ciudadOrigen = new Ciudad();
+                ciudadOrigen.setId(rs.getInt("id_origen"));
+                ciudadOrigen.setNombre(rs.getString("nombre_origen"));
 
-                Vuelo = new Vuelo(rs.getInt("id"), rs.getInt("modalidad"),
-                             rs.getInt("duracion"),rs.getDate("fecha"),
-                            avion,ruta);               
+                //Obtención de los datos de ciudad destino
+                Ciudad ciudadDestino = new Ciudad();
+                ciudadDestino.setId(rs.getInt("id_destino"));
+                ciudadDestino.setNombre(rs.getString("nombre_destino"));
+
+                //Obtención de los datos del horario
+                Horario horario = new Horario();
+                horario.setId(rs.getInt("id_horario"));
+                horario.setDiaSemana(rs.getString("dia_semana"));
+                horario.setHoraLlegada(rs.getInt("hora_llegada"));
+
+                //Creación de la ruta 
+                Ruta ruta = new Ruta(rs.getInt("id_ruta"), rs.getDouble("precio"),
+                        rs.getDouble("porcentaje_descuento"), ciudadOrigen,
+                        ciudadDestino, horario
+                );
+                
+                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"), 
+                    rs.getInt("capacidad"), rs.getInt("anio"),
+                    rs.getString("marca"),rs.getInt("asientos_fila"),
+                    rs.getInt("cantidad_filas") );
+                
+                Vuelo = new Vuelo(rs.getInt("id_vuelo"), rs.getInt("modalidad"),
+                        rs.getInt("duracion"), rs.getString("fecha"),
+                        avion, ruta);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
 
             throw new GeneralException("Sentencia no valida");
-            
+
         } finally {
             try {
                 if (rs != null) {
@@ -180,15 +198,15 @@ public class ServicioVuelo extends Servicio {
                 throw new GeneralException("Datos invalidos o nulos");
             }
         }
-        
+
         if (Vuelo == null) {
             throw new DbException("El curso no existe");
         }
-        
+
         return Vuelo;
     }
-    
-    public Collection listar_vuelo() throws GeneralException, DbException {
+
+    public Collection listar_vuelos() throws GeneralException, DbException {
         try {
             conectar();
         } catch (ClassNotFoundException ex) {
@@ -199,25 +217,47 @@ public class ServicioVuelo extends Servicio {
 
         ResultSet rs = null;
         ArrayList coleccion = new ArrayList();
-        Vuelo Vuelo = null;
+        Vuelo vuelo = null;
         CallableStatement toDo = null;
-        
+
         try {
-            toDo = conexion.prepareCall(LISTAR_VUELO);
+            toDo = conexion.prepareCall(LISTAR_VUELOS);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
-            
+
             while (rs.next()) {
-                Ruta ruta = ServicioRutas.getSingletonInstance().getRuta(rs.getInt("ruta_id"));
+                //Obtención de los datos de ciudad origen
+                Ciudad ciudadOrigen = new Ciudad();
+                ciudadOrigen.setId(rs.getInt("id_origen"));
+                ciudadOrigen.setNombre(rs.getString("nombre_origen"));
 
-                Avion avion = ServicioAviones.getSingletonInstance().getAvion(rs.getInt("avion_id"));
+                //Obtención de los datos de ciudad destino
+                Ciudad ciudadDestino = new Ciudad();
+                ciudadDestino.setId(rs.getInt("id_destino"));
+                ciudadDestino.setNombre(rs.getString("nombre_destino"));
 
-                Vuelo = new Vuelo(rs.getInt("id"), rs.getInt("modalidad"),
-                             rs.getInt("duracion"),rs.getDate("fecha"),
-                            avion,ruta);  
-                coleccion.add(Vuelo);
+                //Obtención de los datos del horario
+                Horario horario = new Horario();
+                horario.setId(rs.getInt("id_horario"));
+                horario.setDiaSemana(rs.getString("dia_semana"));
+                horario.setHoraLlegada(rs.getInt("hora_llegada"));
+
+                //Creación de la ruta 
+                Ruta ruta = new Ruta(rs.getInt("id_ruta"), rs.getDouble("precio"),
+                        rs.getDouble("porcentaje_descuento"), ciudadOrigen,
+                        ciudadDestino, horario
+                );
                 
+                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"), 
+                    rs.getInt("capacidad"), rs.getInt("anio"),
+                    rs.getString("marca"),rs.getInt("asientos_fila"),
+                    rs.getInt("cantidad_filas") );
+                
+                vuelo = new Vuelo(rs.getInt("id_vuelo"), rs.getInt("modalidad"),
+                        rs.getInt("duracion"), rs.getString("fecha"),
+                        avion, ruta);
+                coleccion.add(vuelo);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -235,19 +275,16 @@ public class ServicioVuelo extends Servicio {
                 throw new GeneralException("Datos invalidos o nulos");
             }
         }
-        
+
         if (coleccion.isEmpty()) {
             throw new DbException("No hay datos");
         }
-        
+
         return coleccion;
     }
 
-
-
-    
     public void deleteVuelo(int id) throws GeneralException, DbException {
-        
+
         try {
             conectar();
         } catch (ClassNotFoundException e) {
@@ -255,7 +292,7 @@ public class ServicioVuelo extends Servicio {
         } catch (SQLException e) {
             throw new DbException("No se puede establecer una conexion con la base de datos");
         }
-        
+
         PreparedStatement toDo = null;
         try {
             toDo = conexion.prepareStatement(DELETE_VUELO);
@@ -282,4 +319,3 @@ public class ServicioVuelo extends Servicio {
         }
     }
 }
-

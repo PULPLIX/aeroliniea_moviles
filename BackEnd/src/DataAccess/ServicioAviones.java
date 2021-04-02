@@ -197,7 +197,7 @@ public class ServicioAviones extends Servicio {
 
         ResultSet rs = null;
         ArrayList coleccion = new ArrayList();
-        Avion Avion = null;
+        Avion avion = null;
         CallableStatement toDo = null;
         
         try {
@@ -207,11 +207,11 @@ public class ServicioAviones extends Servicio {
             rs = (ResultSet) toDo.getObject(1);
             
             while (rs.next()) {
-                Avion = new Avion(rs.getInt("id"), rs.getString("tipo"), 
+                avion = new Avion(rs.getInt("id"), rs.getString("tipo"), 
                     rs.getInt("capacidad"), rs.getInt("anio"),
                     rs.getString("marca"),rs.getInt("asientos_fila"),
                     rs.getInt("cantidad_filas") );
-                coleccion.add(Avion);
+                coleccion.add(avion);
                 
             }
         } catch (SQLException e) {
