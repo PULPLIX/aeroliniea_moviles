@@ -32,7 +32,7 @@ public class Vuelo implements Serializable {
         this.id = -1;
         this.modalidad = 0;
         this.duracion = 0;
-        this.fecha = this.parseDate("01/01/1999");
+        this.fecha = new Date();
         this.avionId = new Avion();
         this.rutaId = new Ruta();
         this.tiquetesCollection = new ArrayList<>();

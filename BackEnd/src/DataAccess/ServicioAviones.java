@@ -231,9 +231,9 @@ public class ServicioAviones extends Servicio {
             }
         }
         
-        if (coleccion.isEmpty()) {
-            throw new DbException("No hay datos");
-        }
+//        if (coleccion.isEmpty()) {
+//            throw new DbException("No hay datos");
+//        }
         
         return coleccion;
     }

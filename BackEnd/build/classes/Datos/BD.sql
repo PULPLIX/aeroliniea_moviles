@@ -160,7 +160,7 @@ ArgTelefono in VARCHAR2,
 ArgCelular in VARCHAR2,
 ArgRol in NUMBER ) as
 begin
-	insert into Usuarios(id,contrasena,nombre,apellidos,correo,fecha_nacimiento,direccion,telefono_trabajo,celular,rol) values (ArgId,ArgContra,ArgNombre,ArgApellido,ArgCorreo,ArgFecha_N,ArgDireccion,ArgTelefono,ArgCelular,ArgRol);
+	insert into Usuarios(id,contrasena,nombre,apellidos,correo,fecha_nacimiento,direccion,telefono_trabajo,celular,rol) values (ArgId,ArgContra,ArgNombre,ArgApellido,ArgCorreo,TO_DATE(ArgFecha_N, 'DD/MM/YYYY HH:MI:SS'),ArgDireccion,ArgTelefono,ArgCelular,ArgRol);
 	commit;
 end INSERCION_USUARIO;
 /

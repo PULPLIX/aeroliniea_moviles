@@ -57,10 +57,9 @@ public class ServicioVuelo extends Servicio {
             toDo.setInt(2, newVuelo.getDuracion());
             toDo.setInt(3, newVuelo.getRutaId().getId());
             toDo.setInt(4, newVuelo.getAvionId().getId());
-            DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy");  
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
             String fechaAux = dateFormat.format(newVuelo.getFecha());  
-            
-            toDo.setString(5, newVuelo.getFecha().toString());
+            toDo.setString(5, fechaAux);
 
             boolean resultado = toDo.execute();
             if (resultado == true) {
