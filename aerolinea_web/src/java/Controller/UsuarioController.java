@@ -9,9 +9,7 @@ import Exceptions.DbException;
 import Exceptions.GeneralException;
 import Models.ModelUsuario;
 import com.google.gson.Gson;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -56,13 +54,12 @@ public class UsuarioController {
     @Path("/insertar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String insertar(String id) throws GeneralException, Exception {
+    public boolean insertar(String id) throws GeneralException, Exception {
         Gson gson = new Gson();
         Usuario usuario = gson.fromJson(id, Usuario.class);
         ModelUsuario mUsuario = ModelUsuario.getInstance();
         mUsuario.agrergar(usuario);
-        ArrayList<Usuario> usuarios = (ArrayList<Usuario>) mUsuario.listarUsuarios();
-        return gson.toJson(usuarios);
+        return true;
     }
 
     @PUT

@@ -24,7 +24,7 @@
                 <div class="col-md-8">
                     <div class="card ">
                         <div class="card-body d-flex justify-content-center align-items-center ">
-                            <form class="form-signin" method="POST" action="/aerolinea/usuario/perfil">
+                            <form class="form-signin" method="POST" action="/aerolinea/views/usuario/perfil">
                                 <div class="input-group mb-4">
                                     <input type="id" name="id" id="idPerfil" class="form-control" disabled="true">
                                     <span class="input-group-text"><i

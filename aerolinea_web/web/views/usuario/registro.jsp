@@ -26,6 +26,7 @@
                 <div class="col-md-8">
                     <div class="card ">
                         <div class="card-body d-flex justify-content-center align-items-center ">
+                            <form class="form-signin" method="post" action="/aerolinea/views/global/login.jsp">
                                 <div class="input-group mb-4">
                                     <input type="id" name="id" id="id" value="" class="form-control"
                                            placeholder="Usuario id" autofocus required>
@@ -82,6 +83,7 @@
                                          src="/aerolinea/resources/images/logo.png" alt="Logo" width="200" height="200"
                                          class="d-inline-block align-text-top rounded " />
                                 </div>
+                                </form>
                         </div>
                     </div>
                 </div>
