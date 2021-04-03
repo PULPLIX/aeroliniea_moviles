@@ -45,7 +45,7 @@
                                 <a class="nav-link " aria-current="page" href="/aerolinea/views/usuario/registro.jsp">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Comprar tiquetes</a>
+                                <a class="nav-link" href="/aerolinea/views/usuario/compraTiquetes.jsp">Comprar tiquetes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Vuelos disponibles</a>
@@ -59,7 +59,7 @@
                     <div class="col-2">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/aerolinea/usuario/login/show" tabindex="-1"><i
+                                <a class="nav-link" href="/aerolinea/views/global/login.jsp" tabindex="-1"><i
                                         class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
                             </li>
                         </ul>
