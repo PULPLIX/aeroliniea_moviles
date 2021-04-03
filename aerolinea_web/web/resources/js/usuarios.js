@@ -57,15 +57,19 @@ function insertarUsuario() {
 
 function showPerfil() {
     var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    $("#idPerfil").val(usuario.id);
-    $("#nombrePerfil").val(usuario.nombre);
-    $("#apellidosPerfil").val(usuario.apellidos);
-    $("#correoPerfil").val(usuario.correo);
-    $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0,10));
-    $("#direccionPerfil").val(usuario.direccion);
-    $("#telefonoTrabajoPerfil").val(usuario.telefonoTrabajo);
-    $("#celularPerfil").val(usuario.celular);
-    $("#contrasenaPerfil").val(usuario.contrasena);
+
+    if (usuario != null) {
+        $("#idPerfil").val(usuario.id);
+        $("#nombrePerfil").val(usuario.nombre);
+        $("#apellidosPerfil").val(usuario.apellidos);
+        $("#correoPerfil").val(usuario.correo);
+        $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0, 10));
+        $("#direccionPerfil").val(usuario.direccion);
+        $("#telefonoTrabajoPerfil").val(usuario.telefonoTrabajo);
+        $("#celularPerfil").val(usuario.celular);
+        $("#contrasenaPerfil").val(usuario.contrasena);
+    }
+
 }
 
 function actualizarUsuario() {

@@ -28,6 +28,7 @@ i .footer-icon {
     background-color: #ffffff !important;
     color: #ffffff;
 }
+
 /* ********************************
       BARRA DE NAVEGACION DE ADMIN
 ******************************** */
@@ -48,6 +49,7 @@ i .footer-icon {
 /* ****************************************************************
       CONTENIDO DE LA SECCION BODY DE ADMIN
 **************************************************************** */
+
 .texto-azul {
     color: #0083CA !important;
 }
@@ -112,7 +114,6 @@ tbody tr th, td {
     background-image: url('/aerolinea/resources/images/Iconos/success.png');
 }
 
-
 .mensaje-container .texto-mensaje {
     font-size: 17px;
 }
@@ -151,4 +152,72 @@ tbody tr th, td {
         transform: skew(-20deg) translate(200%);
         opacity: 0;
     }
+}
+
+/* ********************************
+    Banner de compra tiquetes
+******************************** */
+
+.banner-compra {
+    background-color: #002172;
+    background-image: url('/aerolinea/resources/images/backgrounds/beachVacation1.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    height: 26rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-compra .card {
+    position: relative;
+    width: 62rem;
+    height: 13rem;
+    top: 1rem;
+    right: 7rem;
+    background-color: #00000080;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-compra .card .card-body {
+    position: relative;
+    width: 61rem;
+    max-height: 8rem;
+    top: 2rem;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.banner-compra .card .card-body .form-check {
+    width: 15% !important;
+}
+
+.banner-compra .card .card-body .input-search {
+    width: 30% !important;
+}
+
+.banner-compra .card .card-body .btn-search {
+    width: 6% !important;
+}
+
+.banner-compra .icon-banner {
+    color: #3db4c0 !important;
+    position: relative;
+    right: 2rem;
+    bottom: 3rem;
+    z-index: 1;
+    height: 63px;
+    font-weight: bold;
+}
+
+.banner-compra .titulo-compra {
+    position: relative;
+    left: 12rem;
+    bottom: 7.5rem;
+    z-index: 1;
+    height: 63px;
+    font-weight: bold;
+    color: #fff;
 }
