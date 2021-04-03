@@ -57,8 +57,8 @@ public class ServicioVuelo extends Servicio {
             toDo.setInt(2, newVuelo.getDuracion());
             toDo.setInt(3, newVuelo.getRutaId().getId());
             toDo.setInt(4, newVuelo.getAvionId().getId());
-            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");  
-            String fechaAux = dateFormat.format(newVuelo.getFecha());  
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String fechaAux = dateFormat.format(newVuelo.getFecha());
             toDo.setString(5, fechaAux);
 
             boolean resultado = toDo.execute();
@@ -99,7 +99,9 @@ public class ServicioVuelo extends Servicio {
             toDo.setInt(3, newVuelo.getDuracion());
             toDo.setInt(4, newVuelo.getRutaId().getId());
             toDo.setInt(5, newVuelo.getAvionId().getId());
-            toDo.setString(6, newVuelo.getFecha().toString());
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String fechaAux = dateFormat.format(newVuelo.getFecha());
+            toDo.setString(6, fechaAux);
 
             int resultado = toDo.executeUpdate();
 
@@ -168,14 +170,14 @@ public class ServicioVuelo extends Servicio {
                         rs.getDouble("porcentaje_descuento"), ciudadOrigen,
                         ciudadDestino, horario
                 );
-                
-                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"), 
-                    rs.getInt("capacidad"), rs.getInt("anio"),
-                    rs.getString("marca"),rs.getInt("asientos_fila"),
-                    rs.getInt("cantidad_filas") );
-                
+
+                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"),
+                        rs.getInt("capacidad"), rs.getInt("anio"),
+                        rs.getString("marca"), rs.getInt("asientos_fila"),
+                        rs.getInt("cantidad_filas"));
+
                 Vuelo = new Vuelo(rs.getInt("id_vuelo"), rs.getInt("modalidad"),
-                        rs.getInt("duracion"), rs.getString("fecha"),
+                        rs.getInt("duracion"), rs.getDate("fecha"),
                         avion, ruta);
             }
 
@@ -247,14 +249,14 @@ public class ServicioVuelo extends Servicio {
                         rs.getDouble("porcentaje_descuento"), ciudadOrigen,
                         ciudadDestino, horario
                 );
-                
-                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"), 
-                    rs.getInt("capacidad"), rs.getInt("anio"),
-                    rs.getString("marca"),rs.getInt("asientos_fila"),
-                    rs.getInt("cantidad_filas") );
-                
+
+                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"),
+                        rs.getInt("capacidad"), rs.getInt("anio"),
+                        rs.getString("marca"), rs.getInt("asientos_fila"),
+                        rs.getInt("cantidad_filas"));
+
                 vuelo = new Vuelo(rs.getInt("id_vuelo"), rs.getInt("modalidad"),
-                        rs.getInt("duracion"), rs.getString("fecha"),
+                        rs.getInt("duracion"), rs.getDate("fecha"),
                         avion, ruta);
                 coleccion.add(vuelo);
             }

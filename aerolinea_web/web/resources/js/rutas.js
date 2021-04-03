@@ -17,6 +17,13 @@ function mostrarDescuento(checkBox) {
         $("#descuento-field").hide();
     }
 }
+function mostrarDescuentoModal(checkBox) {
+    if (checkBox.checked == true) {
+        $("#descuento-field-modal").show();
+    } else {
+        $("#descuento-field-modal").hide();
+    }
+}
 
 function listarHorarios() {
     $.ajax({
@@ -78,7 +85,7 @@ function getRuta(id) {
                 ciudadOrigen: ruta.ciudadOrigen.id,
                 ciudadDestino: ruta.ciudadDestino.id,
                 horarioId: ruta.horarioId.id
-            }
+            };
             llenarModal(rutaModal);
         },
         statusCode: {

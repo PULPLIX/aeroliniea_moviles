@@ -33,7 +33,7 @@
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Editar vuelo # <span id="id-modal"></span></h5>
@@ -42,51 +42,41 @@
                     </div>
                     <div class="modal-body">
                         <div class="card-body d-flex justify-content-center">
-                            <div class=" w-100">
-                                <div class="input-group mb-3 w-100">
-                                    <span class="input-group-text" id="basic-addon1">Origen: </span>
-                                    <select class="form-select" id="ciudadOrigen-modal"  class="form-control">
+                            <div class="w-100">
+                                <div class="input-group mb-3 d-flex ">
+                                    <span class="input-group-text" id="basic-addon1">Modalidad: </span>
+                                    <select class="form-select" id="modalidad-modal"  class="form-control">
                                         <option value="">Seleccione</option>
+                                        <option value="1">Solo ida</option>
+                                        <option value="2">Ida y retorno</option>
                                     </select>
-                                    <span class="input-group-text" id="basic-addon1">Destino: </span>
-                                    <select class="form-select" id="ciudadDestino-modal" class="form-control">
+                                    <span class="input-group-text" id="basic-addon1"><i class="far fa-clock text-primary"></i>&nbsp;Duracion: </span>
+                                    <input type="text" id="duracion-modal" class="form-control" >
+                                </div>
+                                <div class="input-group mb-3 d-flex ">
+                                    <span class="input-group-text" id="basic-addon1">Fecha: </span>
+                                    <input type="date" class="form-control datetime-local" id="fecha-modal" name="fecha" value="">
+                                    <span class="input-group-text" id="basic-addon1">Avión: </span>
+                                    <select class="form-select" id="avionId-modal"  class="form-control">
                                         <option value="">Seleccione</option>
                                     </select>
                                 </div>
-                                <div class="input-group mb-3 w-50">
-                                    <span class="input-group-text" id="basic-addon1">Horario </span>
-                                    <select class="form-select" id="horarioId-modal"  class="form-control">
+                                <div class="input-group mb-3 d-flex ">
+                                    <span class="input-group-text" id="basic-addon1">Ruta: </span>
+                                    <select class="form-select" id="rutaId-modal"  class="form-control">
                                         <option value="">Seleccione</option>
-
                                     </select>
                                 </div>
-
-                                <div class="d-flex">
-                                    <div class="input-group w-50 mb-3 ">
-                                        <span class="input-group-text">₡</span>
-                                        <span class="input-group-text">0.00</span>
-                                        <input type="text" id="precio-modal" class="form-control" >
-                                    </div> 
-                                    <div class="custom-control custom-checkbox mx-2" id="wrap-chec-video">
-                                        <input type="checkbox" class="custom-control-input" id="descuento-check" onclick="mostrarDescuento(this)">
-                                        <input type="hidden" id="check_descuento" name="descuento">
-                                        <label class="custom-control-label" for="descuento-check">Descuento</label>
-                                    </div>
-                                    <div class="w-25  " id="descuento-field" style="display: none;">
-                                        <input type="number" class="mb-3" min="0" step="5"  name="descuento" id="descuento-modal"   value='0' />
-                                    </div>  
-                                </div>    
-                            </div>
+                            </div>    
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cerrar-modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" onclick="actualizarRuta()">Guardar</button>
+                        <button type="button" class="btn btn-primary" onclick="actualizarVuelo()">Guardar</button>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <div class="row my-3">
             <div class="col-sm-6">
@@ -108,7 +98,7 @@
                                         <option value="2">Ida y retorno</option>
                                     </select>
                                     <span class="input-group-text" id="basic-addon1"><i class="far fa-clock text-primary"></i>&nbsp;Duracion: </span>
-                                    <input type="text" id="precio" class="form-control" >
+                                    <input type="text" id="duracion" class="form-control" >
                                 </div>
                                 <div class="input-group mb-3 d-flex ">
                                     <span class="input-group-text" id="basic-addon1">Fecha: </span>
@@ -152,11 +142,11 @@
                                 <tr>
                                     <th scope="col">id <i class="fas fa-sort-down "></i></th>
                                     <th scope="col">Fecha <i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Modalidad<i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Duracion<i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Ruta<i class="far fa-calendar-minus text-primary"></i></th>
-                                    <th scope="col">Horario <i class="fas fa-dollar-sign text-primary"></i></th>
-                                    <th scope="col">Avion <i class="fas fa-percent text-primary"></i></th>
+                                    <th scope="col">Modalidad <i class="fas fa-sort-down "></i></th>
+                                    <th scope="col">Duracion <i class="far fa-clock text-primary"></i></th>
+                                    <th scope="col">Ruta <i class="fas fa-map-marked-alt text-primary"></i></th>
+                                    <th scope="col">Horario <i class="far fa-calendar-minus text-primary"></i></th>
+                                    <th scope="col">Avion <i class="fas fa-plane text-primary"></i></th>
                                     <th scope="col" style="width: 300px;">Acciones</th>
                                 </tr>
                             </thead>

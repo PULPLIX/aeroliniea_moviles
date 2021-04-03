@@ -80,7 +80,7 @@
         </div>
         <div class="row my-3">
             <div class="col-sm-6">
-                <h1 class="display-6 fw-normal text-negro">Gestión de aviones</h1>
+                <h1 class="display-6 fw-normal text-negro"><i class="fas fa-plane text-primary"></i>&nbsp;Gestión de aviones</h1>
             </div>
         </div>
             <div class="row  border-bottom">
@@ -147,7 +147,6 @@
                                     <th scope="col">Asientos Fila</th>
                                     <th scope="col">Asientos Columna</th>
                                     <th scope="col" style="width: 300px;">Acciones</th>
-
                                 </tr>
                             </thead>
                             <tbody id="tabla-aviones">

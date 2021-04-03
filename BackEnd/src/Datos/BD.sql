@@ -381,7 +381,7 @@ ArgRuta in INT,
 ArgAvion in INT,
 ArgFecha in VARCHAR) as
 begin
-	update Vuelos set modalidad=ArgModalidad , duracion=ArgDuracion, ruta_id=ArgRuta,  avion_id=ArgAvion, fecha=ArgFecha where id = ArgId;
+	update Vuelos set modalidad=ArgModalidad , duracion=ArgDuracion, ruta_id=ArgRuta,  avion_id=ArgAvion, fecha=TO_DATE(ArgFecha, 'DD/MM/YYYY HH:MI:SS') where id = ArgId;
 	commit;
 end UPDATE_VUELO;
 /

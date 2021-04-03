@@ -32,7 +32,7 @@
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">Editar ruta # <span id="id-modal"></span></h5>
@@ -67,12 +67,12 @@
                                         <input type="text" id="precio-modal" class="form-control" >
                                     </div> 
                                     <div class="custom-control custom-checkbox mx-2" id="wrap-chec-video">
-                                        <input type="checkbox" class="custom-control-input" id="descuento-check" onclick="mostrarDescuento(this)">
+                                        <input type="checkbox" class="custom-control-input" id="descuento-check" onclick="mostrarDescuentoModal(this)">
                                         <input type="hidden" id="check_descuento" name="descuento">
                                         <label class="custom-control-label" for="descuento-check">Descuento</label>
                                     </div>
-                                    <div class="w-25  " id="descuento-field" style="display: none;">
-                                        <input type="number" class="mb-3" min="0" step="5"  name="descuento" id="descuento-modal"   value='0' />
+                                    <div class="w-25  " id="descuento-field-modal" style="display: none;">
+                                        <input type="number" class="mb-3" min="0" step="5"  name="descuento" id="porcentajeDescuento-modal"   value='0' />
                                     </div>  
                                 </div>    
                             </div>

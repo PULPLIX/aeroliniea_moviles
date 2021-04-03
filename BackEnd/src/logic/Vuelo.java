@@ -38,11 +38,11 @@ public class Vuelo implements Serializable {
         this.tiquetesCollection = new ArrayList<>();
     }
 
-    public Vuelo(int id, int modalidad, int duracion, String fecha, Avion avionId, Ruta rutaId) {
+    public Vuelo(int id, int modalidad, int duracion, Date fecha, Avion avionId, Ruta rutaId) {
         this.id = id;
         this.modalidad = modalidad;
         this.duracion = duracion;
-        this.fecha = this.parseDate(fecha);
+        this.fecha = fecha;
         this.avionId = avionId;
         this.rutaId = rutaId;
         this.tiquetesCollection = new ArrayList<>();
@@ -80,8 +80,8 @@ public class Vuelo implements Serializable {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = this.parseDate(fecha);
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public Avion getAvionId() {
@@ -100,13 +100,6 @@ public class Vuelo implements Serializable {
         this.rutaId = rutaId;
     }
 
-    public Date parseDate(String dateStr) {
-        LocalDate fecha = LocalDate.parse(dateStr);
-        Date date = java.util.Date.from(fecha.atStartOfDay()
-                .atZone(ZoneId.systemDefault())
-                .toInstant());
-        return date;
-    }
 
     public Collection<Tiquete> getTiquetesCollection() {
         return tiquetesCollection;

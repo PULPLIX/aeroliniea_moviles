@@ -72,7 +72,7 @@
 
         <div class="row my-3">
             <div class="col-sm-6">
-                <h1 class="display-6 fw-normal text-negro">Gestión de horarios</h1>
+                <h1 class="display-6 fw-normal text-negro"><i class="far fa-calendar text-primary"></i> &nbsp;Gestión de horarios</h1>
             </div>
         </div>
         <div class="row  border-bottom">

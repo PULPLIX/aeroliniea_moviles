@@ -11,7 +11,12 @@ function llenarModal(objeto) {
         if (atributo === "id") {
             $("#id-modal").html(objeto[atributo]);
         }
-        $("#" + atributo + "-modal").val(objeto[atributo]);
+        if (atributo === "fecha") {
+            console.log(objeto[atributo]);
+            document.getElementById("fecha-modal").valueAsDate = objeto[atributo];
+        } else {
+            $("#" + atributo + "-modal").val(objeto[atributo]);
+        }
     }
 }
 
