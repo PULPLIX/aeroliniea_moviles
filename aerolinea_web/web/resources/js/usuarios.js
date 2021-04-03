@@ -6,7 +6,7 @@
 
 function getUsuario() {
     $.ajax({
-        url: "/aerolinea/api/aviones/get" + id,
+        url: "/aerolinea/api/usuario/get" + id,
         type: "get",
         success: function (listadoAviones) {
             recargarTabla(listadoAviones);
@@ -43,7 +43,8 @@ function insertarUsuario() {
         type: "post",
         contentType: "application/json",
         data: JSON.stringify(usuario),
-        success: function (listadoUsuarios) {
+        success: function (agregado) {
+            console.log(agregado);
             mostrarMensaje("success", "Usuario agregado correctamente");
             window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
         },
@@ -56,16 +57,18 @@ function insertarUsuario() {
 }
 
 function showPerfil() {
-    var usuario = JSON.parse(sessionStorage.getItem('usuario'));
-    $("#idPerfil").val(usuario.id);
-    $("#nombrePerfil").val(usuario.nombre);
-    $("#apellidosPerfil").val(usuario.apellidos);
-    $("#correoPerfil").val(usuario.correo);
-    $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0,10));
-    $("#direccionPerfil").val(usuario.direccion);
-    $("#telefonoTrabajoPerfil").val(usuario.telefonoTrabajo);
-    $("#celularPerfil").val(usuario.celular);
-    $("#contrasenaPerfil").val(usuario.contrasena);
+    if (sessionStorage.getItem('usuario') !== null) {
+        var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+        $("#idPerfil").val(usuario.id);
+        $("#nombrePerfil").val(usuario.nombre);
+        $("#apellidosPerfil").val(usuario.apellidos);
+        $("#correoPerfil").val(usuario.correo);
+        $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0, 10));
+        $("#direccionPerfil").val(usuario.direccion);
+        $("#telefonoTrabajoPerfil").val(usuario.telefonoTrabajo);
+        $("#celularPerfil").val(usuario.celular);
+        $("#contrasenaPerfil").val(usuario.contrasena);
+    }
 }
 
 function actualizarUsuario() {
