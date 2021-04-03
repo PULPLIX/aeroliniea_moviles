@@ -46,3 +46,11 @@ function mostrarMensaje(tipoMensaje, contenido) {
                 );
     }, 4790);
 }
+
+function setUsuario(){
+    if(sessionStorage.getItem('usuario') !== null){
+     $("#idUsuarioSession").html(JSON.parse(sessionStorage.getItem('usuario')).id);   
+    }
+}
+
+setUsuario();

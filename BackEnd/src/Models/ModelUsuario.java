@@ -9,6 +9,7 @@ import DataAccess.ServicioUsuario;
 import Exceptions.DbException;
 import Exceptions.GeneralException;
 import java.io.Serializable;
+import java.util.Collection;
 import logic.Usuario;
 
 /**
@@ -42,5 +43,13 @@ public class ModelUsuario implements Serializable {
     public void agrergar(Usuario nuevoUsuario) throws Exception {
         usuarioDao.insercionUsuario(nuevoUsuario);
     }
-
+    
+    public Collection listarUsuarios() throws GeneralException, DbException {
+        return usuarioDao.listar_usuario();
+    }
+    
+    public void actualizar(Usuario nuevoUsuario) throws Exception {
+        usuarioDao.updateUsuario(nuevoUsuario);
+    }
+    
 }

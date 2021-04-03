@@ -16,7 +16,6 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-        <script src="/aerolinea/resources/js/global.js"></script>
 
         <script src="/aerolinea/resources/js/horarios.js"></script>
 

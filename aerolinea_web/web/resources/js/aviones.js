@@ -46,9 +46,9 @@ function getAvion(id) {
     $.ajax({
         url: "/aerolinea/api/aviones/get/"+id,
         type: "GET",
-        success: function (avion) {
-            console.log(avion);
-            llenarModal(avion);
+        success: function (usuario) {
+            console.log(usuario);
+            llenarModal(usuario);
         },
         statusCode: {
             404: function () {
@@ -126,7 +126,7 @@ function insertarAvion() {
         anio: $("#anio").val(),
         marca: $("#marca").val(),
         asientosFila: $("#asientosFila").val(),
-        cantidadFilas: $("#cantidadFilas").val(),
+        cantidadFilas: $("#cantidadFilas").val()
     };
     $.ajax({
         url: "/aerolinea/api/aviones/insertar",

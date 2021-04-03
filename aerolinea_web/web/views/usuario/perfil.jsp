@@ -8,14 +8,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %> 
 
-<%
-
-    Usuario usuario = (Usuario) session.getAttribute("usuarioTem");
-    request.setAttribute("usuario", usuario);
-
-    
-%>
-
 
 <t:template>
     <jsp:attribute name="title">
@@ -23,7 +15,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-        <script src="/aerolinea/resources/js/socket.js"></script>
+        <script src="/aerolinea/resources/js/usuarios.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -34,40 +26,40 @@
                         <div class="card-body d-flex justify-content-center align-items-center ">
                             <form class="form-signin" method="POST" action="/aerolinea/usuario/perfil">
                                 <div class="input-group mb-4">
-                                    <input type="id" name="id" id="inputEmail" value="${usuario.getId()}" class="form-control" disabled="true">
+                                    <input type="id" name="id" id="idPerfil" class="form-control" disabled="true">
                                     <span class="input-group-text"><i
                                             class="fas fa-user text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="nombre" name="nombre" value="${usuario.getNombre()}" id="inputNombre" class="form-control">
+                                    <input type="nombre" name="nombre" id="nombrePerfil" class="form-control">
                                     <span class="input-group-text"><i class="fas fa-id-card text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="apellido" name="apellido" value="${usuario.getApellidos()}" id="inputApellidos" class="form-control">
+                                    <input type="apellido" name="apellido" id="apellidosPerfil" class="form-control">
                                     <span class="input-group-text"><i class="fas fa-id-card text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="gmail" name="correo" value="${usuario.getCorreo()}" id="inputCorreo" class="form-control">
+                                    <input type="gmail" name="correo" id="correoPerfil" class="form-control">
                                     <span class="input-group-text"><i class="fas fa-envelope text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="fecha_nacimiento" name="fecha_nacimiento" value="${usuario.getFechaNacimiento()}" id="inputFecha_nacimiento" class="form-control" disabled="true">
+                                    <input type="fecha_nacimiento" name="fecha_nacimiento" id="fechaNacimientoPerfil" class="form-control" disabled="true">
                                     <span class="input-group-text"><i class="fas fa-calendar-day text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="direccion" name="direccion" value="${usuario.getDireccion()}" id="inputDireccion" class="form-control">
+                                    <input type="direccion" name="direccion" id="direccionPerfil" class="form-control">
                                     <span class="input-group-text"><i class="fas fa-street-view text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="telefono" name="telefono" value="${usuario.getTelefonoTrabajo()}" id="inputTelefono" class="form-control">
+                                    <input type="telefono" name="telefono" id="telefonoTrabajoPerfil" class="form-control">
                                     <span class="input-group-text"><i class="fas fa-phone-alt text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="celular" name="celular" value="${usuario.getCelular()}" id="inputCelular" class="form-control">
+                                    <input type="celular" name="celular" id="celularPerfil" class="form-control">
                                     <span class="input-group-text"><i class="fas fa-mobile-alt text-primary"></i></span>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <input type="Password" name="contrasena" value="1234" autocomplete="current-password" id="inputPassword" class="form-control">
+                                    <input type="Password" name="contrasena" autocomplete="current-password" id="contrasenaPerfil" class="form-control">
                                     <span class="input-group-text"><i
                                             class="fas fa-key text-primary"></i></span>
                                 </div>

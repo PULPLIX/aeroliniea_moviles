@@ -4,7 +4,6 @@
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="user_id" fragment="true" %>
 
-
 <html lang="en">
 
     <head>
@@ -81,13 +80,12 @@
                                 <li class="nav-item dropdown ">
                                     <div class="dropdown">
                                         <span class=" nav-link dropdown-toggle" type="button"
-                                              id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                              id="idUsuarioSession" data-bs-toggle="dropdown"
                                               aria-expanded="false">
-                                            <jsp:invoke fragment="user_id" />
                                         </span>
                                         <ul class="dropdown-menu dropdown-menu-end"
                                             aria-labelledby="dropdownMenuButton1">
-                                            <a class="dropdown-item text-primary" href="../usuario/perfil"><i
+                                            <a class="dropdown-item text-primary" href="/aerolinea/views/usuario/perfil.jsp"><i
                                                     class="fas fa-user"></i> &nbsp;Mi perfil</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item text-primary" href="#"> <i
@@ -122,7 +120,7 @@
             $("input[type='number']").inputSpinner();
         </script>
         <script src="/aerolinea/resources/js/menu.js" crossorigin="anonymous"></script>
-
+        <script src="/aerolinea/resources/js/global.js" crossorigin="anonymous"></script>
         <jsp:invoke fragment="scripts" />
 
     </body>

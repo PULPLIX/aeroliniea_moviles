@@ -6,6 +6,8 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import logic.Usuario;
@@ -13,7 +15,7 @@ import oracle.jdbc.OracleTypes;
 
 public class ServicioUsuario extends Servicio {
 
-    private static final String INSERCION_USUARIO = "{call INSERCION_USUARIO(?,?,?,?,?,?,?,?,?)}";
+    private static final String INSERCION_USUARIO = "{call INSERCION_USUARIO(?,?,?,?,?,?,?,?,?,?)}";
     private static final String UPDATE_USUARIO = "{call UPDATE_USUARIO(?,?,?,?,?,?,?,?,?,?)}";
     private static final String GET_USUARIO = "{?=call GET_USUARIO(?)}";
     private static final String VALIDA_USUARIO = "{?=call VALIDA_USUARIO(?,?)}";
@@ -26,7 +28,7 @@ public class ServicioUsuario extends Servicio {
 
     }
 
-    public static ServicioUsuario getSingletonInstance()  {
+    public static ServicioUsuario getSingletonInstance() {
         if (serviceUser == null) {
             serviceUser = new ServicioUsuario();
         }
@@ -53,15 +55,17 @@ public class ServicioUsuario extends Servicio {
             toDo.setString(3, newUsuario.getNombre());
             toDo.setString(4, newUsuario.getApellidos());
             toDo.setString(5, newUsuario.getCorreo());
-            toDo.setString(6, newUsuario.getFechaNacimiento().toString());
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String fechaAux = dateFormat.format(newUsuario.getFechaNacimiento());
+            toDo.setString(6, fechaAux);
             toDo.setString(7, newUsuario.getDireccion());
             toDo.setString(8, newUsuario.getTelefonoTrabajo());
             toDo.setString(9, newUsuario.getCelular());
             toDo.setInt(10, newUsuario.getRol());
 
-            int resultado = toDo.executeUpdate();
+            boolean resultado = toDo.execute();
 
-            if (resultado <= 0) {
+            if (resultado == true) {
                 throw new DbException("No se realizo la insercion");
             }
 

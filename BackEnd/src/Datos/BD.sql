@@ -121,7 +121,7 @@ CREATE TABLE Tiquetes (
   usuario_id VARCHAR2(100) NOT NULL,
   vuelo_id INT NOT NULL,
   precio_final VARCHAR2(45) NULL,
-  fila_asisento INT NULL,
+  fila_asiento INT NULL,
   columna_asiento INT NULL,
   forma_pago VARCHAR2(45) NULL,
   PRIMARY KEY (id),
@@ -593,6 +593,36 @@ show error
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
+
+create or replace function LISTAR_HISTORIAL(ArgId in VARCHAR2)
+return TYPES.ref_cursor
+as
+tiquetes_cursor TYPES.ref_cursor;
+begin
+  OPEN tiquetes_cursor for
+        select t.id id_tiquete, t.precio_final, t.fila_asiento, t.columna_asiento, t.forma_pago, 
+        u.id id_usuario, u.nombre, u.apellidos, u.correo,u.fecha_nacimiento, u.direccion, u.telefono_trabajo, u.celular, u.rol,
+        v.id id_vuelo, v.modalidad, v.duracion, v.fecha, 
+        r.id id_ruta, r.precio, r.porcentaje_descuento,
+        c.id id_origen, c.nombre nombre_origen, 
+        c2.id id_destino, c2.nombre nombre_destino, 
+        h.id id_horario, h.dia_semana, h.hora_llegada,
+        a.id id_avion, a.tipo, a.capacidad, a.anio, a.marca, a.asientos_fila, a.cantidad_filas
+        from tiquetes t
+            inner join usuarios u on u.id = t.usuario_id
+            inner join vuelos v on v.id = t.vuelo_id
+            inner join rutas r on r.id = v.ruta_id
+            inner join ciudad c on c.id = r.ciudad_origen
+            inner join ciudad c2 on c2.id = r.ciudad_destino
+            inner join horarios h on h.id = r.horario_id
+            inner join aviones a on a.id = v.avion_id
+            where t.id = ArgId;
+  return tiquetes_cursor;
+end LISTAR_HISTORIAL;
+/
+show error
+------------------------------------------------------------------------------------------
+
 create or replace function LISTAR_TIQUETES
 return TYPES.ref_cursor
 as
@@ -713,7 +743,6 @@ select Valida_Usuario('12','1234') from dual;
 variable x refcursor
 exec :x:= Valida_Usuario('12','1234');
 print x;
--- version 0.2
 
 exec INSERCION_CIUDAD('Miami- US');
 exec INSERCION_CIUDAD('New York - US');
@@ -722,3 +751,7 @@ exec INSERCION_CIUDAD('Alajuela - Costa Rica');
 exec INSERCION_CIUDAD('Buenos Aires - Argentina Rica');
 exec INSERCION_CIUDAD('Ciudad de México - México');
 exec INSERCION_CIUDAD('PanamaCity - Panama');
+
+-- select LISTAR_HISTORIAL('1') from dual;
+
+-- version 0.3
