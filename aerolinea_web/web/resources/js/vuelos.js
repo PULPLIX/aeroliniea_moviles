@@ -116,22 +116,26 @@ function listarVuelos() {
     });
 }
 function insertarVuelo() {
-    var ruta = crearVuelo();
-    $.ajax({
-        url: "/aerolinea/api/vuelos/insertar",
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify(ruta),
-        success: function (listadoVuelos) {
-            recargarTabla(listadoVuelos);
-            mostrarMensaje("success", "Vuelo agregado correctamente");
-        },
-        statusCode: {
-            404: function () {
-                alert("Hubo un error");
+    if (verificaCampoVacio($("#fecha").val())&& verificaCampoVacio($("#rutaId").val()) && verificaCampoVacio($("#modalidad").val()) && verificaCampoVacio($("#avionId").val()) && verificaCampoNum($("#duracion").val())) {
+        var ruta = crearVuelo();
+        $.ajax({
+            url: "/aerolinea/api/vuelos/insertar",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(ruta),
+            success: function (listadoVuelos) {
+                recargarTabla(listadoVuelos);
+                mostrarMensaje("success", "Vuelo agregado correctamente");
+            },
+            statusCode: {
+                404: function () {
+                    alert("Hubo un error");
+                }
             }
-        }
-    });
+        });
+    } else {
+        mostrarMensaje("error", "Datos incorrectos");
+    }
 }
 
 function actualizarVuelo() {
@@ -175,10 +179,10 @@ function recargarTabla(listadoVuelos) {
     $("#tabla-vuelos").html("");
     var tabla = $("#tabla-vuelos");
     listadoVuelos.forEach(vuelo => {
-        var modAux = vuelo.modalidad ;
-        if(vuelo.modalidad === 1){
+        var modAux = vuelo.modalidad;
+        if (vuelo.modalidad === 1) {
             modAux = "Solo ida";
-        }else{
+        } else {
             modAux = "Ida y retorno";
         }
         var row = $('<tr></tr>');

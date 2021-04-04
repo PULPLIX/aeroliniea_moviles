@@ -111,22 +111,27 @@ function listarRutas() {
     });
 }
 function insertarRuta() {
-    var ruta = crearRuta();
-    $.ajax({
-        url: "/aerolinea/api/rutas/insertar",
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify(ruta),
-        success: function (listadoRutas) {
-            recargarTabla(listadoRutas);
-            mostrarMensaje("success", "Ruta agregado correctamente");
-        },
-        statusCode: {
-            404: function () {
-                alert("Hubo un error");
+
+    if (verificaCampoVacio($("#ciudadOrigen").val())&& verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val()) && verificaCampoNum($("#precio").val())) {
+        var ruta = crearRuta();
+        $.ajax({
+            url: "/aerolinea/api/rutas/insertar",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(ruta),
+            success: function (listadoRutas) {
+                recargarTabla(listadoRutas);
+                mostrarMensaje("success", "Ruta agregado correctamente");
+            },
+            statusCode: {
+                404: function () {
+                    alert("Hubo un error");
+                }
             }
-        }
-    });
+        });
+    } else {
+        mostrarMensaje("error", "Datos incorrectos");
+    }
 }
 
 function actualizarRuta() {
@@ -200,6 +205,7 @@ function crearRuta() {
     var horarioObj = {
         id: $("#horarioId").val()
     };
+
     var ruta = {
         precio: $("#precio").val(),
         porcentajeDescuento: $("#descuento").val(),

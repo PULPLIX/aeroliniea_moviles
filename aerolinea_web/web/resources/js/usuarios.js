@@ -4,6 +4,41 @@
  * and open the template in the editor.
  */
 
+
+function insertarUsuario() {
+    if (verificaCampoNum($("#id").val()) && verificaCampoNum($("#telefonoTrabajo").val()) && verificaCampoNum($("#celular").val())) {
+        var usuario = {
+            id: $("#id").val(),
+            contrasena: $("#contrasena").val(),
+            nombre: $("#nombre").val(),
+            apellidos: $("#apellido").val(),
+            correo: $("#correo").val(),
+            fechaNacimiento: $("#fecha_nacimiento").val(),
+            direccion: $("#direccion").val(),
+            telefonoTrabajo: $("#telefonoTrabajo").val(),
+            celular: $("#celular").val(),
+            rol: 0
+        };
+        $.ajax({
+            url: "/aerolinea/api/usuario/insertar",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(usuario),
+            success: function (agregado) {
+                window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
+            },
+            statusCode: {
+                404: function () {
+                    alert("Hubo un error");
+                }
+            }
+        });
+    } else {
+        mostrarMensaje("error", "Datos incorrectos");
+    }
+}
+
+
 function getUsuario() {
     $.ajax({
         url: "/aerolinea/api/usuario/get" + id,
@@ -24,37 +59,7 @@ function recargarUsuario(usuarioActual) {
     return usuarioActual.getId();
 }
 
-function insertarUsuario() {
 
-    var usuario = {
-        id: $("#id").val(),
-        contrasena: $("#contrasena").val(),
-        nombre: $("#nombre").val(),
-        apellidos: $("#apellido").val(),
-        correo: $("#correo").val(),
-        fechaNacimiento: $("#fecha_nacimiento").val(),
-        direccion: $("#direccion").val(),
-        telefonoTrabajo: $("#telefonoTrabajo").val(),
-        celular: $("#celular").val(),
-        rol: 0
-    };
-    $.ajax({
-        url: "/aerolinea/api/usuario/insertar",
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify(usuario),
-        success: function (agregado) {
-            console.log(agregado);
-            mostrarMensaje("success", "Usuario agregado correctamente");
-            window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
-        },
-        statusCode: {
-            404: function () {
-                alert("Hubo un error");
-            }
-        }
-    });
-}
 
 function showPerfil() {
     if (sessionStorage.getItem('usuario') !== null) {
@@ -102,34 +107,39 @@ function actualizarUsuario() {
 }
 
 function login() {
-    var usuario = {
-        id: $("#id").val(),
-        contrasena: $("#contrasena").val()
-    };
-    $.ajax({
-        url: "/aerolinea/api/usuario/login",
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify(usuario),
-        success: function (usuarioRest) {
-            mostrarMensaje("success", "Logeado correctamente");
-            console.log(usuarioRest);
-            sessionStorage.setItem("usuario", JSON.stringify(usuarioRest));
-            if (usuarioRest.rol === 1) {
-                window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
-            } else {
-                window.location.href = "/aerolinea/views/index.jsp";
-            }
-        },
-        statusCode: {
-            404: function () {
-                mostrarMensaje("error", "Ocurrió un error al agregar");
+
+    if (verificaCampoNum($("#idLogin").val())) {
+        var usuario = {
+            id: $("#idLogin").val(),
+            contrasena: $("#contrasena").val()
+        };
+        $.ajax({
+            url: "/aerolinea/api/usuario/login",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(usuario),
+            success: function (usuarioRest) {
+                mostrarMensaje("success", "Logeado correctamente");
+                console.log(usuarioRest);
+                sessionStorage.setItem("usuario", JSON.stringify(usuarioRest));
+                if (usuarioRest.rol === 1) {
+                    window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
+                } else {
+                    window.location.href = "/aerolinea/views/index.jsp";
+                }
             },
-            500: function () {
-                mostrarMensaje("error", "Ocurrió un error en el servidor");
+            statusCode: {
+                404: function () {
+                    mostrarMensaje("error", "Ocurrió un error al agregar");
+                },
+                500: function () {
+                    mostrarMensaje("error", "Ocurrió un error en el servidor");
+                }
             }
-        }
-    });
+        });
+    } else {
+        mostrarMensaje("error", "Datos incorrectos");
+    }
 }
 
 showPerfil();

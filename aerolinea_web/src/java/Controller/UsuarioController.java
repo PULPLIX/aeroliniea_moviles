@@ -54,12 +54,12 @@ public class UsuarioController {
     @Path("/insertar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean insertar(String id) throws GeneralException, Exception {
+    public String insertar(String id) throws GeneralException, Exception {
         Gson gson = new Gson();
         Usuario usuario = gson.fromJson(id, Usuario.class);
         ModelUsuario mUsuario = ModelUsuario.getInstance();
         mUsuario.agrergar(usuario);
-        return true;
+        return gson.toJson(usuario);
     }
 
     @PUT

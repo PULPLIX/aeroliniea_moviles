@@ -20,7 +20,7 @@ function registrar() {
         anio: $("#anio").val(),
         marca: $("#marca").val(),
         asientosFila: $("#asientosFila").val(),
-        cantidadFilas: $("#asientosColumna").val()
+        cantidadFilas: $("#cantidadFilas").val()
     };
 
     $.ajax({
@@ -44,7 +44,7 @@ function registrar() {
 
 function getAvion(id) {
     $.ajax({
-        url: "/aerolinea/api/aviones/get/"+id,
+        url: "/aerolinea/api/aviones/get/" + id,
         type: "GET",
         success: function (usuario) {
             console.log(usuario);
@@ -93,10 +93,10 @@ function recargarTabla(listadoAviones) {
         $('<td></td>').html(avion.asientosFila).appendTo(row);
         $('<td></td>').html(avion.cantidadFilas).appendTo(row);
         var btn = "<button class='btn btn-warning btn-sm mx-2' data-bs-toggle='modal'" +
-            "data-bs-target='#staticBackdrop' onclick='getAvion(" + avion.id + ")'" + "><i class='fas fa-pencil-alt'></i>" +
-            "Editar</button>" +
-            "<button class='btn btn-danger btn-sm' onclick='eliminarAvion(" + avion.id + ")'>" + "<i class='fas fa-times'></i>" +
-            "Eliminar</button>";
+                "data-bs-target='#staticBackdrop' onclick='getAvion(" + avion.id + ")'" + "><i class='fas fa-pencil-alt'></i>" +
+                "Editar</button>" +
+                "<button class='btn btn-danger btn-sm' onclick='eliminarAvion(" + avion.id + ")'>" + "<i class='fas fa-times'></i>" +
+                "Eliminar</button>";
         $('<td></td>').html(btn).appendTo(row);
         row.appendTo(tabla);
         console.log(row);
@@ -119,59 +119,67 @@ function listarAviones() {
 }
 
 function insertarAvion() {
-    var avion = {
-        id: 0,
-        tipo: $("#tipo").val(),
-        capacidad: $("#capacidad").val(),
-        anio: $("#anio").val(),
-        marca: $("#marca").val(),
-        asientosFila: $("#asientosFila").val(),
-        cantidadFilas: $("#cantidadFilas").val()
-    };
-    $.ajax({
-        url: "/aerolinea/api/aviones/insertar",
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify(avion),
-        success: function (listadoAviones) {
-            recargarTabla(listadoAviones);
-            mostrarMensaje("success", "Avion agregado correctamente");
-        },
-        statusCode: {
-            404: function () {
-                alert("Hubo un error");
+    if (verificaCampoNum($("#capacidad").val()) && verificaCampoNum($("#anio").val()) && verificaCampoNum($("#asientosFila").val()) && verificaCampoNum($("#cantidadFilas").val())) {
+        var avion = {
+            id: 0,
+            tipo: $("#tipo").val(),
+            capacidad: $("#capacidad").val(),
+            anio: $("#anio").val(),
+            marca: $("#marca").val(),
+            asientosFila: $("#asientosFila").val(),
+            cantidadFilas: $("#cantidadFilas").val()
+        };
+        $.ajax({
+            url: "/aerolinea/api/aviones/insertar",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(avion),
+            success: function (listadoAviones) {
+                recargarTabla(listadoAviones);
+                mostrarMensaje("success", "Avion agregado correctamente");
+            },
+            statusCode: {
+                404: function () {
+                    alert("Hubo un error");
+                }
             }
-        }
-    });
+        });
+    } else {
+        mostrarMensaje("error", "Inserte datos correctamente");
+    }
 }
 
 function actualizarAvion() {
-    var avion = {
-        id: $("#id-modal").text(),
-        tipo: $("#tipo-modal").val(),
-        capacidad: $("#capacidad-modal").val(),
-        anio: $("#anio-modal").val(),
-        marca: $("#marca-modal").val(),
-        asientosFila: $("#asientosFila-modal").val(),
-        cantidadFilas: $("#cantidadFilas-modal").val(),
-    };
+    if (verificaCampoNum($("#capacidad-modal").val()) && verificaCampoNum($("#anio-modal").val()) && verificaCampoNum($("#asientosFila-modal").val()) && verificaCampoNum($("#cantidadFilas-modal").val())) {
+        var avion = {
+            id: $("#id-modal").text(),
+            tipo: $("#tipo-modal").val(),
+            capacidad: $("#capacidad-modal").val(),
+            anio: $("#anio-modal").val(),
+            marca: $("#marca-modal").val(),
+            asientosFila: $("#asientosFila-modal").val(),
+            cantidadFilas: $("#cantidadFilas-modal").val(),
+        };
 
-    $.ajax({
-        url: "/aerolinea/api/aviones/actualizar",
-        type: "put",
-        contentType: "application/json",
-        data: JSON.stringify(avion),
-        success: function (listadoAviones) {
-            recargarTabla(listadoAviones);
-            mostrarMensaje("success", "Actualizado correctamente");
-            $("#cerrar-modal").trigger("click");
-        },
-        statusCode: {
-            404: function () {
-                mostrarMensaje("error", "Ocurrió un error al agregar");
+        $.ajax({
+            url: "/aerolinea/api/aviones/actualizar",
+            type: "put",
+            contentType: "application/json",
+            data: JSON.stringify(avion),
+            success: function (listadoAviones) {
+                recargarTabla(listadoAviones);
+                mostrarMensaje("success", "Actualizado correctamente");
+                $("#cerrar-modal").trigger("click");
+            },
+            statusCode: {
+                404: function () {
+                    mostrarMensaje("error", "Ocurrió un error al agregar");
+                }
             }
-        }
-    });
+        });
+    } else {
+        mostrarMensaje("error", "Inserte datos correctamente");
+    }
 }
 
 listarAviones();

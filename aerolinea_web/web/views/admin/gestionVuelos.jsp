@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="input-group mb-3 d-flex ">
                                     <span class="input-group-text" id="basic-addon1">Fecha: </span>
-                                    <input type="date" class="form-control datetime-local" id="fecha" name="fecha" value="">
+                                    <input type="date" class="form-control datetime-local" id="fecha" name="fecha" value="" required>
                                     <span class="input-group-text" id="basic-addon1">Avión: </span>
                                     <select class="form-select" id="avionId"  class="form-control">
                                         <option value="">Seleccione</option>

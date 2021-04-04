@@ -314,7 +314,55 @@ show error
 -- ****************************** PROCEDIMIENTOS DE vuelos ********************************
 ------------------------------------------------------------------------------------------
 
+create or replace function FILTRAR_VUELO(ArgOrigen in VARCHAR2, ArgDestino in VARCHAR2, ArgFechaI in VARCHAR2, ArgFechaF in VARCHAR2)
+return TYPES.ref_cursor
+as
+vuelo_cursor TYPES.ref_cursor;
+begin
+	open vuelo_cursor for
+                select v.id id_vuelo, v.modalidad, v.duracion, v.fecha, r.id id_ruta, r.precio, r.porcentaje_descuento, 
+                c.id id_origen, c.nombre nombre_origen, c2.id id_destino, c2.nombre nombre_destino, h.id id_horario, h.dia_semana, h.hora_llegada,
+                a.id id_avion, a.tipo, a.capacidad, a.anio, a.marca, a.asientos_fila, a.cantidad_filas
+                from vuelos v
+                    inner join rutas r on r.id = v.ruta_id
+                    inner join ciudad c on r.ciudad_origen = c.id
+                    inner join ciudad c2 on r.ciudad_destino = c2.id
+                    inner join horarios h on r.horario_id = h.id
+                    inner join aviones a on a.id = v.avion_id
+                    where c.id = ArgOrigen
+                    and c2.id = ArgDestino
+                    and v.fecha between TO_DATE(ArgFechaI) and TO_DATE(ArgFechaF);
+	return vuelo_cursor;
+end FILTRAR_VUELO;
+/
+show error
 ------------------------------------------------------------------------------------------
+
+create or replace function FILTRAR_VUELODESCUENTO(ArgOrigen in VARCHAR2, ArgDestino in VARCHAR2, ArgFechaI in VARCHAR2, ArgFechaF in VARCHAR2)
+return TYPES.ref_cursor
+as
+vuelo_cursor TYPES.ref_cursor;
+begin
+	open vuelo_cursor for
+                select v.id id_vuelo, v.modalidad, v.duracion, v.fecha, r.id id_ruta, r.precio, r.porcentaje_descuento, 
+                c.id id_origen, c.nombre nombre_origen, c2.id id_destino, c2.nombre nombre_destino, h.id id_horario, h.dia_semana, h.hora_llegada,
+                a.id id_avion, a.tipo, a.capacidad, a.anio, a.marca, a.asientos_fila, a.cantidad_filas
+                from vuelos v
+                    inner join rutas r on r.id = v.ruta_id
+                    inner join ciudad c on r.ciudad_origen = c.id
+                    inner join ciudad c2 on r.ciudad_destino = c2.id
+                    inner join horarios h on r.horario_id = h.id
+                    inner join aviones a on a.id = v.avion_id
+                    where c.id = ArgOrigen
+                    and c2.id = ArgDestino
+                    and r.porcentaje_descuento > 0
+                    and v.fecha between TO_DATE(ArgFechaI) and TO_DATE(ArgFechaF);
+	return vuelo_cursor;
+end FILTRAR_VUELODESCUENTO;
+/
+show error
+------------------------------------------------------------------------------------------
+
 create or replace function LISTAR_VUELOS
 return TYPES.ref_cursor
 as
@@ -754,4 +802,8 @@ exec INSERCION_CIUDAD('PanamaCity - Panama');
 
 -- select LISTAR_HISTORIAL('1') from dual;
 
--- version 0.3
+select FILTRAR_VUELO('72','1','21/04/21','25/04/21') from dual;
+
+select FILTRAR_VUELODESCUENTO('72','1','21/04/21','25/04/21') from dual;
+
+-- version 0.4

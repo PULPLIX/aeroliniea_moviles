@@ -4,6 +4,22 @@
  * and open the template in the editor.
  */
 
+function verificaCampoVacio(valor) {
+    if (valor !== "") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function verificaCampoNum(valor) {
+    var reg = new RegExp('^[0-9]+$');
+    if (reg.test(valor)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function llenarModal(objeto) {
 

@@ -20,6 +20,10 @@
                              style="max-width: 100%;">
                     </div>
                 </div>
+                <div class="mensaje-container" id="mensaje-info" style="display:none;  ">
+                    <div class="col-3 icono-mensaje d-flex align-items-center" id="icono-mensaje" ></div>
+                    <div class="col-9 texto-mensaje d-flex align-items-center text-center mx-2" id="texto-mensaje" style="color: #046704e8; ">Participante agregado correctamente</div>
+                </div>
                 <div class="col-sm-12 col-md-3 float-sm-none d-flex justify-content-center align-items-center ">
                     <div>
                         <div class="d-flex justify-content-center my-3 ">
@@ -27,7 +31,7 @@
                                  style="max-width: 50%;">
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" name="id" id="id" class="form-control"
+                            <input type="text" name="id" id="idLogin" class="form-control"
                                    aria-label="Sizing example input"
                                    aria-describedby="inputGroup-sizing-default" value="12">
                             <span class="input-group-text" id="inputGroup-sizing-default"><i
