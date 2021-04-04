@@ -84,8 +84,9 @@ public class UsuarioController {
         Gson gson = new Gson();
         Usuario usuarioRest = gson.fromJson(id, Usuario.class);
         ModelUsuario mUsuario = ModelUsuario.getInstance();
-        usuarioRest = mUsuario.getUsuario(usuarioRest.getId());
-        if(!mUsuario.validarUsuario(usuarioRest.getId(), usuarioRest.getContrasena())) {
+        if(mUsuario.validarUsuario(usuarioRest.getId(), usuarioRest.getContrasena())) {
+            usuarioRest = mUsuario.getUsuario(usuarioRest.getId());
+        }else{
             throw new Exception("Usuario no encontrado");
         }
         return usuarioRest;

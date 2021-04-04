@@ -13,9 +13,6 @@ meses.set("nov", "nov");
 meses.set("dic", "dec");
 
 
-
-
-
 var elements = document.getElementsByClassName('list-group-item-action active');
 while (elements.length > 0) {
     elements[0].classList.remove('active');
@@ -239,6 +236,90 @@ function crearVueloModal() {
     return vuelo;
 }
 
+function buscarVuelos() {
+    var modalidad = $('input[name="modalidad"]:checked').val();
+    var idOrigen = $("#origen").val();
+    var idDestino = $("#destino").val();
+    var fechas = $("#fechas").val();
+    var fechaI = fechas.substr(0,10);
+    var fechaF = fechas.substr(-10);
+    console.log(fechaI);
+    console.log(fechaF);
+    $.ajax({
+        url: "/aerolinea/api/vuelos/buscar?Modalidad="+modalidad+"&idOrigen="+idOrigen+"&idDestino="+idDestino+"&fechaI="+fechaI+"&fechaF="+fechaF,
+        type: "get",
+        success: function (listadoVuelos) {
+            mostrarMensaje("success", "Busqueda satisfactoria");
+            recargarTablaVuelosBuscados(listadoVuelos);
+        },
+        statusCode: {
+            404: function () {
+                mostrarMensaje("error", "No se ha podido encontrar ningun vuelo");
+            }
+        }
+    });
+}
+
+function listarCiudades() {
+    $.ajax({
+        url: "/aerolinea/api/ciudades/listar",
+        type: "get",
+        success: function (listadoCiudades) {
+            llenarCiudadesBusqueda(listadoCiudades);
+        },
+        statusCode: {
+            404: function () {
+                alert("Hubo un error");
+            }
+        }
+    });
+}
+
+$('input[name="dates"]').daterangepicker();
+
+
+$(function () {
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'left'
+    }, function (start, end, label) {
+        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+});
+
+function llenarCiudadesBusqueda(listadoCiudades) {
+    listadoCiudades.forEach(ciudad => {
+        $("#origen").append("<option value='" + ciudad.id + "'>" + ciudad.nombre + "</option>");
+        $("#destino").append("<option value='" + ciudad.id + "'>" + ciudad.nombre + "</option>");
+    });
+}
+
+function recargarTablaVuelosBuscados(listadoVuelos) {
+    $("#tabla-vuelos-buscados").html("");
+    var tabla = $("#tabla-vuelos-buscados");
+    listadoVuelos.forEach(vuelo => {
+        var modAux = vuelo.modalidad;
+        if (vuelo.modalidad === 1) {
+            modAux = "Solo ida";
+        } else {
+            modAux = "Ida y retorno";
+        }
+        var row = $('<tr></tr>');
+        $('<td></td').html(vuelo.id).appendTo(row);
+        $('<td></td>').html(vuelo.fecha).appendTo(row);
+        $('<td></td>').html(modAux).appendTo(row);
+        $('<td></td>').html(vuelo.duracion).appendTo(row);
+        $('<td></td>').html(vuelo.rutaId.ciudadOrigen.nombre + " - " + vuelo.rutaId.ciudadDestino.nombre).appendTo(row);
+        $('<td></td>').html(vuelo.rutaId.horarioId.diaSemana + " - " + vuelo.rutaId.horarioId.horaLlegada).appendTo(row);
+        $('<td></td>').html(vuelo.avionId.tipo + " - " + vuelo.avionId.marca + "(" + vuelo.avionId.anio + ")").appendTo(row);
+        var btn1 = "<button class='btn btn-warning btn-sm mx-2' data-bs-toggle='modal' data-bs-target='#staticBackdrop'" +
+                "onclick='getVuelo(" + vuelo.id + ")'" + "><i class='fas fa-pencil-alt'></i> Comprar</button>";
+        var btn = btn1;
+        $('<td></td>').html(btn).appendTo(row);
+        row.appendTo(tabla);
+    });
+}
+
+listarCiudades();
 listarVuelos();
 listarAviones();
 listarRutas();

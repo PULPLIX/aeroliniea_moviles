@@ -25,6 +25,7 @@ public class ServicioVuelo extends Servicio {
     private static final String GET_VUELO = "{?=call GET_VUELO(?)}";
     private static final String LISTAR_VUELOS = "{?=call LISTAR_VUELOS()}";
     private static final String DELETE_VUELO = "{call DELETE_VUELO(?)}";
+    private static final String FILTRAR_VUELO = "{?=call FILTRAR_VUELO(?,?,?,?,?)}";
 
     private static ServicioVuelo serviceVuelo;
 
@@ -319,4 +320,92 @@ public class ServicioVuelo extends Servicio {
             }
         }
     }
+
+    public ArrayList filtrarVuelo(String Modalidad,String idOrigen, String idDestino, String fechaI, String fechaF) throws GeneralException, DbException {
+
+        try {
+            conectar();
+        } catch (ClassNotFoundException e) {
+            throw new GeneralException("No se pudo localizar el driver");
+        } catch (SQLException e) {
+            throw new DbException("No se puede establecer una conexion con la base de datos");
+        }
+
+        ResultSet rs = null;
+        Vuelo Vuelo = null;
+        ArrayList coleccion = new ArrayList();
+
+        CallableStatement toDo = null;
+
+        try {
+            toDo = conexion.prepareCall(FILTRAR_VUELO);
+            toDo.registerOutParameter(1, OracleTypes.CURSOR);
+            toDo.setString(2, Modalidad);
+            toDo.setString(3, idOrigen);
+            toDo.setString(4, idDestino);
+            toDo.setString(5, fechaI);
+            toDo.setString(6, fechaF);
+            toDo.execute();
+            rs = (ResultSet) toDo.getObject(1);
+
+            while (rs.next()) {
+                //Obtención de los datos de ciudad origen
+                Ciudad ciudadOrigen = new Ciudad();
+                ciudadOrigen.setId(rs.getInt("id_origen"));
+                ciudadOrigen.setNombre(rs.getString("nombre_origen"));
+
+                //Obtención de los datos de ciudad destino
+                Ciudad ciudadDestino = new Ciudad();
+                ciudadDestino.setId(rs.getInt("id_destino"));
+                ciudadDestino.setNombre(rs.getString("nombre_destino"));
+
+                //Obtención de los datos del horario
+                Horario horario = new Horario();
+                horario.setId(rs.getInt("id_horario"));
+                horario.setDiaSemana(rs.getString("dia_semana"));
+                horario.setHoraLlegada(rs.getInt("hora_llegada"));
+
+                //Creación de la ruta 
+                Ruta ruta = new Ruta(rs.getInt("id_ruta"), rs.getDouble("precio"),
+                        rs.getDouble("porcentaje_descuento"), ciudadOrigen,
+                        ciudadDestino, horario
+                );
+
+                Avion avion = new Avion(rs.getInt("id_avion"), rs.getString("tipo"),
+                        rs.getInt("capacidad"), rs.getInt("anio"),
+                        rs.getString("marca"), rs.getInt("asientos_fila"),
+                        rs.getInt("cantidad_filas"));
+
+                Vuelo = new Vuelo(rs.getInt("id_vuelo"), rs.getInt("modalidad"),
+                        rs.getInt("duracion"), rs.getDate("fecha"),
+                        avion, ruta);
+                coleccion.add(Vuelo);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            throw new GeneralException("Sentencia no valida");
+
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (toDo != null) {
+                    toDo.close();
+                }
+                desconectar();
+            } catch (SQLException e) {
+                throw new GeneralException("Datos invalidos o nulos");
+            }
+        }
+
+        if (Vuelo == null) {
+            throw new DbException("El curso no existe");
+        }
+        
+        return coleccion;
+    }
+
 }
