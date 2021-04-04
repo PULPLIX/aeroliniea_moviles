@@ -17,6 +17,7 @@ function mostrarDescuento(checkBox) {
         $("#descuento-field").hide();
     }
 }
+
 function mostrarDescuentoModal(checkBox) {
     if (checkBox.checked == true) {
         $("#descuento-field-modal").show();
@@ -208,6 +209,7 @@ function crearRuta() {
     };
     return ruta;
 }
+
 function crearRutaModal() {
     var ciudadOrigenObj = {
         id: $("#ciudadOrigen-modal").val()

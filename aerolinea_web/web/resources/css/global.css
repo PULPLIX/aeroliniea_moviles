@@ -161,7 +161,7 @@ tbody tr th, td {
 .banner-compra {
     background-color: #002172;
     background-image: url('/aerolinea/resources/images/backgrounds/beachVacation1.jpg');
-    background-size: cover;
+    background-size: contain;
     background-attachment: fixed;
     height: 26rem;
     display: flex;
@@ -179,6 +179,8 @@ tbody tr th, td {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px 0px 4px 1px black;
+
 }
 
 .banner-compra .card .card-body {
@@ -213,6 +215,7 @@ tbody tr th, td {
 }
 
 .banner-compra .titulo-compra {
+    text-shadow: 3px -1px 4px black;
     position: relative;
     left: 12rem;
     bottom: 7.5rem;

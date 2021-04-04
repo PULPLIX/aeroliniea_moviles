@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Controller;
-
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
@@ -33,6 +32,7 @@ public class ApplicationConfig extends Application {
         resources.add(Controller.CiudadesController.class);
         resources.add(Controller.HorariosController.class);
         resources.add(Controller.RutasController.class);
+        resources.add(Controller.TiquetesResource.class);
         resources.add(Controller.UsuarioController.class);
         resources.add(Controller.VuelosController.class);
     }
