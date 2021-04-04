@@ -20,6 +20,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import logic.Vuelo;
 
@@ -51,6 +52,17 @@ public class VuelosController {
         return gson.toJson(vuelos);
     }
 
+    @GET
+    @Path("/buscar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON})
+    public String filtrarVuelo(@QueryParam("Modalidad") String Modalidad,@QueryParam("idOrigen") String idOrigen,@QueryParam("idDestino") String idDestino,@QueryParam("fechaI") String fechaI,@QueryParam("fechaF") String fechaF) throws GeneralException, DbException, Exception {
+        Gson gson = new Gson();
+        ModelVuelo mVuelo = ModelVuelo.getInstance();
+        ArrayList<Vuelo> vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVuelo(Modalidad,idOrigen,idDestino,fechaI,fechaF);
+        return gson.toJson(vuelos);
+    }
+    
     @GET
     @Path("/get/{id}")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -50,4 +50,8 @@ public class ModelVuelo {
     public void eliminar(int id) throws Exception {
         vueloDao.deleteVuelo(id);
     }
+    
+    public Collection filtrarVuelo(String Modalidad,String idOrigen, String idDestino, String fechaI, String fechaF) throws Exception {
+        return vueloDao.filtrarVuelo(Modalidad,idOrigen,idDestino,fechaI,fechaF);
+    }
 }

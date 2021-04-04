@@ -173,7 +173,6 @@ function eliminarRuta(id) {
     });
 }
 function recargarTabla(listadoRutas) {
-//.attr({class: ["class1", "class2", "class3"].join(' ')})
     $("#tabla-rutas").html("");
     var tabla = $("#tabla-rutas");
     listadoRutas.forEach(ruta => {

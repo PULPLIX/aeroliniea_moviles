@@ -5,6 +5,12 @@
  */
 package Controller;
 
+import Exceptions.DbException;
+import Exceptions.GeneralException;
+import Models.ModelRuta;
+import Models.ModelTiquete;
+import com.google.gson.Gson;
+import java.util.ArrayList;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -12,7 +18,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import logic.Ruta;
+import logic.Vuelo;
 
 /**
  * REST Web Service
@@ -20,7 +29,7 @@ import javax.ws.rs.core.MediaType;
  * @author david
  */
 @Path("tiquetes")
-public class TiquetesResource {
+public class TiquetesController {
 
     @Context
     private UriInfo context;
@@ -28,11 +37,11 @@ public class TiquetesResource {
     /**
      * Creates a new instance of TiquetesResource
      */
-    public TiquetesResource() {
+    public TiquetesController() {
     }
-
+    
     /**
-     * Retrieves representation of an instance of Controller.TiquetesResource
+     * Retrieves representation of an instance of Controller.TiquetesController
      * @return an instance of java.lang.String
      */
     @GET
@@ -43,7 +52,7 @@ public class TiquetesResource {
     }
 
     /**
-     * PUT method for updating or creating an instance of TiquetesResource
+     * PUT method for updating or creating an instance of TiquetesController
      * @param content representation for the resource
      */
     @PUT
