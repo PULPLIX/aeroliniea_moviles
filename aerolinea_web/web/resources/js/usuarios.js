@@ -68,7 +68,10 @@ function showPerfil() {
         $("#nombrePerfil").val(usuario.nombre);
         $("#apellidosPerfil").val(usuario.apellidos);
         $("#correoPerfil").val(usuario.correo);
-        $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0, 10));
+        if (usuario.fechaNacimiento !== undefined) {
+            console.log(usuario.fechaNacimiento)
+            $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0, 10));
+        }
         $("#direccionPerfil").val(usuario.direccion);
         $("#telefonoTrabajoPerfil").val(usuario.telefonoTrabajo);
         $("#celularPerfil").val(usuario.celular);

@@ -33,7 +33,7 @@ public class ApplicationConfig extends Application {
         resources.add(Controller.HorariosController.class);
         resources.add(Controller.RutasController.class);
         resources.add(Controller.TiquetesController.class);
-        resources.add(Controller.UsuarioController.class)
+        resources.add(Controller.UsuarioController.class);
         resources.add(Controller.VuelosController.class);
     }
     

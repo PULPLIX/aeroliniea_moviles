@@ -23,6 +23,7 @@
             <jsp:invoke fragment="title" />
         </title>
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <jsp:invoke fragment="css" />
 
     </head>
@@ -113,12 +114,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@2.0.9/src/input-spinner-custom-editors.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@2.0.9/src/input-spinner.js"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-input-spinner@1.17.2/src/bootstrap-input-spinner.min.js"></script>
         <script>
             $("input[type='number']").inputSpinner();
         </script>
+        <script type="text/javascript"  src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
         <script src="/aerolinea/resources/js/menu.js" crossorigin="anonymous"></script>
         <script src="/aerolinea/resources/js/global.js" crossorigin="anonymous"></script>
         <jsp:invoke fragment="scripts" />

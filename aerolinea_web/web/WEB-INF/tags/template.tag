@@ -16,6 +16,8 @@
               crossorigin="anonymous">
         <link href="/aerolinea/resources/css/global.css" rel="stylesheet">
         <link id="favicon" rel="shortcut icon" href="/aerolinea/resources/images/logoSoloAzul.png" type="image/png"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
         <title>
             <jsp:invoke fragment="title" />
         </title>
@@ -170,6 +172,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
         <jsp:invoke fragment="scripts" />
 
     </body>

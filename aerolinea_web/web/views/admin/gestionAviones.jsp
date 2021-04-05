@@ -4,12 +4,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%
 
-    List<Avion> aviones = (List<Avion>) session.getAttribute("usuarioTem");
-    request.setAttribute("aviones", aviones);
-
-%>
 
 
 <t:admin>
@@ -20,9 +15,7 @@
     <jsp:attribute name="scripts">
         <script src="/aerolinea/resources/js/aviones.js"></script>
     </jsp:attribute>
-    <jsp:attribute name="user_id">
-        117380366
-    </jsp:attribute>
+
     <jsp:body>
         <div class="mensaje-container" id="mensaje-info" style="display:none;  ">
             <div class="col-3 icono-mensaje d-flex align-items-center" id="icono-mensaje" ></div>

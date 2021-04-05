@@ -5,10 +5,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%
-    Usuario usu = (Usuario) session.getAttribute("usuario");
 
-%>
 
 
 <t:admin>
@@ -17,9 +14,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-
         <script src="/aerolinea/resources/js/vuelos.js"></script>
-
     </jsp:attribute>
     <jsp:attribute name="user_id">
         ${usu.getId()}

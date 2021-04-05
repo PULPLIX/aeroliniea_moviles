@@ -73,8 +73,6 @@ function getVuelo(id) {
         url: "/aerolinea/api/vuelos/get/" + id,
         type: "GET",
         success: function (vuelo) {
-            console.log(meses.get(vuelo.fecha.substr("0", "3")) + vuelo.fecha.substr("3", vuelo.fecha.length));
-
             var aux = meses.get(vuelo.fecha.substr("0", "3")) + vuelo.fecha.substr("3", vuelo.fecha.length);
             var fecha = new Date(aux);
             var vueloModal = {
@@ -243,8 +241,6 @@ function buscarVuelos() {
     var fechas = $("#fechas").val();
     var fechaI = fechas.substr(0,10);
     var fechaF = fechas.substr(-10);
-    console.log(fechaI);
-    console.log(fechaF);
     $.ajax({
         url: "/aerolinea/api/vuelos/buscar?Modalidad="+modalidad+"&idOrigen="+idOrigen+"&idDestino="+idDestino+"&fechaI="+fechaI+"&fechaF="+fechaF,
         type: "get",
@@ -282,7 +278,6 @@ $(function () {
     $('input[name="daterange"]').daterangepicker({
         opens: 'left'
     }, function (start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
 });
 
@@ -294,29 +289,36 @@ function llenarCiudadesBusqueda(listadoCiudades) {
 }
 
 function recargarTablaVuelosBuscados(listadoVuelos) {
-    $("#tabla-vuelos-buscados").html("");
-    var tabla = $("#tabla-vuelos-buscados");
+    $("#resultado-busqueda").html("");
+    var tabla = $("#resultado-busqueda");
     listadoVuelos.forEach(vuelo => {
-        var modAux = vuelo.modalidad;
-        if (vuelo.modalidad === 1) {
-            modAux = "Solo ida";
-        } else {
-            modAux = "Ida y retorno";
-        }
-        var row = $('<tr></tr>');
-        $('<td></td').html(vuelo.id).appendTo(row);
-        $('<td></td>').html(vuelo.fecha).appendTo(row);
-        $('<td></td>').html(modAux).appendTo(row);
-        $('<td></td>').html(vuelo.duracion).appendTo(row);
-        $('<td></td>').html(vuelo.rutaId.ciudadOrigen.nombre + " - " + vuelo.rutaId.ciudadDestino.nombre).appendTo(row);
-        $('<td></td>').html(vuelo.rutaId.horarioId.diaSemana + " - " + vuelo.rutaId.horarioId.horaLlegada).appendTo(row);
-        $('<td></td>').html(vuelo.avionId.tipo + " - " + vuelo.avionId.marca + "(" + vuelo.avionId.anio + ")").appendTo(row);
-        var btn1 = "<button class='btn btn-warning btn-sm mx-2' data-bs-toggle='modal' data-bs-target='#staticBackdrop'" +
-                "onclick='getVuelo(" + vuelo.id + ")'" + "><i class='fas fa-pencil-alt'></i> Comprar</button>";
-        var btn = btn1;
-        $('<td></td>').html(btn).appendTo(row);
-        row.appendTo(tabla);
+        var row =  crearFila(vuelo);
+        console.log(row);
+        tabla.append(row);
     });
+}
+
+function crearFila(vuelo) {
+    var modalidad = ""
+    if (vuelo.modalidad == 1) { modalidad = 'Solo ida' }
+    else { modalidad = 'Ida y vuelta' }
+    var row = '<div class="row  tabla-vuelos"><div class="col-10 "><div class="card card-info"><div class="card-body"><div class="container-fluid">' +
+        '<div class="row"><div class="col-2"><img src="/aerolinea/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
+        '<div class="col-7 d-flex justify-content-between align-items-center"> <div class="texto-azul d-flex ">' + vuelo.rutaId.ciudadOrigen.nombre +
+        '<div class="separate-city"> </div>' + vuelo.rutaId.ciudadDestino.nombre + '</div></div><div class="col-3 d-flex justify-content-end text-celeste">' +
+        vuelo.fecha + ' - ' + modalidad + '</div> </div><div class="row pt-3 d-flex justify-content-end">' +
+        '<div class="col-6 d-flex justify-content-start align-items-center"><span class="horario-tabla">' + vuelo.rutaId.horarioId.diaSemana +
+        ' <i class="fas fa-long-arrow-alt-right"></i> ' + vuelo.rutaId.horarioId.horaLlegada + '</span><span class="duracion-tabla">' +
+        '<i class="fas fa-history "></i>&nbsp;' + vuelo.duracion + '</span></div>' +
+        '<div class="col-4 d-flex justify-content-end align-items-center text-muted avion-info">' +
+        '<span><i class="fas fa-plane text-celeste"></i></span><span><i class="fas fa-wifi"></i>' +
+        '</span><span><i class="fas fa-plug"></i></span><span><i class="fas fa-mug-hot"></i></span>' +
+        '<span><i class="fas fa-desktop"></i></span></div></div></div></div></div></div>' +
+        '<div class="col-2 p-0 "><div class="card w-100  d-flex justify-content-center align-items-center">' +
+        '<div class="card-body d-flex align-items-center flex-column "><div class="precio">$' + vuelo.rutaId.precio + '</div>' +
+        '<div class="precio-info">Precio por cada tiquete </div><div>' +
+        '<button class="btn btn-outline-celeste fw-bold">Ver asientos</button></div></div></div></div></div>';
+    return row;
 }
 
 listarCiudades();
