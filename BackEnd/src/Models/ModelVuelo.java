@@ -8,7 +8,9 @@ package Models;
 import DataAccess.ServicioVuelo;
 import Exceptions.DbException;
 import Exceptions.GeneralException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import logic.Vuelo;
 
 /**
@@ -50,8 +52,12 @@ public class ModelVuelo {
     public void eliminar(int id) throws Exception {
         vueloDao.deleteVuelo(id);
     }
-    
-    public Collection filtrarVuelo(String Modalidad,String idOrigen, String idDestino, String fechaI, String fechaF) throws Exception {
-        return vueloDao.filtrarVuelo(Modalidad,idOrigen,idDestino,fechaI,fechaF);
+
+    public Collection filtrarVuelo(String Modalidad, String idOrigen, String idDestino, String fechaI, String fechaF) throws Exception {
+        return vueloDao.filtrarVuelo(Modalidad, idOrigen, idDestino, fechaI, fechaF);
+    }
+
+    public HashMap<Integer, ArrayList<Integer>> getAsientosOcupados(int id_vuelo) throws Exception {
+        return vueloDao.getAsientosOcupados(id_vuelo);
     }
 }

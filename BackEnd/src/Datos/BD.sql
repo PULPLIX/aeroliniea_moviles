@@ -758,9 +758,37 @@ begin
 end HISTORIAL_TIQUETE;
 /
 show error
+
 ------------------------------------------------------------------------------------------
-
-
+--                          PROCEDIMIENTOS PARA ASIENTOS
+------------------------------------------------------------------------------------------
+create or replace function FILAS_OCUPADAS(ArgIdVuelo in VARCHAR2)
+return TYPES.ref_cursor
+as
+filas_cursor TYPES.ref_cursor;
+begin
+	open filas_cursor for
+        SELECT DISTINCT fila_asiento 
+        FROM tiquetes where vuelo_id = ArgIdVuelo;
+    return filas_cursor;
+end FILAS_OCUPADAS;
+/
+show error
+------------------------------------------------------------------------------------------
+create or replace function COLUMNASS_OCUPADAS_X_ASIENTO(ArgNumFila in VARCHAR2,ArgIdVuelo in VARCHAR2)
+return TYPES.ref_cursor
+as
+columnas_cursor TYPES.ref_cursor;
+begin
+	open columnas_cursor for
+         SELECT DISTINCT columna_asiento FROM Tiquetes --El distinct no hace falta, pero POR SI ACASO!
+         WHERE fila_asiento = ArgNumFila and 
+         vuelo_id = ArgIdVuelo;
+    return columnas_cursor;
+end COLUMNASS_OCUPADAS_X_ASIENTO;
+/
+show error
+------------------------------------------------------------------------------------------
 
 -- 0 admin / 1 user
 --execute INSERCION_USUARIO('12345678','admin','David','Cordero Aguilar','David@gmial.com',sysdate,'Heredia','8888888','78787878',0);

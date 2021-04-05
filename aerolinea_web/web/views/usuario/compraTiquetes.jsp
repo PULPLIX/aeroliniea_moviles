@@ -22,7 +22,7 @@
                     <div class="mensaje-container" id="mensaje-info" style="display:none;  ">
                         <div class="col-3 icono-mensaje d-flex align-items-center" id="icono-mensaje"></div>
                         <div class="col-9 texto-mensaje d-flex align-items-center text-center mx-2" id="texto-mensaje"
-                            style="color: #046704e8; ">Participante agregado correctamente</div>
+                            style="color: #046704e8; "></div>
                     </div>
                     <div class="banner-compra">
                         <div class="titulo-compra">
@@ -97,7 +97,7 @@
 
                     <div class="container" id="container-table">
                         <div class="row mt-5">
-                            <div class="col-12">
+                            <div class="col-12 " style="padding: 0px 0px 0px 1.5rem;" >
                                 <div class="card">
                                     <div class="card-body"
                                         style="font-size: 22px;margin-left: 1.5rem;font-weight: 500;">

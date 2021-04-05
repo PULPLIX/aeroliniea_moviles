@@ -50,12 +50,11 @@
                                 <a class="nav-link" href="/aerolinea/views/usuario/compraTiquetes.jsp">Comprar tiquetes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Vuelos disponibles</a>
+                                <a class="nav-link" href="/aerolinea/views/usuario/asientos.jsp">ASIENTOS*</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Acerca de nosotros</a>
                             </li>
-
                         </ul>
                     </div>
                     <div class="col-2">

@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import logic.Avion;
 import logic.Ciudad;
 import logic.Horario;
@@ -26,6 +27,8 @@ public class ServicioVuelo extends Servicio {
     private static final String LISTAR_VUELOS = "{?=call LISTAR_VUELOS()}";
     private static final String DELETE_VUELO = "{call DELETE_VUELO(?)}";
     private static final String FILTRAR_VUELO = "{?=call FILTRAR_VUELO(?,?,?,?,?)}";
+    private static final String FILAS_OCUPADAS = "{?=call FILAS_OCUPADAS(?)}";
+    private static final String COLUMNASS_OCUPADAS_X_ASIENTO = "{?=call COLUMNASS_OCUPADAS_X_ASIENTO(?,?)}";
 
     private static ServicioVuelo serviceVuelo;
 
@@ -321,7 +324,7 @@ public class ServicioVuelo extends Servicio {
         }
     }
 
-    public ArrayList filtrarVuelo(String Modalidad,String idOrigen, String idDestino, String fechaI, String fechaF) throws GeneralException, DbException {
+    public ArrayList filtrarVuelo(String Modalidad, String idOrigen, String idDestino, String fechaI, String fechaF) throws GeneralException, DbException {
 
         try {
             conectar();
@@ -404,8 +407,64 @@ public class ServicioVuelo extends Servicio {
         if (Vuelo == null) {
             throw new DbException("El curso no existe");
         }
-        
+
         return coleccion;
+    }
+
+    public HashMap<Integer, ArrayList<Integer>> getAsientosOcupados(int id_vuelo) throws GeneralException, DbException {
+        try {
+            conectar();
+        } catch (ClassNotFoundException e) {
+            throw new GeneralException("No se ha localizado el driver");
+        } catch (SQLException e) {
+            throw new DbException("No se puede establecer una conexion con la base de datos");
+        }
+
+        ResultSet rs = null;
+        Vuelo Vuelo = null;
+        HashMap<Integer, ArrayList<Integer>> filasOcupadas = new HashMap<>();
+
+        CallableStatement toDo = null;
+        try {
+            //Se prepara la cunsulta para saber cuales son las filas ocupadas
+            toDo = conexion.prepareCall(FILAS_OCUPADAS);
+            //Se setean los parámetros necesarios para la consulta
+            toDo.registerOutParameter(1, OracleTypes.CURSOR);//El cursor resultante de la consulta
+            toDo.setString(2, Integer.toString(id_vuelo));//El id del vuelo
+            toDo.execute();
+            //Se obtiene el resultado de la consulta
+            rs = (ResultSet) toDo.getObject(1);
+
+            while (rs.next()) {
+                filasOcupadas.put(rs.getInt("fila_asiento"), new ArrayList<Integer>());//Se agregan cada una de las filas ocupadas a un array
+            }
+            for (Integer i : filasOcupadas.keySet()) {
+                toDo = null;
+                toDo = conexion.prepareCall(COLUMNASS_OCUPADAS_X_ASIENTO);
+                toDo.registerOutParameter(1, OracleTypes.CURSOR);//El cursor resultante de la consulta
+                toDo.setString(2, Integer.toString(i));//La fila de la que se quiere saber los asientos que están ocupados
+                toDo.setString(3, Integer.toString(id_vuelo));//El id del vuelo
+                toDo.execute();
+                //Se obtiene el resultado de la consulta
+                rs = (ResultSet) toDo.getObject(1);
+                while (rs.next()) {
+                    int numCol = rs.getInt("columna_asiento");
+                    filasOcupadas.get(i).add(numCol);
+                }
+            }
+        } catch (SQLException e) {
+            throw new GeneralException("Sentencia no valida");
+        } finally {
+            try {
+                if (toDo != null) {
+                    toDo.close();
+                }
+                desconectar();
+                return filasOcupadas;
+            } catch (SQLException e) {
+                throw new GeneralException("Datos invalidos o nulos");
+            }
+        }
     }
 
 }

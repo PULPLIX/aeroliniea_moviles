@@ -6,6 +6,11 @@ import Exceptions.GeneralException;
 import DataAccess.ServicioAviones;
 import DataAccess.ServicioHorario;
 import DataAccess.ServicioUsuario;
+import Models.ModelVuelo;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import logic.Avion;
 import logic.Horario;
 import logic.Usuario;
@@ -16,6 +21,19 @@ public class BackEnd {
     public static void main(String[] args) throws GeneralException, DbException {
         System.out.println(" ##### ----> BACKEND EJECUTADO <---- #### ");
 
+        ModelVuelo mVuelo = ModelVuelo.getInstance();
+        try {
+            HashMap<Integer, ArrayList<Integer>> asientosOcu = mVuelo.getAsientosOcupados(1);
+            for (Integer i : asientosOcu.keySet()) {
+                System.out.println(i + "\n------| ");
+                for (int j = 0; j < asientosOcu.get(i).size(); j++) {
+                    System.out.println("      |->" + asientosOcu.get(i).get(j) );
+                }
+            }
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 //        System.out.println("=====================================================");
 //        System.out.println("==========================USUARIO===========================");
 //
@@ -39,14 +57,14 @@ public class BackEnd {
 //        for (Object avion : servAviones.listar_aviones()){
 //            System.out.println(avion.toString());
 //        }
-        //servAviones.deleteAvion(3);
+//servAviones.deleteAvion(3);
 //        System.out.println("=====================================================");
 //        System.out.println("==========================HORARIOS===========================");
- //       ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
-        //Horario horario = new Horario(12, "Lunes", 2);
-        //servHorario.insercionHorario(horario);
+//       ServicioHorario servHorario = ServicioHorario.getSingletonInstance();
+//Horario horario = new Horario(12, "Lunes", 2);
+//servHorario.insercionHorario(horario);
 //        System.out.println("GET: " + servHorario.getHorario(2).toString());
-        //     servHorario.deleteHorario(2);
+//     servHorario.deleteHorario(2);
 //        for (Object horar : servHorario.listar_horario()) {
 //            System.out.println(horar.toString());
 //        }

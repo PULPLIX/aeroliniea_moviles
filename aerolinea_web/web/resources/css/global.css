@@ -280,3 +280,37 @@ tbody tr th, td {
     padding: 1.1rem 0px 1.5rem 0px;
     margin-left: 1.5rem;
 }
+
+/*-----------------------------------------
+                ASIENTOS
+-----------------------------------------*/
+
+.asiento {
+    margin: 1rem;
+}
+
+.asiento.ocupado {
+    width: ;
+    color: #fff;
+    background-color: #e60a0a !important;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: not-allowed;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.asiento.active {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+}
