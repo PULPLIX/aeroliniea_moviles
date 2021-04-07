@@ -314,23 +314,24 @@ tbody tr th, td {
     background-color: #4caf50 !important;
     border-color: #4caf50 !important;
 }
-.bg-select{
+
+.bg-select {
     background-color: #4caf50 !important;
     border-color: #4caf50 !important;
     color: #fff !important;
-
 }
 
-.px-m{
+.px-m {
     margin-left: 1px !important;
     margin-right: 1px !important;
 }
 
-.px-d{
+.px-d {
     margin-left: 0.8rem !important;
     margin-right: 0.7rem !important;
 }
-.asientos-container{
+
+.asientos-container {
     padding: 14px;
     max-height: 600px;
     overflow-y: auto;
@@ -338,14 +339,15 @@ tbody tr th, td {
     box-shadow: 0px 0px 5px 1px #777;
 }
 
-.avion-ref{
+.avion-ref {
     background-image: url('/aerolinea/resources/images/utiles/aircraftIcon.png');
     background-size: contain;
     background-repeat: no-repeat;
     height: 200px;
     width: 10rem;
 }
-.btn-azul-avion{
+
+.btn-azul-avion {
     background-color: #0d6efd !important;
     border-color: #0d6efd;
     display: inline-block;
@@ -365,13 +367,13 @@ tbody tr th, td {
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.btn-azul-avion:hover{
+.btn-azul-avion:hover {
     background-color: #094fb7 !important;
     border-color: #094fb7;
     color: #fff;
 }
 
-.titulo-azul{
+.titulo-azul {
     background-color: #044c9c !important;
     color: #fff;
     font-size: 21px;
@@ -380,6 +382,34 @@ tbody tr th, td {
     padding-bottom: 1rem !important;
     border-bottom: 2px solid #e4e4e4 !important;
 }
-.texto-verde{
+
+.texto-verde {
     color: #4caf50 !important;
+}
+
+.container-image-modal {
+    padding: 2rem;
+}
+
+.container-image-modal .image-modal-avion {
+    width: auto;
+    height: 118px;
+    background-image: url('/aerolinea/resources/images/utiles/aircraft.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.container-image-modal .image-modal-user {
+    width: auto;
+    height: 118px;
+    background-image: url('/aerolinea/resources/images/utiles/userProfile.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card-compra {
+    padding: 8px 0px 8px 0px;
+    border: 1px dashed #c5c5c5;
+    box-shadow: 0px 0px 6px 1px #fff;
+    letter-spacing: 1px;
 }
