@@ -682,7 +682,7 @@ as
 tiquetes_cursor TYPES.ref_cursor;
 begin
   OPEN tiquetes_cursor for
-	SELECT * FROM Tiquetes;
+	SELECT id,usuario_id,vuelo_id,precio_final,fila_asiento,columna_asiento,forma_pago FROM Tiquetes;
   return tiquetes_cursor;
 end LISTAR_TIQUETES;
 /
