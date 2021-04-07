@@ -10,6 +10,7 @@ import Exceptions.GeneralException;
 import Models.ModelVuelo;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -56,13 +57,13 @@ public class VuelosController {
     @Path("/buscar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
-    public String filtrarVuelo(@QueryParam("Modalidad") String Modalidad,@QueryParam("idOrigen") String idOrigen,@QueryParam("idDestino") String idDestino,@QueryParam("fechaI") String fechaI,@QueryParam("fechaF") String fechaF) throws GeneralException, DbException, Exception {
+    public String filtrarVuelo(@QueryParam("Modalidad") String Modalidad, @QueryParam("idOrigen") String idOrigen, @QueryParam("idDestino") String idDestino, @QueryParam("fechaI") String fechaI, @QueryParam("fechaF") String fechaF) throws GeneralException, DbException, Exception {
         Gson gson = new Gson();
         ModelVuelo mVuelo = ModelVuelo.getInstance();
-        ArrayList<Vuelo> vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVuelo(Modalidad,idOrigen,idDestino,fechaI,fechaF);
+        ArrayList<Vuelo> vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVuelo(Modalidad, idOrigen, idDestino, fechaI, fechaF);
         return gson.toJson(vuelos);
     }
-    
+
     @GET
     @Path("/get/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -86,6 +87,20 @@ public class VuelosController {
         ArrayList<Vuelo> vuelos = (ArrayList<Vuelo>) mVuelo.listarVuelos();
         //Salida de la aplicacion
         return gson.toJson(vuelos);
+    }
+
+    @GET
+    @Path("/asientosOcupados/{id_vuelo}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAsieentosOcupados(@PathParam("id_vuelo") int id) throws GeneralException, DbException, Exception {
+        Gson gson = new Gson();
+        ModelVuelo mVuelo = ModelVuelo.getInstance();
+        HashMap<Integer, ArrayList<Integer>> asientosOcu = mVuelo.getAsientosOcupados(1);
+        String jsonHash = gson.toJson(asientosOcu);
+
+ 
+        return gson.toJson(jsonHash);
     }
 
     @POST
