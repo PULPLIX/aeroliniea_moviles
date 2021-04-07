@@ -23,7 +23,7 @@ public class ServicioTiquete extends Servicio {
     private static final String INSERCION_TIQUETE = "{call INSERCION_TIQUETE(?,?,?,?,?,?)}";
     private static final String UPDATE_TIQUETE = "{call UPDATE_TIQUETE(?,?,?,?,?,?,?)}";
     private static final String GET_TIQUETE = "{?=call GET_TIQUETE(?)}";
-    private static final String LISTAR_TIQUETE = "{?=call LISTAR_TIQUETE()}";
+    private static final String LISTAR_TIQUETE = "{?=call LISTAR_TIQUETES()}";
     private static final String DELETE_TIQUETE = "{call DELETE_TIQUETE(?)}";
     private static final String HISTORIAL_TIQUETES = "{?=call HISTORIAL_TIQUETE(?)}";
 
@@ -204,7 +204,7 @@ public class ServicioTiquete extends Servicio {
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
 
                 Tiquete = new Tiquete(rs.getInt("id"), usuarioTem, vueloTem,
-                        rs.getString("precio_final"), rs.getInt("fila_asisento"),
+                        rs.getString("precio_final"), rs.getInt("fila_asiento"),
                         rs.getInt("columna_asiento"), rs.getString("forma_pago"));
                 coleccion.add(Tiquete);
 
@@ -259,7 +259,7 @@ public class ServicioTiquete extends Servicio {
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
 
                 Tiquete = new Tiquete(rs.getInt("id"), usuarioTem, vueloTem,
-                        rs.getString("precio_final"), rs.getInt("fila_asisento"),
+                        rs.getString("precio_final"), rs.getInt("fila_asiento"),
                         rs.getInt("columna_asiento"), rs.getString("forma_pago"));
                 coleccion.add(Tiquete);
 

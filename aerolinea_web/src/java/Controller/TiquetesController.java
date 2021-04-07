@@ -21,6 +21,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import logic.Ruta;
+import logic.Tiquete;
 import logic.Vuelo;
 
 /**
@@ -39,6 +40,20 @@ public class TiquetesController {
      */
     public TiquetesController() {
     }
+    
+    
+    @GET
+    @Path("/listar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String listar() throws GeneralException, DbException {
+        Gson gson = new Gson();
+        ModelTiquete mTiquete = ModelTiquete.getInstance();
+        ArrayList<Tiquete> tiquetes = (ArrayList<Tiquete>) mTiquete.listarTiquete();
+        //Salida de la aplicacion
+        return gson.toJson(tiquetes);
+    }
+    
+    
     
     /**
      * Retrieves representation of an instance of Controller.TiquetesController

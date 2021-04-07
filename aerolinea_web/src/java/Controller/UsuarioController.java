@@ -7,6 +7,7 @@ package Controller;
 
 import Exceptions.DbException;
 import Exceptions.GeneralException;
+import Models.ModelTiquete;
 import Models.ModelUsuario;
 import com.google.gson.Gson;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import logic.Tiquete;
 import logic.Usuario;
 
 /**
@@ -90,6 +92,18 @@ public class UsuarioController {
             throw new Exception("Usuario no encontrado");
         }
         return usuarioRest;
+    }
+    
+    @GET
+    @Path("/tiquetesUsuario/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String tiquetesUsuario(@PathParam("id") String id) throws GeneralException, DbException {
+        Gson gson = new Gson();
+        ModelTiquete mTiquete = ModelTiquete.getInstance();
+        ArrayList<Tiquete> tiquetes = (ArrayList<Tiquete>) mTiquete.getHistorialTiquetes(id);
+        //Salida de la aplicacion
+        return gson.toJson(tiquetes);
     }
 
 }
