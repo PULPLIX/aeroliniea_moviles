@@ -49,7 +49,7 @@
                        id="item-rutas"><i class="fas fa-map-marked-alt"></i> &nbsp;Rutas</a>
                     <a href="/aerolinea/views/admin/gestionVuelos.jsp" class="list-group-item list-group-item-action "
                        id="item-vuelos"><i class="fas fa-plane-departure"></i> &nbsp;Vuelos</a>
-                    <a href="/aerolinea/views/admin/gestioTiquetes.jsp" class="list-group-item list-group-item-action "
+                    <a href="/aerolinea/views/admin/gestionTiquetes.jsp" class="list-group-item list-group-item-action "
                        id="item-tiquetes"><i class="fas fa-ticket-alt"></i> &nbsp;Tiquetes</a>
                 </div>
             </div>
@@ -89,9 +89,9 @@
                                             <a class="dropdown-item text-primary" href="/aerolinea/views/usuario/perfil.jsp"><i
                                                     class="fas fa-user"></i> &nbsp;Mi perfil</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-primary" href="#"> <i
+                                            <button class="dropdown-item text-primary" onclick="logout()" > <i
                                                     class="fas fa-sign-out-alt"></i> &nbsp;Log
-                                                out</a>
+                                                out</button>
                                         </ul>
                                     </div>
                                 </li>

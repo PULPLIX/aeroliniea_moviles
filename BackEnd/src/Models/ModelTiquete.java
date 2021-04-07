@@ -36,7 +36,11 @@ public class ModelTiquete {
     public Tiquete getTiquete(int id) throws GeneralException, DbException {
         return tiqueteDao.getTiquete(id);
     }
-
+    
+    public Collection getHistorialTiquetes(String id) throws GeneralException, DbException {
+        return tiqueteDao.getHistorialTiquetes(id);
+    }
+    
     public Collection listarTiquete() throws GeneralException, DbException {
         return tiqueteDao.listar_tiquete();
     }

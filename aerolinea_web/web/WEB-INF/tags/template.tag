@@ -2,6 +2,7 @@
 <%@attribute name="css" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
+<%@attribute name="user_id" fragment="true" %>
 
 
 <html lang="en">
@@ -43,7 +44,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="col-10">
+                    <div class="col-9">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link " aria-current="page"
@@ -58,15 +59,42 @@
                                    href="/aerolinea/views/usuario/asientos.jsp">ASIENTOS*</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="/aerolinea/views/usuario/misTiquetes.jsp" >Mis tiquetes</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="#">Acerca de nosotros</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-2">
+                    <div class="col-3" >
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/aerolinea/views/global/login.jsp"
-                                   tabindex="-1"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+                                <a class="nav-link" href="/aerolinea/views/global/login.jsp" id="iniciarSession"><i
+                                        class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="/aerolinea/views/usuario/registro.jsp" id="registrarse">Registrarse</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-1" id="loginTrue">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0 ">
+                            <li class="nav-item dropdown ">
+                                <div class="dropdown">
+                                    <span class=" nav-link dropdown-toggle" type="button"
+                                          id="idUsuarioSession" data-bs-toggle="dropdown"
+                                          aria-expanded="false">
+                                    </span>
+                                    <ul class="dropdown-menu dropdown-menu-end"
+                                        aria-labelledby="dropdownMenuButton1">
+                                        <a class="dropdown-item text-primary" href="/aerolinea/views/usuario/perfil.jsp"><i
+                                                class="fas fa-user"></i> &nbsp;Mi perfil</a>
+                                        <div class="dropdown-divider"></div>
+                                        <button class="dropdown-item text-primary" onclick="logout()" > <i
+                                                class="fas fa-sign-out-alt"></i> &nbsp;Log
+                                            out</button>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -177,12 +205,10 @@
                 integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
 
-        <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="/aerolinea/resources/js/global.js" crossorigin="anonymous"></script>
-
         <jsp:invoke fragment="scripts" />
 
     </body>

@@ -4,6 +4,55 @@
  * and open the template in the editor.
  */
 
+function include(file) {  
+  var script  = document.createElement('script');
+  script.src  = file;
+  script.type = 'text/javascript';
+  script.defer = true;  
+  document.getElementsByTagName('head').item(0).appendChild(script);
+}
+
+include('/aerolinea/resources/js/vuelos.js');
+
+(function (document) {
+    'use strict';
+
+    var LightTableFilter = (function (Arr) {
+
+        var _input;
+
+        function _onInputEvent(e) {
+            _input = e.target;
+            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+            Arr.forEach.call(tables, function (table) {
+                Arr.forEach.call(table.tBodies, function (tbody) {
+                    Arr.forEach.call(tbody.rows, _filter);
+                });
+            });
+        }
+
+        function _filter(row) {
+            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        }
+
+        return {
+            init: function () {
+                var inputs = document.getElementsByClassName('light-table-filter');
+                Arr.forEach.call(inputs, function (input) {
+                    input.oninput = _onInputEvent;
+                });
+            }
+        };
+    })(Array.prototype);
+
+    document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'complete') {
+            LightTableFilter.init();
+        }
+    });
+
+})(document);
 
 function insertarUsuario() {
     if (verificaCampoNum($("#id").val()) && verificaCampoNum($("#telefonoTrabajo").val()) && verificaCampoNum($("#celular").val())) {
@@ -69,7 +118,6 @@ function showPerfil() {
         $("#apellidosPerfil").val(usuario.apellidos);
         $("#correoPerfil").val(usuario.correo);
         if (usuario.fechaNacimiento !== undefined) {
-            console.log(usuario.fechaNacimiento)
             $("#fechaNacimientoPerfil").val(usuario.fechaNacimiento.substr(0, 10));
         }
         $("#direccionPerfil").val(usuario.direccion);
@@ -128,7 +176,7 @@ function login() {
                 if (usuarioRest.rol === 1) {
                     window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
                 } else {
-                    window.location.href = "/aerolinea/views/index.jsp";
+                    window.location.href = "/aerolinea/views/usuario/asientos.jsp";
                 }
             },
             statusCode: {
@@ -145,5 +193,51 @@ function login() {
     }
 }
 
-showPerfil();
+function getHistorialTiquetes() {
+    if (sessionStorage.getItem('usuario') !== null) {
+        var id = JSON.parse(sessionStorage.getItem('usuario')).id;
+        $.ajax({
+            url: "/aerolinea/api/usuario/tiquetesUsuario/" + id,
+            type: "get",
+            success: function (listadoHistorialTiquetes) {
+                recargarTablaMisTiquetes(listadoHistorialTiquetes);
+                console.log(listadoHistorialTiquetes)
+            },
+            statusCode: {
+                404: function () {
+                    alert("Hubo un error");
+                }
+            }
+        });
+    }
+}
 
+function recargarTablaMisTiquetes(listadoHistorialTiquetes) {
+    $("#tabla-historial").html("");
+    var tabla = $("#tabla-historial");
+    console.log(listadoHistorialTiquetes)
+    listadoHistorialTiquetes.forEach(tiquete => {
+        var row = $('<tr></tr>');
+        $('<td></td>').html(tiquete.vueloId.id).appendTo(row);
+        $('<td></td').html(tiquete.id).appendTo(row);
+        $('<td></td>').html(tiquete.usuarioId.id).appendTo(row);
+        $('<td></td>').html(tiquete.precioFinal).appendTo(row);
+        $('<td></td>').html(tiquete.filaAsisento).appendTo(row);
+        $('<td></td>').html(tiquete.columnaAsiento).appendTo(row);
+        $('<td></td>').html(tiquete.formaPago).appendTo(row);
+        var btn = "<button class='btn btn-warning btn-sm mx-2' data-bs-toggle='modal' data-bs-target='#staticBackdrop'" +
+                "onclick='getVuelo(" + tiquete.vueloId.id + ")'" + "><i class='fas fa-id-card'></i> Ver vuelo</button>";
+        $('<td></td>').html(btn).appendTo(row);
+        row.appendTo(tabla);
+    });
+}
+
+function checkLogin(){
+    var pathname = window.location.pathname;
+    if(pathname === "/aerolinea/views/usuario/misTiquetes.jsp" && sessionStorage.getItem('usuario') === null){
+        window.location.href = "/aerolinea/views/global/login.jsp";
+    }
+}
+checkLogin();
+showPerfil();
+getHistorialTiquetes();

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+
+
 function verificaCampoVacio(valor) {
     if (valor !== "") {
         return true;
@@ -69,4 +71,28 @@ function setUsuario(){
     }
 }
 
+function logout() {
+    sessionStorage.clear();
+    sessionStorage.removeItem("usuario");
+    window.location.href = "/aerolinea/views/index.jsp";
+}
+
+function islogin(){
+    if(sessionStorage.getItem('usuario') !== null){
+       if(JSON.parse(sessionStorage.getItem('usuario')).rol == 0){
+           $('#iniciarSession').hide();
+           $('#registrarse').hide();
+           $('#loginTrue').show();
+       }else{
+           $('#iniciarSession').show();
+           $('#registrarse').show();
+           $('#loginTrue').hide();
+       } 
+    }else{
+        $('#loginTrue').hide();
+    }
+}
+
+
+islogin();
 setUsuario();
