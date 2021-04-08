@@ -96,10 +96,8 @@ public class VuelosController {
     public String getAsieentosOcupados(@PathParam("id_vuelo") int id) throws GeneralException, DbException, Exception {
         Gson gson = new Gson();
         ModelVuelo mVuelo = ModelVuelo.getInstance();
-        HashMap<Integer, ArrayList<Integer>> asientosOcu = mVuelo.getAsientosOcupados(1);
+        HashMap<Integer, ArrayList<Integer>> asientosOcu = mVuelo.getAsientosOcupados(id);
         String jsonHash = gson.toJson(asientosOcu);
-
- 
         return gson.toJson(jsonHash);
     }
 

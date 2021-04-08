@@ -159,9 +159,7 @@ public class ServicioAviones extends Servicio {
             
         } catch (SQLException e) {
             e.printStackTrace();
-
             throw new GeneralException("Sentencia no valida");
-            
         } finally {
             try {
                 if (rs != null) {

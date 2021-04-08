@@ -111,7 +111,7 @@ function listarVuelos() {
     });
 }
 function insertarVuelo() {
-    if (verificaCampoVacio($("#fecha").val())&& verificaCampoVacio($("#rutaId").val()) && verificaCampoVacio($("#modalidad").val()) && verificaCampoVacio($("#avionId").val()) && verificaCampoNum($("#duracion").val())) {
+    if (verificaCampoVacio($("#fecha").val()) && verificaCampoVacio($("#rutaId").val()) && verificaCampoVacio($("#modalidad").val()) && verificaCampoVacio($("#avionId").val()) && verificaCampoNum($("#duracion").val())) {
         var ruta = crearVuelo();
         $.ajax({
             url: "/aerolinea/api/vuelos/insertar",
@@ -239,10 +239,10 @@ function buscarVuelos() {
     var idOrigen = $("#origen").val();
     var idDestino = $("#destino").val();
     var fechas = $("#fechas").val();
-    var fechaI = fechas.substr(0,10);
+    var fechaI = fechas.substr(0, 10);
     var fechaF = fechas.substr(-10);
     $.ajax({
-        url: "/aerolinea/api/vuelos/buscar?Modalidad="+modalidad+"&idOrigen="+idOrigen+"&idDestino="+idDestino+"&fechaI="+fechaI+"&fechaF="+fechaF,
+        url: "/aerolinea/api/vuelos/buscar?Modalidad=" + modalidad + "&idOrigen=" + idOrigen + "&idDestino=" + idDestino + "&fechaI=" + fechaI + "&fechaF=" + fechaF,
         type: "get",
         success: function (listadoVuelos) {
             mostrarMensaje("success", "Busqueda satisfactoria");
@@ -292,34 +292,54 @@ function recargarTablaVuelosBuscados(listadoVuelos) {
     $("#resultado-busqueda").html("");
     var tabla = $("#resultado-busqueda");
     listadoVuelos.forEach(vuelo => {
-        var row =  crearFila(vuelo);
+        var row = crearFila(vuelo);
         console.log(row);
         tabla.append(row);
     });
 }
+function getVueloSeleccionado(id) {
+    $.ajax({
+        url: "/aerolinea/api/vuelos/get/" + id,
+        type: "GET",
+        success: function (vuelo) {
+            sessionStorage.setItem("vueloSelected", JSON.stringify(vuelo));
+            window.location.href = "/aerolinea/views/usuario/compra.jsp";
+        },
+        statusCode: {
+            404: function () {
+                alert("Hubo un error");
+            }
+        }
+    });
 
+}
 function crearFila(vuelo) {
     var modalidad = ""
-    if (vuelo.modalidad == 1) { modalidad = 'Solo ida' }
-    else { modalidad = 'Ida y vuelta' }
+    if (vuelo.modalidad == 1) {
+        modalidad = 'Solo ida'
+    } else {
+        modalidad = 'Ida y vuelta'
+    }
     var row = '<div class="row  tabla-vuelos"><div class="col-10 "><div class="card card-info"><div class="card-body"><div class="container-fluid">' +
-        '<div class="row"><div class="col-2"><img src="/aerolinea/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
-        '<div class="col-7 d-flex justify-content-between align-items-center"> <div class="texto-azul d-flex ">' + vuelo.rutaId.ciudadOrigen.nombre +
-        '<div class="separate-city"> </div>' + vuelo.rutaId.ciudadDestino.nombre + '</div></div><div class="col-3 d-flex justify-content-end text-celeste">' +
-        vuelo.fecha + ' - ' + modalidad + '</div> </div><div class="row pt-3 d-flex justify-content-end">' +
-        '<div class="col-6 d-flex justify-content-start align-items-center"><span class="horario-tabla">' + vuelo.rutaId.horarioId.diaSemana +
-        ' <i class="fas fa-long-arrow-alt-right"></i> ' + vuelo.rutaId.horarioId.horaLlegada + '</span><span class="duracion-tabla">' +
-        '<i class="fas fa-history "></i>&nbsp;' + vuelo.duracion + '</span></div>' +
-        '<div class="col-4 d-flex justify-content-end align-items-center text-muted avion-info">' +
-        '<span><i class="fas fa-plane text-celeste"></i></span><span><i class="fas fa-wifi"></i>' +
-        '</span><span><i class="fas fa-plug"></i></span><span><i class="fas fa-mug-hot"></i></span>' +
-        '<span><i class="fas fa-desktop"></i></span></div></div></div></div></div></div>' +
-        '<div class="col-2 p-0 "><div class="card w-100  d-flex justify-content-center align-items-center">' +
-        '<div class="card-body d-flex align-items-center flex-column "><div class="precio">$' + vuelo.rutaId.precio + '</div>' +
-        '<div class="precio-info">Precio por cada tiquete </div><div>' +
-        '<button class="btn btn-outline-celeste fw-bold">Ver asientos</button></div></div></div></div></div>';
+            '<div class="row"><div class="col-2"><img src="/aerolinea/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
+            '<div class="col-7 d-flex justify-content-between align-items-center"> <div class="texto-azul d-flex ">' + vuelo.rutaId.ciudadOrigen.nombre +
+            '<div class="separate-city"> </div>' + vuelo.rutaId.ciudadDestino.nombre + '</div></div><div class="col-3 d-flex justify-content-end text-celeste">' +
+            vuelo.fecha + ' - ' + modalidad + '</div> </div><div class="row pt-3 d-flex justify-content-end">' +
+            '<div class="col-6 d-flex justify-content-start align-items-center"><span class="horario-tabla">' + vuelo.rutaId.horarioId.diaSemana +
+            ' <i class="fas fa-long-arrow-alt-right"></i> ' + vuelo.rutaId.horarioId.horaLlegada + '</span><span class="duracion-tabla">' +
+            '<i class="fas fa-history "></i>&nbsp;' + vuelo.duracion + '</span></div>' +
+            '<div class="col-4 d-flex justify-content-end align-items-center text-muted avion-info">' +
+            '<span><i class="fas fa-plane text-celeste"></i></span><span><i class="fas fa-wifi"></i>' +
+            '</span><span><i class="fas fa-plug"></i></span><span><i class="fas fa-mug-hot"></i></span>' +
+            '<span><i class="fas fa-desktop"></i></span></div></div></div></div></div></div>' +
+            '<div class="col-2 p-0 "><div class="card w-100  d-flex justify-content-center align-items-center">' +
+            '<div class="card-body d-flex align-items-center flex-column "><div class="precio">$' + vuelo.rutaId.precio + '</div>' +
+            '<div class="precio-info">Precio por cada tiquete </div><div>' +
+            '<button class="btn btn-outline-celeste fw-bold" onclick="getVueloSeleccionado(' + vuelo.id + ')">Ver asientos</button></div></div></div></div></div>';
     return row;
 }
+
+
 
 listarCiudades();
 listarVuelos();

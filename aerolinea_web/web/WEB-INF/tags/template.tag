@@ -29,6 +29,7 @@
 
     </head>
 
+    
     <body style="background-color: #f6f7f8;">
         <!-- BARRA DE MENÚ -->
         <nav class="navbar navbar-expand-lg navbar-light bg-gardiente">
@@ -54,10 +55,7 @@
                                 <a class="nav-link"
                                    href="/aerolinea/views/usuario/compraTiquetes.jsp">Comprar tiquetes</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   href="/aerolinea/views/usuario/asientos.jsp">ASIENTOS*</a>
-                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="/aerolinea/views/usuario/misTiquetes.jsp" >Mis tiquetes</a>
                             </li>
@@ -208,7 +206,7 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <script src="/aerolinea/resources/js/global.js" crossorigin="anonymous"></script>
+        <script src="/aerolinea/resources/js/global.js" ></script>
         <jsp:invoke fragment="scripts" />
 
     </body>

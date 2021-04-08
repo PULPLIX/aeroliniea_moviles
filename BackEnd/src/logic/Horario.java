@@ -18,8 +18,10 @@ public class Horario implements Serializable {
     private String diaSemana;
     private int horaLlegada;
 
-
     public Horario() {
+        this.id = -1;
+        this.diaSemana = "";
+        this.horaLlegada = 1;
     }
 
     public Horario(int id, String diaSemana, int horaLlegada) {

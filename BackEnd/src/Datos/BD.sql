@@ -701,15 +701,15 @@ end GET_TIQUETE;
 show error
 ------------------------------------------------------------------------------------------
 create or replace procedure INSERCION_TIQUETE(
-ArgUsuario in INT,
+ArgUsuario in VARCHAR2,
 ArgVuelo in INT,
-ArgPrecio in INT,
+ArgPrecio in VARCHAR2,
 ArgFila in INT,
 ArgColumna in INT,
 ArgFormaPago in VARCHAR2)
 as
 begin
-	insert into Tiquetes values (seq_tiquetes.nextval,ArgUsuario,ArgVuelo,ArgPrecio,ArgFila,ArgColumna,ArgFormaPago);
+	insert into Tiquetes values (seq_tiquetes.nextval,ArgUsuario,ArgVuelo,ArgPrecio,ArgColumna,ArgFila,ArgFormaPago);
 	commit;
 end INSERCION_TIQUETE;
 /

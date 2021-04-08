@@ -25,6 +25,7 @@ public class Ciudad implements Serializable {
         this.id = -1;
         this.nombre = "";
     }
+    
     public Ciudad(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;

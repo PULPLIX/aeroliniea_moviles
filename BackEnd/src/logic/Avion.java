@@ -11,7 +11,6 @@ import java.io.Serializable;
  *
  * @author david
  */
-
 public class Avion implements Serializable {
 
     private int id;
@@ -33,6 +32,13 @@ public class Avion implements Serializable {
     }
 
     public Avion() {
+        this.id = -1;
+        this.tipo = "";
+        this.capacidad = 0;
+        this.anio = 0;
+        this.marca = "";
+        this.asientosFila = 0;
+        this.cantidadFilas = 0;
     }
 
     public Avion(int id) {
@@ -99,5 +105,5 @@ public class Avion implements Serializable {
     public String toString() {
         return "Avion{" + "id=" + id + ", tipo=" + tipo + ", capacidad=" + capacidad + ", anio=" + anio + ", marca=" + marca + ", asientosFila=" + asientosFila + ", cantidadFilas=" + cantidadFilas + '}';
     }
-    
+
 }

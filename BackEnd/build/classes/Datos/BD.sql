@@ -701,9 +701,9 @@ end GET_TIQUETE;
 show error
 ------------------------------------------------------------------------------------------
 create or replace procedure INSERCION_TIQUETE(
-ArgUsuario in INT,
+ArgUsuario in VARCHAR2,
 ArgVuelo in INT,
-ArgPrecio in INT,
+ArgPrecio in VARCHAR2,
 ArgFila in INT,
 ArgColumna in INT,
 ArgFormaPago in VARCHAR2)

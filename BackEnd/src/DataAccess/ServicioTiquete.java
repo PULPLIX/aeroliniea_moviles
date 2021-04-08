@@ -63,11 +63,9 @@ public class ServicioTiquete extends Servicio {
 
             boolean resultado = toDo.execute();
             if (resultado == true) {
-                throw new DbException("No se realizo la insercion del curso");
+                throw new DbException("No se realizo la insercion del tiquete");
             }
 
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new DbException("El identificador de curso ya está en uso o el codigo de carrera no existe");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new GeneralException("Ha ocurrido un error, vuelva a intentar...");
@@ -323,6 +321,5 @@ public class ServicioTiquete extends Servicio {
             }
         }
     }
-
 
 }
