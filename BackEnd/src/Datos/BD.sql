@@ -382,7 +382,7 @@ end FILTRAR_VUELO;
 show error
 ------------------------------------------------------------------------------------------
 
-create or replace function FILTRAR_VUELODESCUENTO(ArgOrigen in VARCHAR2, ArgDestino in VARCHAR2, ArgFechaI in VARCHAR2, ArgFechaF in VARCHAR2)
+create or replace function FILTRAR_VUELODESCUENTO(ArgModalidad in VARCHAR2,ArgOrigen in VARCHAR2, ArgDestino in VARCHAR2, ArgFechaI in VARCHAR2, ArgFechaF in VARCHAR2)
 return TYPES.ref_cursor
 as
 vuelo_cursor TYPES.ref_cursor;
@@ -399,8 +399,9 @@ begin
                     inner join aviones a on a.id = v.avion_id
                     where c.id = ArgOrigen
                     and c2.id = ArgDestino
+                    and v.modalidad = ArgModalidad
                     and r.porcentaje_descuento > 0
-                    and v.fecha between TO_DATE(ArgFechaI) and TO_DATE(ArgFechaF);
+                    and v.fecha between TO_DATE(ArgFechaI, 'MM/DD/YYYY HH:MI:SS') and TO_DATE(ArgFechaF, 'MM/DD/YYYY HH:MI:SS');
 	return vuelo_cursor;
 end FILTRAR_VUELODESCUENTO;
 /
@@ -729,7 +730,7 @@ ArgColumna in INT,
 ArgFormaPago in VARCHAR2)
 as
 begin
-	update Tiquetes set usuario_id=ArgUsuario , vuelo_id=ArgVuelo,  precio_final=ArgPrecio, fila_asisento=ArgFila, columna_asiento=ArgColumna, forma_pago=ArgFormaPago where id = ArgId;
+	update Tiquetes set usuario_id=ArgUsuario , vuelo_id=ArgVuelo,  precio_final=ArgPrecio, fila_asiento=ArgFila, columna_asiento=ArgColumna, forma_pago=ArgFormaPago where id = ArgId;
 	commit;
 end UPDATE_TIQUETE;
 /
@@ -753,7 +754,7 @@ as
 tiquete_cursor TYPES.ref_cursor;
 begin
 	open tiquete_cursor for
-	select ID,USUARIO_ID,VUELO_ID,PRECIO_FINAL,FILA_ASISENTO,COLUMNA_ASIENTO,FORMA_PAGO from Tiquetes where USUARIO_ID = ArgUsuarioId;	
+	select ID,USUARIO_ID,VUELO_ID,PRECIO_FINAL,FILA_ASIENTO,COLUMNA_ASIENTO,FORMA_PAGO from Tiquetes where USUARIO_ID = ArgUsuarioId;	
 	return tiquete_cursor;
 end HISTORIAL_TIQUETE;
 /
@@ -808,17 +809,22 @@ print x;
 -------------------------------------------INSERT-----------------------------------------
 INSERT INTO "SYSTEM"."USUARIOS" (ID, CONTRASENA, NOMBRE, APELLIDOS, CORREO,FECHA_NACIMIENTO, DIRECCION, TELEFONO_TRABAJO, CELULAR, ROL) VALUES ('12', '1234', 'davi', 'dda', 'dad@gmail.com', '21/04/21', 'La fortuna', '8656235', '23423232', '1');
 INSERT INTO "SYSTEM"."USUARIOS" (ID, CONTRASENA, NOMBRE, APELLIDOS, CORREO,FECHA_NACIMIENTO, DIRECCION, TELEFONO_TRABAJO, CELULAR, ROL) VALUES ('13', '1234', 'david', 'davidCJ', 'david@gmail.com', '10/11/21', 'Heredia', '87656543', '45454545', '0');
-INSERT INTO "SYSTEM"."USUARIOS" (ID, CONTRASENA, NOMBRE) VALUES ('42', '1234', 'dsf');
-INSERT INTO "SYSTEM"."USUARIOS" (ID, CONTRASENA, CORREO, TELEFONO_TRABAJO) VALUES ('13', '1234', 'kjkj@gmail.com', '2343423');
 
 INSERT INTO "SYSTEM"."CIUDAD" (ID, NOMBRE) VALUES ('72', 'Alajuela');
 INSERT INTO "SYSTEM"."CIUDAD" (ID, NOMBRE) VALUES ('42', 'Pedregal');
 
-INSERT INTO "SYSTEM"."RUTAS" (ID, HORARIO_ID, CIUDAD_ORIGEN, CIUDAD_DESTINO, PRECIO, PORCENTAJE_DESCUENTO) VALUES ('25', '4', '72', '42', '15000', '0');
+INSERT INTO "SYSTEM"."HORARIOS" (ID, DIA_SEMANA, HORA_LLEGADA) VALUES ('1', 'Lunes', 10);
+INSERT INTO "SYSTEM"."HORARIOS" (ID, DIA_SEMANA, HORA_LLEGADA) VALUES ('2', 'Martes', 8);
 
-INSERT INTO "SYSTEM"."VUELOS" (ID, MODALIDAD, DURACION, RUTA_ID, AVION_ID, FECHA) VALUES ('21', 'voladora', '1', '25', '1', TO_DATE('2020-12-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO "SYSTEM"."RUTAS" (ID, HORARIO_ID, CIUDAD_ORIGEN, CIUDAD_DESTINO, PRECIO, PORCENTAJE_DESCUENTO) VALUES ('1', '1', '72', '42', '15000', '0');
 
-INSERT INTO "SYSTEM"."TIQUETES" (ID, USUARIO_ID, VUELO_ID, PRECIO_FINAL, FILA_ASISENTO, COLUMNA_ASIENTO, FORMA_PAGO) VALUES ('88', '12', '21', '1288', '5', '6', 'Contado');
+INSERT INTO "SYSTEM"."AVIONES" (ID, TIPO, CAPACIDAD, ANIO, MARCA, ASIENTOS_FILA, CANTIDAD_FILAS) VALUES ('1', 'carga', '120', '2020', 'David''s', '6', '20');
+
+INSERT INTO "SYSTEM"."VUELOS" (ID, MODALIDAD, DURACION, RUTA_ID, AVION_ID, FECHA) VALUES ('2', 'voladora', '1', '1', '1', TO_DATE('2020-12-12 00:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+
+INSERT INTO "SYSTEM"."RUTAS" (ID, HORARIO_ID, CIUDAD_ORIGEN, CIUDAD_DESTINO, PRECIO, PORCENTAJE_DESCUENTO) VALUES ('3', '1', '72', '42', '2000', '20');
+
+INSERT INTO "SYSTEM"."VUELOS" (ID, MODALIDAD, DURACION, RUTA_ID, AVION_ID, FECHA) VALUES ('3', '1', '1', '3', '1', TO_DATE('2021-04-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS'));
 
 select Valida_Usuario('12','1234') from dual;
 
@@ -834,10 +840,7 @@ exec INSERCION_CIUDAD('Buenos Aires - Argentina Rica');
 exec INSERCION_CIUDAD('Ciudad de México - México');
 exec INSERCION_CIUDAD('PanamaCity - Panama');
 
-select LISTAR_HISTORIAL('1') from dual;
 
-select FILTRAR_VUELO('72','1','21/04/21','25/04/21') from dual;
 
-select FILTRAR_VUELODESCUENTO('72','1','21/04/21','25/04/21') from dual;
 
--- version 0.4
+-- version 0.5
