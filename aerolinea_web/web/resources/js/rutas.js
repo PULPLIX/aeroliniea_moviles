@@ -35,7 +35,10 @@ function listarHorarios() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success',"Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success',"Lista vacia");
             }
         }
     });
@@ -51,7 +54,10 @@ function listarCiudades() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success', "Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success', "Lista vacia");
             }
         }
     });
@@ -105,14 +111,17 @@ function listarRutas() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success', "Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success', "Lista vacia");
             }
         }
     });
 }
 function insertarRuta() {
 
-    if (verificaCampoVacio($("#ciudadOrigen").val())&& verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val()) && verificaCampoNum($("#precio").val())) {
+    if (verificaCampoVacio($("#ciudadOrigen").val()) && verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val()) && verificaCampoNum($("#precio").val())) {
         var ruta = crearRuta();
         $.ajax({
             url: "/aerolinea/api/rutas/insertar",

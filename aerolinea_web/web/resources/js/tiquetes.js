@@ -71,7 +71,10 @@ function listarTiquetes() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success',"Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success',"Lista vacia");
             }
         }
     });
@@ -118,7 +121,10 @@ function getUsuario(id) {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success',"Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success',"Lista vacia");
             }
         }
     });

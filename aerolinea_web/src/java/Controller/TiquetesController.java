@@ -48,7 +48,6 @@ public class TiquetesController {
         Gson gson = new Gson();
         ModelTiquete mTiquete = ModelTiquete.getInstance();
         ArrayList<Tiquete> tiquetes = (ArrayList<Tiquete>) mTiquete.listarTiquete();
-        //Salida de la aplicacion
         return gson.toJson(tiquetes);
     }
 

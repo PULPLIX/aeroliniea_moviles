@@ -21,7 +21,10 @@ function getHorario(id) {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success',"Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success',"Lista vacia");
             }
         }
     });
@@ -37,7 +40,10 @@ function listarHorarios() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('success',"Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje('success',"Lista vacia");
             }
         }
     });
@@ -59,7 +65,7 @@ function insertarHorario() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje('error',"No insertado");
             }
         }
     });
