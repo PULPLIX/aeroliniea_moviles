@@ -68,12 +68,13 @@ function insertarUsuario() {
             celular: $("#celular").val(),
             rol: 0
         };
+        
         $.ajax({
             url: "/aerolinea/api/usuario/insertar",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify(usuario),
-            success: function (agregado) {
+            success: function () {
                 window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
             },
             statusCode: {
@@ -238,6 +239,7 @@ function checkLogin(){
         window.location.href = "/aerolinea/views/global/login.jsp";
     }
 }
+
 checkLogin();
 showPerfil();
 getHistorialTiquetes();

@@ -55,7 +55,6 @@
                                 <a class="nav-link"
                                    href="/aerolinea/views/usuario/compraTiquetes.jsp">Comprar tiquetes</a>
                             </li>
-
                             <li class="nav-item">
                                 <a class="nav-link" href="/aerolinea/views/usuario/misTiquetes.jsp" >Mis tiquetes</a>
                             </li>

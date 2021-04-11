@@ -10,6 +10,7 @@ while (elements.length > 0) {
 }
 $("#item-horarios").addClass("active");
 
+
 function getHorario(id) {
     $.ajax({
         url: "/aerolinea/api/horarios/get/"+id,
