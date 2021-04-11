@@ -29,7 +29,7 @@
 
     </head>
 
-    
+
     <body style="background-color: #f6f7f8;">
         <!-- BARRA DE MENÚ -->
         <nav class="navbar navbar-expand-lg navbar-light bg-gardiente">
@@ -49,28 +49,31 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link " aria-current="page"
-                                   href="/aerolinea/views/usuario/registro.jsp">Inicio</a>
+                                   href="#">Inicio</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" id='item_compraTiquetes'>
                                 <a class="nav-link"
                                    href="/aerolinea/views/usuario/compraTiquetes.jsp">Comprar tiquetes</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/aerolinea/views/usuario/misTiquetes.jsp" >Mis tiquetes</a>
+                            <li class="nav-item" id='item_misTiquetes'>
+                                <a class="nav-link"  href="/aerolinea/views/usuario/misTiquetes.jsp" >Mis tiquetes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Acerca de nosotros</a>
+                            </li>
+                            <li class="nav-item" id='item_administrar'>
+                                <a class="nav-link" href="/aerolinea/views/admin/gestionAviones.jsp">Administrar</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-3" >
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/aerolinea/views/global/login.jsp" id="iniciarSession"><i
+                            <li class="nav-item" id="iniciarSession">
+                                <a class="nav-link" href="/aerolinea/views/global/login.jsp" ><i
                                         class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link " aria-current="page" href="/aerolinea/views/usuario/registro.jsp" id="registrarse">Registrarse</a>
+                            <li class="nav-item" id="registrarse">
+                                <a class="nav-link " aria-current="page" href="/aerolinea/views/usuario/registro.jsp" >Registrarse</a>
                             </li>
                         </ul>
                     </div>
