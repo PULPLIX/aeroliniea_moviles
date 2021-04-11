@@ -2,8 +2,17 @@ var elements = document.getElementsByClassName('list-group-item-action active');
 while (elements.length > 0) {
     elements[0].classList.remove('active');
 }
+$("#item-tiquetes").addClass("active");
 
 $('input[name="dates"]').daterangepicker();
+
+function mostrarMensajeCompra(){
+    if(sessionStorage.getItem('mensajeCompra') !== null){
+        var mensaje = sessionStorage.getItem('mensajeCompra');
+        mostrarMensaje('success',mensaje);
+        sessionStorage.removeItem('mensajeCompra');
+    }
+}
 
 $(function () {
     $('input[name="daterange"]').daterangepicker({
@@ -115,4 +124,14 @@ function getUsuario(id) {
     });
 }
 
-listarTiquetes();
+function listarHistorialAdmin() {
+    var pathname = window.location.pathname;
+    if (pathname === "/aerolinea/views/admin/gestionTiquetes.jsp") {
+        listarTiquetes();
+    }else{
+        mostrarMensajeCompra();
+    }
+}
+
+
+listarHistorialAdmin();

@@ -1,3 +1,4 @@
+
 var meses = new Map();
 meses.set("ene", "jan");
 meses.set("feb", "feb");
@@ -335,11 +336,15 @@ function crearFila(vuelo) {
             '<div class="col-2 p-0 "><div class="card w-100  d-flex justify-content-center align-items-center">' +
             '<div class="card-body d-flex align-items-center flex-column "><div class="precio">$' + vuelo.rutaId.precio + '</div>' +
             '<div class="precio-info">Precio por cada tiquete </div><div>' +
-            '<button class="btn btn-outline-celeste fw-bold" onclick="getVueloSeleccionado(' + vuelo.id + ')">Ver asientos</button></div></div></div></div></div>';
+            '<button class="btn btn-outline-celeste fw-bold" onclick="getVueloSeleccionado(' + vuelo.id + '); notRegister();">Ver asientos</button></div></div></div></div></div>';
     return row;
 }
 
-
+function notRegister(){
+    if (sessionStorage.getItem('usuario') === null) {
+        window.location.href = "/aerolinea/views/global/login.jsp";
+    }
+}
 
 listarCiudades();
 listarVuelos();

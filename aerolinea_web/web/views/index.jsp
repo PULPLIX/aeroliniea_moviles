@@ -7,7 +7,7 @@
             </jsp:attribute>
 
             <jsp:attribute name="scripts">
-
+            <script src="/aerolinea/resources/js/global.js" ></script>
             </jsp:attribute>
 
             <jsp:body>

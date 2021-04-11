@@ -72,7 +72,7 @@
 
                             <ul class="navbar-nav ml-auto mt-2 mt-lg-0 ">
                                 <li class="nav-item active">
-                                    <a class="nav-link text-muted" href="#">Inicio </a>
+                                    <a class="nav-link text-muted" href="/aerolinea/views/index.jsp">Vista usuario</a>
                                 </li>
                             </ul>
                         </div>

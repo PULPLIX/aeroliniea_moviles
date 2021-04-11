@@ -11,7 +11,6 @@ import Models.ModelTiquete;
 import Models.ModelVuelo;
 import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;

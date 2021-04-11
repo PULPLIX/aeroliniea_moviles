@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-function include(file) {  
-  var script  = document.createElement('script');
-  script.src  = file;
-  script.type = 'text/javascript';
-  script.defer = true;  
-  document.getElementsByTagName('head').item(0).appendChild(script);
+function include(file) {
+    var script = document.createElement('script');
+    script.src = file;
+    script.type = 'text/javascript';
+    script.defer = true;
+    document.getElementsByTagName('head').item(0).appendChild(script);
 }
 
 include('/aerolinea/resources/js/vuelos.js');
@@ -68,7 +68,7 @@ function insertarUsuario() {
             celular: $("#celular").val(),
             rol: 0
         };
-        
+
         $.ajax({
             url: "/aerolinea/api/usuario/insertar",
             type: "post",
@@ -177,7 +177,7 @@ function login() {
                 if (usuarioRest.rol === 1) {
                     window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
                 } else {
-                    window.location.href = "/aerolinea/views/usuario/asientos.jsp";
+                    window.location.href = "/aerolinea/views/usuario/compraTiquetes.jsp";
                 }
             },
             statusCode: {
@@ -233,13 +233,20 @@ function recargarTablaMisTiquetes(listadoHistorialTiquetes) {
     });
 }
 
-function checkLogin(){
+function checkLogin() {
     var pathname = window.location.pathname;
-    if(pathname === "/aerolinea/views/usuario/misTiquetes.jsp" && sessionStorage.getItem('usuario') === null){
-        window.location.href = "/aerolinea/views/global/login.jsp";
+    if (sessionStorage.getItem('usuario') === null) {
+        window.location.href = pathname;
+    }
+
+}
+
+function listarHistorialuUsuario() {
+    var pathname = window.location.pathname;
+    if (pathname === "/aerolinea/views/usuario/misTiquetes.jsp") {
+        getHistorialTiquetes();
     }
 }
 
-checkLogin();
 showPerfil();
-getHistorialTiquetes();
+listarHistorialuUsuario();

@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-
-
 function verificaCampoVacio(valor) {
     if (valor !== "") {
         return true;
@@ -65,9 +63,9 @@ function mostrarMensaje(tipoMensaje, contenido) {
     }, 4790);
 }
 
-function setUsuario(){
-    if(sessionStorage.getItem('usuario') !== null){
-     $("#idUsuarioSession").html(JSON.parse(sessionStorage.getItem('usuario')).id);   
+function setUsuario() {
+    if (sessionStorage.getItem('usuario') !== null) {
+        $("#idUsuarioSession").html(JSON.parse(sessionStorage.getItem('usuario')).id);
     }
 }
 
@@ -77,19 +75,25 @@ function logout() {
     window.location.href = "/aerolinea/views/index.jsp";
 }
 
-function islogin(){
-    if(sessionStorage.getItem('usuario') !== null){
-       if(JSON.parse(sessionStorage.getItem('usuario')).rol == 0){
-           $('#iniciarSession').hide();
-           $('#registrarse').hide();
-           $('#loginTrue').show();
-       }else{
-           $('#iniciarSession').show();
-           $('#registrarse').show();
-           $('#loginTrue').hide();
-       } 
-    }else{
+function islogin() {
+    if (sessionStorage.getItem('usuario') !== null) {
+        $('#iniciarSession').hide();
+        $('#registrarse').hide();
+        $('#loginTrue').show();
+        $('#item_compraTiquetes').show();
+        $('#item_misTiquetes').show();
+        if (JSON.parse(sessionStorage.getItem('usuario')).rol === 1){
+            $('#item_administrar').show();
+        }else{
+            $('#item_administrar').hide();
+        }
+    } else {
+        $('#iniciarSession').show();
+        $('#registrarse').show();
         $('#loginTrue').hide();
+        $('#item_compraTiquetes').show();
+        $('#item_misTiquetes').hide();
+        $('#item_administrar').hide();
     }
 }
 
