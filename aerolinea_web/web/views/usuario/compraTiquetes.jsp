@@ -55,8 +55,8 @@
                                 </label>
                             </div>
                             <div class="form-check" style=" width: 20% !important;">
-                                <input class="form-check-input" type="checkbox" name="modalidad" value="2" >
-                                <label class="form-check-label" for="flexRadioDefault2">
+                                <input class="form-check-input" type="checkbox" name="descuento" id="descuento" value="TRUE">
+                                <label class="form-check-label" for="flexRadioDefault3">
                                     Con descuento &nbsp;<i class="fas fa-tags text-warning"></i>
                                 </label>
                             </div>

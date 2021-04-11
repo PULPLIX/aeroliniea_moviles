@@ -242,8 +242,9 @@ function buscarVuelos() {
     var fechas = $("#fechas").val();
     var fechaI = fechas.substr(0, 10);
     var fechaF = fechas.substr(-10);
+    var descuento = $('input#descuento').prop('checked');
     $.ajax({
-        url: "/aerolinea/api/vuelos/buscar?Modalidad=" + modalidad + "&idOrigen=" + idOrigen + "&idDestino=" + idDestino + "&fechaI=" + fechaI + "&fechaF=" + fechaF,
+        url: "/aerolinea/api/vuelos/buscar?Modalidad=" + modalidad + "&idOrigen=" + idOrigen + "&idDestino=" + idDestino + "&fechaI=" + fechaI + "&fechaF=" + fechaF+ "&descuento=" + descuento,
         type: "get",
         success: function (listadoVuelos) {
             mostrarMensaje("success", "Busqueda satisfactoria");

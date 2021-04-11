@@ -56,6 +56,10 @@ public class ModelVuelo {
     public Collection filtrarVuelo(String Modalidad, String idOrigen, String idDestino, String fechaI, String fechaF) throws Exception {
         return vueloDao.filtrarVuelo(Modalidad, idOrigen, idDestino, fechaI, fechaF);
     }
+    
+    public Collection filtrarVueloDescuento(String Modalidad, String idOrigen, String idDestino, String fechaI, String fechaF) throws Exception {
+        return vueloDao.filtrarVueloDescuento(Modalidad, idOrigen, idDestino, fechaI, fechaF);
+    }
 
     public HashMap<Integer, ArrayList<Integer>> getAsientosOcupados(int id_vuelo) throws Exception {
         return vueloDao.getAsientosOcupados(id_vuelo);

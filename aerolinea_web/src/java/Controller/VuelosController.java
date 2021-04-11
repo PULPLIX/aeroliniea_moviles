@@ -57,10 +57,15 @@ public class VuelosController {
     @Path("/buscar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
-    public String filtrarVuelo(@QueryParam("Modalidad") String Modalidad, @QueryParam("idOrigen") String idOrigen, @QueryParam("idDestino") String idDestino, @QueryParam("fechaI") String fechaI, @QueryParam("fechaF") String fechaF) throws GeneralException, DbException, Exception {
+    public String filtrarVuelo(@QueryParam("Modalidad") String Modalidad, @QueryParam("idOrigen") String idOrigen, @QueryParam("idDestino") String idDestino, @QueryParam("fechaI") String fechaI, @QueryParam("fechaF") String fechaF, @QueryParam("descuento") boolean descuento) throws GeneralException, DbException, Exception {
         Gson gson = new Gson();
         ModelVuelo mVuelo = ModelVuelo.getInstance();
-        ArrayList<Vuelo> vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVuelo(Modalidad, idOrigen, idDestino, fechaI, fechaF);
+        ArrayList<Vuelo> vuelos = null;
+        if(descuento){
+            vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVueloDescuento(Modalidad, idOrigen, idDestino, fechaI, fechaF);           
+        }else{
+            vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVuelo(Modalidad, idOrigen, idDestino, fechaI, fechaF);   
+        }
         return gson.toJson(vuelos);
     }
 
