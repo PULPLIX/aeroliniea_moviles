@@ -12,8 +12,14 @@
     </jsp:attribute>
 
     <jsp:body>
-        <div class="container">
-            <div class="row my-5">
+        <div class="background-diagonal-container">
+            <div class="background-diagonal"></div>
+        </div>
+        <div class="container my-5 p-0">
+            <div class="row mb-2">
+                <span class="display-4 text-white">Log in</span>
+            </div>
+            <div class="row mb-5" style="background-color: #fff; padding: 4rem 2rem 6rem 2rem; border-radius: 10px; box-shadow: 0px 0px 7px 0.2px #626262;">
                 <div class="col-sm-12 col-md-7 d-flex justify-content-end">
                     <div class="d-flex justify-content-center align-items-center">
                         <img src="/aerolinea/resources/images/utiles/waiting.png" alt="" class="img-responsive"

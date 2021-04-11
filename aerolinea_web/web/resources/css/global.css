@@ -192,9 +192,11 @@ tbody tr th, td {
 }
 
 .banner-compra .card .card-body .form-check {
-    width: 15% !important;
+    width: 16% !important;
 }
-
+.banner-compra .card .card-body .form-check {
+    width: 17% !important;
+}
 .banner-compra .card .card-body .input-search {
     width: 30% !important;
 }
@@ -413,4 +415,26 @@ tbody tr th, td {
     border: 1px dashed #c5c5c5;
     box-shadow: 0px 0px 6px 1px #fff;
     letter-spacing: 1px;
+}
+
+
+.background-diagonal-container{
+    top: 0;
+    overflow: hidden;
+    height: 1000px;
+    width: 100%;
+    position: absolute;
+    background-color: #3f292900;
+    z-index: -1;
+}
+.background-diagonal{
+    width: 119%;
+    transform: rotate(-10deg);
+    top: -21rem;
+    left: -12rem;
+    background-color: #13628b;
+    background-image: linear-gradient(315deg, #5cb1dc 0%, #14648d 74%);
+    box-shadow: 4px -1px 5px 8px #929292;
+    height: 79%;
+    position: absolute;
 }

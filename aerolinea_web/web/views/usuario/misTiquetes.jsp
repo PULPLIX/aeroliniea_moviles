@@ -21,7 +21,7 @@
     </jsp:attribute>
     <jsp:body>
 
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -65,59 +65,62 @@
             </div>
         </div>
 
-        <div class="row my-3">
-            <div class="col-sm-6">
-                <h1 class="display-6 fw-normal text-negro"><i class="fas fa-ticket-alt text-primary"></i> &nbsp;Mis tiquetes </h1>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="container mt-1">
 
-                    <div class="col-6">
-                        <div class="input-group mb-2">
-                            <input id="texto" class="form-control col-md-3 light-table-filter" data-table="order-table" type="text" placeholder="Search.." aria-label="Input group example">
-                            <div class="input-group-append">
-                                <span class="input-group-text">Buscar</span>
+        <div class="background-diagonal-container">
+            <div class="background-diagonal"></div>
+        </div>
+
+        <div class="container my-5" style="margin-bottom: 20rem !important;">
+            <div class="row my-3">
+                <div class="col-sm-6">
+                    <h1 class="display-6 fw-normal text-white"><i class="fas fa-ticket-alt "></i> &nbsp;Mis tiquetes </h1>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class=" card-header titulo mb-2 d-flex justify-content-between">
+                            <div><i class="fas fa-bars"></i> &nbsp;Listado de tiquetes</div>
+                            <div>
+                                <div class="input-group mb-2">
+                                    <input id="texto" class="form-control col-md-3 light-table-filter" data-table="order-table" type="text" placeholder="Search.." aria-label="Input group example">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Buscar</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- /.card-body -->
+                        <div class="table-responsive">
+                            <table class="table table-hover order-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id vuelo<i class="fas fa-sort-down "></i></th>
+                                        <th scope="col">Id tiquete<i class="fas fa-sort-down "></i></th>
+                                        <th scope="col">Id usuario<i class="fas fa-sort-down "></i></th>
+                                        <th scope="col">Precio<i class="far fa-dollar-sign  text-primary"></i></th>
+                                        <th scope="col">Fila</th>
+                                        <th scope="col">Columna</th>
+                                        <th scope="col">Forma de Pago</th>
+
+                                        <th scope="col" style="width: 300px;">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-historial">
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <!-- /.card -->
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-12">
 
-                <div class="card">
-                    <!-- /.card-header -->
-                    <div class=" card-header titulo mb-2">
-                        <span><i class="fas fa-bars"></i> &nbsp;Listado de tiquetes</span>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="table-responsive">
-                        <table class="table table-hover order-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id vuelo<i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Id tiquete<i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Id usuario<i class="fas fa-sort-down "></i></th>
-                                    <th scope="col">Precio<i class="far fa-dollar-sign  text-primary"></i></th>
-                                    <th scope="col">Fila</th>
-                                    <th scope="col">Columna</th>
-                                    <th scope="col">Forma de Pago</th>
 
-                                    <th scope="col" style="width: 300px;">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-historial">
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- /.card -->
-            </div>
-        </div>
     </jsp:body>
 
 
