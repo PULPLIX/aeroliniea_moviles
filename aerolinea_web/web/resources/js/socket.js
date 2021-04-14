@@ -9,7 +9,7 @@ var objeto = {
 console.log(JSON.stringify(objeto));
 
 
-const webSocket = new WebSocket("ws://localhost:8081/aerolinea/proceso");
+const webSocket = new WebSocket("ws://http://localhost:8081/Backend/proceso");
 
 webSocket.addEventListener("message", function (event) {
     writeResponse(event.data);

@@ -28,7 +28,7 @@ function mostrarDescuentoModal(checkBox) {
 
 function listarHorarios() {
     $.ajax({
-        url: "/aerolinea/api/horarios/listar",
+        url: "http://localhost:8081/Backend/api/horarios/listar",
         type: "get",
         success: function (listadoHorarios) {
             llenarHorarios(listadoHorarios);
@@ -47,7 +47,7 @@ function listarHorarios() {
 
 function listarCiudades() {
     $.ajax({
-        url: "/aerolinea/api/ciudades/listar",
+        url: "http://localhost:8081/Backend/api/ciudades/listar",
         type: "get",
         success: function (listadoCiudades) {
             llenarCiudades(listadoCiudades);
@@ -82,7 +82,7 @@ function llenarHorarios(listadoHorarios) {
 
 function getRuta(id) {
     $.ajax({
-        url: "/aerolinea/api/rutas/get/" + id,
+        url: "http://localhost:8081/Backend/api/rutas/get/" + id,
         type: "GET",
         success: function (ruta) {
             var rutaModal = {
@@ -104,7 +104,7 @@ function getRuta(id) {
 }
 function listarRutas() {
     $.ajax({
-        url: "/aerolinea/api/rutas/listar",
+        url: "http://localhost:8081/Backend/api/rutas/listar",
         type: "get",
         success: function (listadoRutas) {
             recargarTabla(listadoRutas);
@@ -124,7 +124,7 @@ function insertarRuta() {
     if (verificaCampoVacio($("#ciudadOrigen").val()) && verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val()) && verificaCampoNum($("#precio").val())) {
         var ruta = crearRuta();
         $.ajax({
-            url: "/aerolinea/api/rutas/insertar",
+            url: "http://localhost:8081/Backend/api/rutas/insertar",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify(ruta),
@@ -146,7 +146,7 @@ function insertarRuta() {
 function actualizarRuta() {
     var ruta = crearRutaModal();
     $.ajax({
-        url: "/aerolinea/api/rutas/actualizar",
+        url: "http://localhost:8081/Backend/api/rutas/actualizar",
         type: "put",
         contentType: "application/json",
         data: JSON.stringify(ruta),
@@ -166,7 +166,7 @@ function actualizarRuta() {
 function eliminarRuta(id) {
 
     $.ajax({
-        url: "/aerolinea/api/rutas/eliminar",
+        url: "http://localhost:8081/Backend/api/rutas/eliminar",
         type: "delete",
         contentType: "application/json",
         data: JSON.stringify(id),

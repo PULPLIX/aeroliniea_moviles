@@ -13,7 +13,7 @@ $("#item-horarios").addClass("active");
 
 function getHorario(id) {
     $.ajax({
-        url: "/aerolinea/api/horarios/get/"+id,
+        url: "http://localhost:8081/Backend/api/horarios/get/"+id,
         type: "GET",
         success: function (horario) {
             console.log(horario);
@@ -33,7 +33,7 @@ function getHorario(id) {
 
 function listarHorarios() {
     $.ajax({
-        url: "/aerolinea/api/horarios/listar",
+        url: "http://localhost:8081/Backend/api/horarios/listar",
         type: "get",
         success: function (listadoHorarios) {
             recargarTabla(listadoHorarios);
@@ -55,7 +55,7 @@ function insertarHorario() {
         horaLlegada: $("#horaLlegada").val(),
     };
     $.ajax({
-        url: "/aerolinea/api/horarios/insertar",
+        url: "http://localhost:8081/Backend/api/horarios/insertar",
         type: "post",
         contentType: "application/json",
         data: JSON.stringify(horario),
@@ -79,7 +79,7 @@ function actualizarHorario() {
     };
 
     $.ajax({
-        url: "/aerolinea/api/horarios/actualizar",
+        url: "http://localhost:8081/Backend/api/horarios/actualizar",
         type: "put",
         contentType: "application/json",
         data: JSON.stringify(horario),
@@ -99,7 +99,7 @@ function actualizarHorario() {
 function eliminarHorario(id) {
 
     $.ajax({
-        url: "/aerolinea/api/horarios/eliminar",
+        url: "http://localhost:8081/Backend/api/horarios/eliminar",
         type: "delete",
         contentType: "application/json",
         data: JSON.stringify(id),
