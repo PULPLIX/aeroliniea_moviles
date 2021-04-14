@@ -319,11 +319,11 @@ function getVueloSeleccionado(id) {
 
 }
 function crearFila(vuelo) {
-    var modalidad = ""
-    if (vuelo.modalidad == 1) {
-        modalidad = 'Solo ida'
+    var modalidad = "";
+    if (vuelo.modalidad === 1) {
+        modalidad = 'Solo ida';
     } else {
-        modalidad = 'Ida y vuelta'
+        modalidad = 'Ida y vuelta';
     }
     var row = '<div class="row  tabla-vuelos"><div class="col-10 "><div class="card card-info"><div class="card-body"><div class="container-fluid">' +
             '<div class="row"><div class="col-2"><img src="/aerolinea/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
@@ -349,6 +349,7 @@ function notRegister(){
         window.location.href = "/aerolinea/views/global/login.jsp";
     }
 }
+
 
 listarCiudades();
 listarVuelos();

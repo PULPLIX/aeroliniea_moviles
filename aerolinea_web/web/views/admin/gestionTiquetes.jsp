@@ -10,7 +10,9 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
+        <script src="/aerolinea/resources/js/twbsPagination.js"></script>
         <script src="/aerolinea/resources/js/tiquetes.js"></script>
+
     </jsp:attribute>
     <jsp:attribute name="user_id">
         ${usu.getId()}
@@ -109,7 +111,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="table-responsive">
-                        <table class="table table-hover order-table" id="example">
+                        <table class="table table-hover order-table" id='paginacion'>
                             <thead>
                                 <tr>
                                     <th scope="col">Id vuelo<i class="fas fa-sort-down "></i></th>
@@ -127,13 +129,20 @@
 
                             </tbody>
                         </table>
+                        <div id="pager">
+                            <ul id="pagination" class="pagination-sm"></ul>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card -->
             </div>
         </div>
+
     </jsp:body>
 
-
-
 </t:admin>
+
+
+
+
+

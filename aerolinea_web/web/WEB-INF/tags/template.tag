@@ -18,8 +18,7 @@
         <link href="/aerolinea/resources/css/global.css" rel="stylesheet">
         <link id="favicon" rel="shortcut icon" href="/aerolinea/resources/images/logoSoloAzul.png"
               type="image/png" />
-        <link rel="stylesheet" type="text/css"
-              href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
         <title>
             <jsp:invoke fragment="title" />

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+
 function verificaCampoVacio(valor) {
     if (valor !== "") {
         return true;

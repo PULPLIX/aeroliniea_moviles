@@ -14,6 +14,38 @@ function include(file) {
 
 include('/aerolinea/resources/js/vuelos.js');
 
+include('/aerolinea/resources/js/twbsPagination.js');
+
+function apply_pagination() {
+    $pagination.twbsPagination({
+        totalPages: totalPages,
+        visiblePages: 6,
+        onPageClick: function (event, page) {
+            displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+            endRec = (displayRecordsIndex) + recPerPage;
+
+            displayRecords = records.slice(displayRecordsIndex, endRec);
+            recargarTablaMisTiquetes(displayRecords);
+        }
+    });
+}
+
+var $pagination = $('#pagination'),
+        totalRecords = 0,
+        records = [],
+        displayRecords = [],
+        recPerPage = 5,
+        page = 1,
+        totalPages = 0;
+
+function paginacion(data) {
+    records = data;
+    console.log(records);
+    totalRecords = records.length;
+    totalPages = Math.ceil(totalRecords / recPerPage);
+    apply_pagination();
+}
+
 (function (document) {
     'use strict';
 
@@ -201,8 +233,7 @@ function getHistorialTiquetes() {
             url: "/aerolinea/api/usuario/tiquetesUsuario/" + id,
             type: "get",
             success: function (listadoHistorialTiquetes) {
-                recargarTablaMisTiquetes(listadoHistorialTiquetes);
-                console.log(listadoHistorialTiquetes)
+                paginacion(listadoHistorialTiquetes);
             },
             statusCode: {
                 404: function () {
@@ -216,7 +247,7 @@ function getHistorialTiquetes() {
 function recargarTablaMisTiquetes(listadoHistorialTiquetes) {
     $("#tabla-historial").html("");
     var tabla = $("#tabla-historial");
-    console.log(listadoHistorialTiquetes)
+    console.log(listadoHistorialTiquetes);
     listadoHistorialTiquetes.forEach(tiquete => {
         var row = $('<tr></tr>');
         $('<td></td>').html(tiquete.vueloId.id).appendTo(row);

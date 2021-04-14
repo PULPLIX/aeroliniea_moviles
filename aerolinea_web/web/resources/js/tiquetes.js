@@ -1,3 +1,46 @@
+function include(file) {
+    var script = document.createElement('script');
+    script.src = file;
+    script.type = 'text/javascript';
+    script.defer = true;
+    document.getElementsByTagName('head').item(0).appendChild(script);
+}
+
+include('/aerolinea/resources/js/twbsPagination.js');
+
+
+function apply_pagination() {
+    $pagination.twbsPagination({
+        totalPages: totalPages,
+        visiblePages: 6,
+        onPageClick: function (event, page) {
+            displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+            endRec = (displayRecordsIndex) + recPerPage;
+
+            displayRecords = records.slice(displayRecordsIndex, endRec);
+            recargarTabla(displayRecords);
+        }
+    });
+}
+
+var $pagination = $('#pagination'),
+        totalRecords = 0,
+        records = [],
+        displayRecords = [],
+        recPerPage = 5,
+        page = 1,
+        totalPages = 0;
+
+function paginacion(data) {
+    records = data;
+    console.log(records);
+    totalRecords = records.length;
+    totalPages = Math.ceil(totalRecords / recPerPage);
+    apply_pagination();
+
+}
+
+
 var elements = document.getElementsByClassName('list-group-item-action active');
 while (elements.length > 0) {
     elements[0].classList.remove('active');
@@ -6,10 +49,10 @@ $("#item-tiquetes").addClass("active");
 
 $('input[name="dates"]').daterangepicker();
 
-function mostrarMensajeCompra(){
-    if(sessionStorage.getItem('mensajeCompra') !== null){
+function mostrarMensajeCompra() {
+    if (sessionStorage.getItem('mensajeCompra') !== null) {
         var mensaje = sessionStorage.getItem('mensajeCompra');
-        mostrarMensaje('success',mensaje);
+        mostrarMensaje('success', mensaje);
         sessionStorage.removeItem('mensajeCompra');
     }
 }
@@ -22,59 +65,59 @@ $(function () {
     });
 });
 
-(function(document) {
+(function (document) {
     'use strict';
 
-    var LightTableFilter = (function(Arr) {
+    var LightTableFilter = (function (Arr) {
 
-      var _input;
+        var _input;
 
-      function _onInputEvent(e) {
-        _input = e.target;
-        var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
-        Arr.forEach.call(tables, function(table) {
-          Arr.forEach.call(table.tBodies, function(tbody) {
-            Arr.forEach.call(tbody.rows, _filter);
-          });
-        });
-      }
-
-      function _filter(row) {
-        var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
-        row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
-      }
-
-      return {
-        init: function() {
-          var inputs = document.getElementsByClassName('light-table-filter');
-          Arr.forEach.call(inputs, function(input) {
-            input.oninput = _onInputEvent;
-          });
+        function _onInputEvent(e) {
+            _input = e.target;
+            var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+            Arr.forEach.call(tables, function (table) {
+                Arr.forEach.call(table.tBodies, function (tbody) {
+                    Arr.forEach.call(tbody.rows, _filter);
+                });
+            });
         }
-      };
+
+        function _filter(row) {
+            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+        }
+
+        return {
+            init: function () {
+                var inputs = document.getElementsByClassName('light-table-filter');
+                Arr.forEach.call(inputs, function (input) {
+                    input.oninput = _onInputEvent;
+                });
+            }
+        };
     })(Array.prototype);
 
-    document.addEventListener('readystatechange', function() {
-      if (document.readyState === 'complete') {
-        LightTableFilter.init();
-      }
+    document.addEventListener('readystatechange', function () {
+        if (document.readyState === 'complete') {
+            LightTableFilter.init();
+        }
     });
 
-  })(document);
+})(document);
 
 function listarTiquetes() {
     $.ajax({
         url: "/aerolinea/api/tiquetes/listar",
         type: "get",
         success: function (listadoTiquetes) {
-            recargarTabla(listadoTiquetes);
+            paginacion(listadoTiquetes);
         },
         statusCode: {
             404: function () {
-                mostrarMensaje('success',"Página no encontrada");
+                mostrarMensaje('success', "Página no encontrada");
             },
             500: function () {
-                mostrarMensaje('success',"Lista vacia");
+                mostrarMensaje('success', "Lista vacia");
             }
         }
     });
@@ -83,12 +126,12 @@ function listarTiquetes() {
 function recargarTabla(listadoTiquetes) {
     $("#tabla-tiquetes").html("");
     var tabla = $("#tabla-tiquetes");
-    
+
     listadoTiquetes.forEach(tiquete => {
         var row = $('<tr></tr>');
         $('<td></td>').html(tiquete.vueloId.id).appendTo(row);
         $('<td></td').html(tiquete.id).appendTo(row);
-        $('<td></td>').html(tiquete.usuarioId.id ).appendTo(row);
+        $('<td></td>').html(tiquete.usuarioId.id).appendTo(row);
         $('<td></td>').html(tiquete.precioFinal).appendTo(row);
         $('<td></td>').html(tiquete.filaAsisento).appendTo(row);
         $('<td></td>').html(tiquete.columnaAsiento).appendTo(row);
@@ -121,10 +164,10 @@ function getUsuario(id) {
         },
         statusCode: {
             404: function () {
-                mostrarMensaje('success',"Página no encontrada");
+                mostrarMensaje('success', "Página no encontrada");
             },
             500: function () {
-                mostrarMensaje('success',"Lista vacia");
+                mostrarMensaje('success', "Lista vacia");
             }
         }
     });
@@ -134,7 +177,7 @@ function listarHistorialAdmin() {
     var pathname = window.location.pathname;
     if (pathname === "/aerolinea/views/admin/gestionTiquetes.jsp") {
         listarTiquetes();
-    }else{
+    } else {
         mostrarMensajeCompra();
     }
 }
