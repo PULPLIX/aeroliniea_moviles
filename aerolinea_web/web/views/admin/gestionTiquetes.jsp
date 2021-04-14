@@ -1,6 +1,4 @@
-<%@page import="logic.Usuario"%>
-<%@page import="java.util.List"%>
-<%@page import="logic.Avion"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 

@@ -12,7 +12,7 @@ function include(file) {
     document.getElementsByTagName('head').item(0).appendChild(script);
 }
 
-include('/aerolinea/resources/js/vuelos.js');
+include('http://localhost:8081/Backend/resources/js/vuelos.js');
 
 include('/aerolinea/resources/js/twbsPagination.js');
 
@@ -102,7 +102,7 @@ function insertarUsuario() {
         };
 
         $.ajax({
-            url: "/aerolinea/api/usuario/insertar",
+            url: "http://localhost:8081/Backend/api/usuario/insertar",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify(usuario),
@@ -123,7 +123,7 @@ function insertarUsuario() {
 
 function getUsuario() {
     $.ajax({
-        url: "/aerolinea/api/usuario/get" + id,
+        url: "http://localhost:8081/Backend/api/usuario/get" + id,
         type: "get",
         success: function (listadoAviones) {
             recargarTabla(listadoAviones);
@@ -174,7 +174,7 @@ function actualizarUsuario() {
         rol: 0
     };
     $.ajax({
-        url: "/aerolinea/api/usuario/actualizar",
+        url: "http://localhost:8081/Backend/api/usuario/actualizar",
         type: "put",
         contentType: "application/json",
         data: JSON.stringify(usuario),
@@ -198,7 +198,7 @@ function login() {
             contrasena: $("#contrasena").val()
         };
         $.ajax({
-            url: "/aerolinea/api/usuario/login",
+            url: "http://localhost:8081/Backend/api/usuario/login",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify(usuario),
@@ -230,7 +230,7 @@ function getHistorialTiquetes() {
     if (sessionStorage.getItem('usuario') !== null) {
         var id = JSON.parse(sessionStorage.getItem('usuario')).id;
         $.ajax({
-            url: "/aerolinea/api/usuario/tiquetesUsuario/" + id,
+            url: "http://localhost:8081/Backend/api/usuario/tiquetesUsuario/" + id,
             type: "get",
             success: function (listadoHistorialTiquetes) {
                 paginacion(listadoHistorialTiquetes);
@@ -274,7 +274,7 @@ function checkLogin() {
 
 function listarHistorialuUsuario() {
     var pathname = window.location.pathname;
-    if (pathname === "/aerolinea/views/usuario/misTiquetes.jsp") {
+    if (pathname === "http://localhost:8081/Backend/views/usuario/misTiquetes.jsp") {
         getHistorialTiquetes();
     }
 }

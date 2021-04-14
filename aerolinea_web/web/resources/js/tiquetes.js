@@ -107,7 +107,7 @@ $(function () {
 
 function listarTiquetes() {
     $.ajax({
-        url: "/aerolinea/api/tiquetes/listar",
+        url: "http://localhost:8081/Backend/api/tiquetes/listar",
         type: "get",
         success: function (listadoTiquetes) {
             paginacion(listadoTiquetes);
@@ -145,7 +145,7 @@ function recargarTabla(listadoTiquetes) {
 
 function getUsuario(id) {
     $.ajax({
-        url: "/aerolinea/api/usuario/get/" + id,
+        url: "http://localhost:8081/Backend/api/usuario/get/" + id,
         type: "GET",
         success: function (usuario) {
             var usuarioModal = {
@@ -175,7 +175,7 @@ function getUsuario(id) {
 
 function listarHistorialAdmin() {
     var pathname = window.location.pathname;
-    if (pathname === "/aerolinea/views/admin/gestionTiquetes.jsp") {
+    if (pathname === "http://localhost:8081/Backend/views/admin/gestionTiquetes.jsp") {
         listarTiquetes();
     } else {
         mostrarMensajeCompra();

@@ -24,7 +24,7 @@ function registrar() {
     };
 
     $.ajax({
-        url: "/aerolinea/aviones/insertar",
+        url: "http://localhost:8081/Backend/aviones/insertar",
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(avion),
@@ -44,7 +44,7 @@ function registrar() {
 
 function getAvion(id) {
     $.ajax({
-        url: "/aerolinea/api/aviones/get/" + id,
+        url: "http://localhost:8081/Backend/api/aviones/get/" + id,
         type: "GET",
         success: function (usuario) {
             console.log(usuario);
@@ -62,7 +62,7 @@ function getAvion(id) {
 function eliminarAvion(id) {
 
     $.ajax({
-        url: "/aerolinea/api/aviones/eliminar",
+        url: "http://localhost:8081/Backend/api/aviones/eliminar",
         type: "delete",
         contentType: "application/json",
         data: JSON.stringify(id),
@@ -105,7 +105,7 @@ function recargarTabla(listadoAviones) {
 
 function listarAviones() {
     $.ajax({
-        url: "/aerolinea/api/aviones/listar",
+        url: "http://localhost:8081/Backend/api/aviones/listar",
         type: "get",
         success: function (listadoAviones) {
             recargarTabla(listadoAviones);
@@ -130,7 +130,7 @@ function insertarAvion() {
             cantidadFilas: $("#cantidadFilas").val()
         };
         $.ajax({
-            url: "/aerolinea/api/aviones/insertar",
+            url: "http://localhost:8081/Backend/api/aviones/insertar",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify(avion),
@@ -162,7 +162,7 @@ function actualizarAvion() {
         };
 
         $.ajax({
-            url: "/aerolinea/api/aviones/actualizar",
+            url: "http://localhost:8081/Backend/api/aviones/actualizar",
             type: "put",
             contentType: "application/json",
             data: JSON.stringify(avion),

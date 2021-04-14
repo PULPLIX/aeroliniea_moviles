@@ -24,7 +24,7 @@ $("#item-vuelos").addClass("active");
 
 function listarRutas() {
     $.ajax({
-        url: "/aerolinea/api/rutas/listar",
+        url: "http://localhost:8081/Backend/api/rutas/listar",
         type: "get",
         success: function (listadoRutas) {
             llenarRutas(listadoRutas);
@@ -46,7 +46,7 @@ function llenarRutas(listadoRutas) {
 
 function listarAviones() {
     $.ajax({
-        url: "/aerolinea/api/aviones/listar",
+        url: "http://localhost:8081/Backend/api/aviones/listar",
         type: "get",
         success: function (listadoAviones) {
             llenarAviones(listadoAviones);
@@ -71,7 +71,7 @@ function llenarAviones(listadoAviones) {
 
 function getVuelo(id) {
     $.ajax({
-        url: "/aerolinea/api/vuelos/get/" + id,
+        url: "http://localhost:8081/Backend/api/vuelos/get/" + id,
         type: "GET",
         success: function (vuelo) {
             var aux = meses.get(vuelo.fecha.substr("0", "3")) + vuelo.fecha.substr("3", vuelo.fecha.length);
@@ -99,7 +99,7 @@ function getMes(fecha) {
 }
 function listarVuelos() {
     $.ajax({
-        url: "/aerolinea/api/vuelos/listar",
+        url: "http://localhost:8081/Backend/api/vuelos/listar",
         type: "get",
         success: function (listadoVuelos) {
             recargarTabla(listadoVuelos);
@@ -115,7 +115,7 @@ function insertarVuelo() {
     if (verificaCampoVacio($("#fecha").val()) && verificaCampoVacio($("#rutaId").val()) && verificaCampoVacio($("#modalidad").val()) && verificaCampoVacio($("#avionId").val()) && verificaCampoNum($("#duracion").val())) {
         var ruta = crearVuelo();
         $.ajax({
-            url: "/aerolinea/api/vuelos/insertar",
+            url: "http://localhost:8081/Backend/api/vuelos/insertar",
             type: "post",
             contentType: "application/json",
             data: JSON.stringify(ruta),
@@ -137,7 +137,7 @@ function insertarVuelo() {
 function actualizarVuelo() {
     var ruta = crearVueloModal();
     $.ajax({
-        url: "/aerolinea/api/vuelos/actualizar",
+        url: "http://localhost:8081/Backend/api/vuelos/actualizar",
         type: "put",
         contentType: "application/json",
         data: JSON.stringify(ruta),
@@ -156,7 +156,7 @@ function actualizarVuelo() {
 
 function eliminarVuelo(id) {
     $.ajax({
-        url: "/aerolinea/api/vuelos/eliminar",
+        url: "http://localhost:8081/Backend/api/vuelos/eliminar",
         type: "delete",
         contentType: "application/json",
         data: JSON.stringify(id),
@@ -244,7 +244,7 @@ function buscarVuelos() {
     var fechaF = fechas.substr(-10);
     var descuento = $('input#descuento').prop('checked');
     $.ajax({
-        url: "/aerolinea/api/vuelos/buscar?Modalidad=" + modalidad + "&idOrigen=" + idOrigen + "&idDestino=" + idDestino + "&fechaI=" + fechaI + "&fechaF=" + fechaF+ "&descuento=" + descuento,
+        url: "http://localhost:8081/Backend/api/vuelos/buscar?Modalidad=" + modalidad + "&idOrigen=" + idOrigen + "&idDestino=" + idDestino + "&fechaI=" + fechaI + "&fechaF=" + fechaF+ "&descuento=" + descuento,
         type: "get",
         success: function (listadoVuelos) {
             mostrarMensaje("success", "Busqueda satisfactoria");
@@ -260,7 +260,7 @@ function buscarVuelos() {
 
 function listarCiudades() {
     $.ajax({
-        url: "/aerolinea/api/ciudades/listar",
+        url: "http://localhost:8081/Backend/api/ciudades/listar",
         type: "get",
         success: function (listadoCiudades) {
             llenarCiudadesBusqueda(listadoCiudades);
@@ -304,7 +304,7 @@ function recargarTablaVuelosBuscados(listadoVuelos) {
 }
 function getVueloSeleccionado(id) {
     $.ajax({
-        url: "/aerolinea/api/vuelos/get/" + id,
+        url: "http://localhost:8081/Backend/api/vuelos/get/" + id,
         type: "GET",
         success: function (vuelo) {
             sessionStorage.setItem("vueloSelected", JSON.stringify(vuelo));
@@ -326,7 +326,7 @@ function crearFila(vuelo) {
         modalidad = 'Ida y vuelta';
     }
     var row = '<div class="row  tabla-vuelos"><div class="col-10 "><div class="card card-info"><div class="card-body"><div class="container-fluid">' +
-            '<div class="row"><div class="col-2"><img src="/aerolinea/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
+            '<div class="row"><div class="col-2"><img src="http://localhost:8081/Backend/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
             '<div class="col-7 d-flex justify-content-between align-items-center"> <div class="texto-azul d-flex ">' + vuelo.rutaId.ciudadOrigen.nombre +
             '<div class="separate-city"> </div>' + vuelo.rutaId.ciudadDestino.nombre + '</div></div><div class="col-3 d-flex justify-content-end text-celeste">' +
             vuelo.fecha + ' - ' + modalidad + '</div> </div><div class="row pt-3 d-flex justify-content-end">' +
@@ -346,7 +346,7 @@ function crearFila(vuelo) {
 
 function notRegister(){
     if (sessionStorage.getItem('usuario') === null) {
-        window.location.href = "/aerolinea/views/global/login.jsp";
+        window.location.href = "/aerolinea/global/login.jsp";
     }
 }
 

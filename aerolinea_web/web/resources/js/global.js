@@ -40,10 +40,10 @@ function llenarModal(objeto) {
 function mostrarMensaje(tipoMensaje, contenido) {
     $("#texto-mensaje").html(contenido);
     if (tipoMensaje === "success") {
-        $("#icono-mensaje").css({'background-image': "url('/aerolinea/resources/images/Iconos/success.png')", 'color': ''});
+        $("#icono-mensaje").css({'background-image': "url('/aerolinea/images/Iconos/success.png')", 'color': ''});
         $("#texto-mensaje").css({'color': "#046704e8"});
     } else {
-        $("#icono-mensaje").css({'background-image': "url('/aerolinea/resources/images/Iconos/error.png')", 'color': ''});
+        $("#icono-mensaje").css({'background-image': "url('/aerolinea/images/Iconos/error.png')", 'color': ''});
         $("#texto-mensaje").css({'color': "#dc3545"});
     }
 

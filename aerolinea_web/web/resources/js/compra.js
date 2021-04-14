@@ -95,7 +95,7 @@ function llenarAsientosInfo() {
 
 function renderizarAsientos(avion, id_vuelo) {
     $.ajax({
-        url: "/aerolinea/api/vuelos/asientosOcupados/" + id_vuelo,
+        url: "http://localhost:8081/Backend/api/vuelos/asientosOcupados/" + id_vuelo,
         type: "GET",
         success: function (hashAsientos) {
             if ((avion.cantidadFilas % 3) == 0) {
@@ -151,7 +151,7 @@ function comprar() {
     ]
     console.log(data);
     $.ajax({
-        url: "/aerolinea/api/tiquetes/comprar",
+        url: "http://localhost:8081/Backend/api/tiquetes/comprar",
         type: "post",
         contentType: "application/json",
         data: JSON.stringify(data),
