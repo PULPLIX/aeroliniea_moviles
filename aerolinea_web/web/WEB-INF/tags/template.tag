@@ -48,7 +48,7 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link " aria-current="page"
-                                   href="#">Inicio</a>
+                                   href="/aerolinea/views/index.jsp">Inicio</a>
                             </li>
                             <li class="nav-item" id='item_compraTiquetes'>
                                 <a class="nav-link"

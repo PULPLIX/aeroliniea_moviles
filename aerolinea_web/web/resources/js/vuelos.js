@@ -326,7 +326,7 @@ function crearFila(vuelo) {
         modalidad = 'Ida y vuelta';
     }
     var row = '<div class="row  tabla-vuelos"><div class="col-10 "><div class="card card-info"><div class="card-body"><div class="container-fluid">' +
-            '<div class="row"><div class="col-2"><img src="http://localhost:8081/Backend/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
+            '<div class="row"><div class="col-2"><img src="/aerolinea/resources/images/logoBanner.png" alt="" class="w-100"></div>' +
             '<div class="col-7 d-flex justify-content-between align-items-center"> <div class="texto-azul d-flex ">' + vuelo.rutaId.ciudadOrigen.nombre +
             '<div class="separate-city"> </div>' + vuelo.rutaId.ciudadDestino.nombre + '</div></div><div class="col-3 d-flex justify-content-end text-celeste">' +
             vuelo.fecha + ' - ' + modalidad + '</div> </div><div class="row pt-3 d-flex justify-content-end">' +

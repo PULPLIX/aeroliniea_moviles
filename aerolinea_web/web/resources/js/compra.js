@@ -60,7 +60,7 @@ function llenarModalCompra(vuelo, usuario) {
     document.getElementById("modalidad2-modal").innerHTML = modalidad2;
 }
 function calcularTotal(vuelo) {
-    var descuento = vuelo.rutaId.precio * vuelo.rutaId.porcentajeDescuento;
+    var descuento = vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01);
     return (vuelo.rutaId.precio - descuento) * asientosSeleccionados.length;
 }
 function getcantAsientos() {

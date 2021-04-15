@@ -27,13 +27,12 @@ var $pagination = $('#pagination'),
         totalRecords = 0,
         records = [],
         displayRecords = [],
-        recPerPage = 5,
+        recPerPage = 10,
         page = 1,
         totalPages = 0;
 
 function paginacion(data) {
     records = data;
-    console.log(records);
     totalRecords = records.length;
     totalPages = Math.ceil(totalRecords / recPerPage);
     apply_pagination();
@@ -61,7 +60,7 @@ $(function () {
     $('input[name="daterange"]').daterangepicker({
         opens: 'left'
     }, function (start, end, label) {
-        console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        //console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
 });
 
@@ -175,7 +174,7 @@ function getUsuario(id) {
 
 function listarHistorialAdmin() {
     var pathname = window.location.pathname;
-    if (pathname === "http://localhost:8081/Backend/views/admin/gestionTiquetes.jsp") {
+    if (pathname === "/aerolinea/views/admin/gestionTiquetes.jsp") {
         listarTiquetes();
     } else {
         mostrarMensajeCompra();

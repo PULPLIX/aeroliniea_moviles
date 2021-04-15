@@ -12,7 +12,7 @@ function include(file) {
     document.getElementsByTagName('head').item(0).appendChild(script);
 }
 
-include('http://localhost:8081/Backend/resources/js/vuelos.js');
+include('/aerolinea/resources/js/vuelos.js');
 
 include('/aerolinea/resources/js/twbsPagination.js');
 
@@ -34,13 +34,12 @@ var $pagination = $('#pagination'),
         totalRecords = 0,
         records = [],
         displayRecords = [],
-        recPerPage = 5,
+        recPerPage = 10,
         page = 1,
         totalPages = 0;
 
 function paginacion(data) {
     records = data;
-    console.log(records);
     totalRecords = records.length;
     totalPages = Math.ceil(totalRecords / recPerPage);
     apply_pagination();
@@ -64,7 +63,9 @@ function paginacion(data) {
         }
 
         function _filter(row) {
-            var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+            var text = row.cells[1].textContent;
+            var val = _input.value.toLowerCase();
+            //console.log("row: "+row.cells[1].textContent.indexOf(val)+" val: "+ val)
             row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
         }
 
@@ -204,7 +205,6 @@ function login() {
             data: JSON.stringify(usuario),
             success: function (usuarioRest) {
                 mostrarMensaje("success", "Logeado correctamente");
-                console.log(usuarioRest);
                 sessionStorage.setItem("usuario", JSON.stringify(usuarioRest));
                 if (usuarioRest.rol === 1) {
                     window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
@@ -274,7 +274,7 @@ function checkLogin() {
 
 function listarHistorialuUsuario() {
     var pathname = window.location.pathname;
-    if (pathname === "http://localhost:8081/Backend/views/usuario/misTiquetes.jsp") {
+    if (pathname === "/aerolinea/views/usuario/misTiquetes.jsp") {
         getHistorialTiquetes();
     }
 }

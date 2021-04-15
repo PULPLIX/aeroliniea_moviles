@@ -6,6 +6,7 @@ import Exceptions.GeneralException;
 import DataAccess.ServicioAviones;
 import DataAccess.ServicioHorario;
 import DataAccess.ServicioUsuario;
+import Models.ModelTiquete;
 import Models.ModelVuelo;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +35,9 @@ public class BackEnd {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        
+        ModelTiquete mTiquetes = ModelTiquete.getInstance();
+        System.out.println(mTiquetes.listarTiquete());
 //        System.out.println("=====================================================");
 //        System.out.println("==========================USUARIO===========================");
 //
