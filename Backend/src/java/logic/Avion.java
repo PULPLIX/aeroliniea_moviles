@@ -30,7 +30,7 @@ public class Avion implements Serializable {
         this.asientosFila = asientos_fila;
         this.cantidadFilas = cantidad_filas;
     }
-
+    
     public Avion() {
         this.id = -1;
         this.tipo = "";

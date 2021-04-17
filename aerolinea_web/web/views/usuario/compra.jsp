@@ -14,8 +14,8 @@
         </jsp:attribute>
 
         <jsp:attribute name="scripts">
+            <script src="/aerolinea/resources/js/ticketesSocket.js"></script>
             <script src="/aerolinea/resources/js/compra.js"></script>
-
         </jsp:attribute>
 
         <jsp:body>

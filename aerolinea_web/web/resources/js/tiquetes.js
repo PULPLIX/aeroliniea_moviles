@@ -1,3 +1,6 @@
+
+
+
 function include(file) {
     var script = document.createElement('script');
     script.src = file;
@@ -16,7 +19,6 @@ function apply_pagination() {
         onPageClick: function (event, page) {
             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
             endRec = (displayRecordsIndex) + recPerPage;
-
             displayRecords = records.slice(displayRecordsIndex, endRec);
             recargarTabla(displayRecords);
         }

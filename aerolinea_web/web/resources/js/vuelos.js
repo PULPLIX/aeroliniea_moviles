@@ -346,7 +346,7 @@ function crearFila(vuelo) {
 
 function notRegister(){
     if (sessionStorage.getItem('usuario') === null) {
-        window.location.href = "/aerolinea/global/login.jsp";
+        window.location.href = "/aerolinea/views/global/login.jsp";
     }
 }
 

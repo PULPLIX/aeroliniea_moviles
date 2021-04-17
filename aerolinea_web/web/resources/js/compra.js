@@ -7,6 +7,8 @@ var asientosSeleccionados = [];
 function evtAsiento(btn) {
     if (btn.classList.contains('active')) {
         btn.innerHTML = '<i class="fas fa-check-circle"></i>';
+        console.log(btn.id);
+        actualizarTiquetes(btn.id);
     } else {
         btn.innerHTML = '<i class="fas fa-user px-m"></i>'
     }
@@ -121,9 +123,9 @@ function crearAsientos(numAsientos, columns, rows, hashAsientos) {
         for (var j = 1; j <= columns; j++) {
             var asiento = "";
             if (hashAsientos[i] != undefined && hashAsientos[i].includes(j)) {
-                asiento = '<a href="#" class="asiento ocupado" data-fila="' + i + '" data-columna="' + j + '"><i class="fas fa-times-circle"></i></a>'
+                asiento = '<a href="#" class="asiento ocupado" data-fila="' + i + '" id="'+i+j+'" data-columna="' + j + '"><i class="fas fa-times-circle"></i></a>'
             } else {
-                asiento = '<a href="#" class="btn btn-azul-avion asiento" role="button" data-bs-toggle="button"' +
+                asiento = '<a href="#" class="btn btn-azul-avion asiento" id="'+i+j+'" role="button" data-bs-toggle="button"' +
                         'onclick="evtAsiento(this)" data-fila="' + i + '" data-columna="' + j + '"><i class="fas fa-user  px-m"></i></a>';
             }
             $colElement.append(asiento);
