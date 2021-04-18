@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Sockets;
 import java.util.Set;
 import javax.ws.rs.core.Application;
 
@@ -28,13 +28,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(Controller.AvionesController.class);
-        resources.add(Controller.CiudadesController.class);
-        resources.add(Controller.HorariosController.class);
-        resources.add(Controller.RutasController.class);
-        resources.add(Controller.UsuarioController.class);
-        resources.add(Controller.VuelosController.class);
-        resources.add(Sockets.TiquetesController.class);
     }
     
 }

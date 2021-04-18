@@ -29,7 +29,6 @@
                     </svg>
                 </div>
                 <span class="text-loader" id="text-loader">Procesando compra</span>
-
             </div>
 
             <div class="mensaje-container" id="mensaje-info" style="display:none;  ">

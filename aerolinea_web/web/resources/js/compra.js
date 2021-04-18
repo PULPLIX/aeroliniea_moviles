@@ -151,6 +151,7 @@ function comprar() {
         JSON.stringify(asientosSeleccionados),
         formaPago
     ]
+//    http://localhost:8081/Backend/
     console.log(data);
     $.ajax({
         url: "http://localhost:8081/Backend/api/tiquetes/comprar",

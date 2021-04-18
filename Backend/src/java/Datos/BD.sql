@@ -50,7 +50,7 @@ CREATE TABLE Rutas (
   horario_id INT NOT NULL,
   ciudad_origen INT NOT NULL,
   ciudad_destino INT NOT NULL,
-  precio NUMBER(7,2) NULL,
+  precio NUMBER(10,2) NULL,
   porcentaje_descuento NUMBER(7,2) NULL,
   CONSTRAINT PKRutas primary key(id),	
   CONSTRAINT fk_rutas_horarios1 
@@ -120,7 +120,7 @@ CREATE TABLE Tiquetes (
   id INT NOT NULL,
   usuario_id VARCHAR2(100) NOT NULL,
   vuelo_id INT NOT NULL,
-  precio_final VARCHAR2(45) NULL,
+  precio_final NUMBER(11,4) NULL,
   fila_asiento INT NULL,
   columna_asiento INT NULL,
   forma_pago VARCHAR2(45) NULL,
@@ -283,6 +283,7 @@ begin
 end INSERCION_RUTA;
 /
 show error
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
@@ -701,16 +702,17 @@ end GET_TIQUETE;
 /
 show error
 ------------------------------------------------------------------------------------------
+
 create or replace procedure INSERCION_TIQUETE(
 ArgUsuario in VARCHAR2,
 ArgVuelo in INT,
-ArgPrecio in VARCHAR2,
+ArgPrecio in NUMBER,
 ArgFila in INT,
 ArgColumna in INT,
 ArgFormaPago in VARCHAR2)
 as
 begin
-	insert into Tiquetes values (seq_tiquetes.nextval,ArgUsuario,ArgVuelo,ArgPrecio,ArgColumna,ArgFila,ArgFormaPago);
+	insert into Tiquetes values (seq_tiquetes.nextval,ArgUsuario,ArgVuelo,ArgPrecio,ArgFila,ArgColumna,ArgFormaPago);
 	commit;
 end INSERCION_TIQUETE;
 /
@@ -789,6 +791,86 @@ begin
 end COLUMNASS_OCUPADAS_X_ASIENTO;
 /
 show error
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+-- =======================================================================================
+--                    FUNCIONES PARA LA GENERACIÓN DE REPORTES
+-- =======================================================================================
+
+------------------------------------------------------------------------------------------
+-- FACTURADO POR ANIO
+------------------------------------------------------------------------------------------
+
+create or replace function facturadoPorAnio 
+return TYPES.ref_cursor
+as
+sumaIngresos TYPES.ref_cursor;
+begin
+	open sumaIngresos for
+        SELECT SUM(t.precio_final) total, to_char(v.FECHA, 'Month') Mes
+            from tiquetes t
+            inner join vuelos v on v.id = t.vuelo_id
+            WHERE to_char(v.FECHA, 'Year') = to_char(sysdate, 'Year')
+            GROUP BY to_char(v.FECHA, 'Month');
+        return sumaIngresos;
+END facturadoPorAnio;
+/
+show error
+------------------------------------------------------------------------------------------
+
+-- FACTURADO EN LOS ÚLTIMOS 12 MESES
+------------------------------------------------------------------------------------------
+
+create or replace function facturado12Meses(
+fechaIni in VARCHAR2,
+fechaFin in VARCHAR2
+)
+return TYPES.ref_cursor
+as
+sumaIngresos TYPES.ref_cursor;
+begin
+	open sumaIngresos for
+            SELECT SUM(t.precio_final) total, to_char(v.FECHA, 'Month') Mes
+                from tiquetes t
+                inner join vuelos v on v.id = t.vuelo_id
+                WHERE v.fecha 
+                BETWEEN to_date(fechaIni, 'DD/MM/YYYY') AND
+                to_date(fechaFin, 'DD/MM/YYYY')
+                GROUP BY to_char(v.FECHA, 'Month');
+        return sumaIngresos;
+END facturado12Meses;
+/
+show error
+
+------------------------------------------------------------------------------------------
+
+-- TOP 5 RUTAS MÁS VENDIDAS
+------------------------------------------------------------------------------------------
+
+create or replace function top5Rutas 
+return TYPES.ref_cursor
+as
+topCinco TYPES.ref_cursor;
+begin
+	open topCinco for
+        select  cant,ciudad_origen, ciudad_destino from(
+            select count(t.id) cant, r.id id_ruta, c1.nombre ciudad_origen , c2.nombre ciudad_destino
+            from tiquetes t
+            inner join vuelos v on v.id = t.vuelo_id
+            inner join rutas r on r.id = v.ruta_id
+            inner join ciudad c1 on c1.id = r.ciudad_origen
+            inner join ciudad c2 on c2.id = r.ciudad_destino
+            GROUP BY r.id, c1.nombre,c2.nombre
+            order by 1 DESC
+        )WHERE ROWNUM <= 5
+        ORDER BY 1 DESC;
+        return topCinco;
+END top5Rutas;
+/
+show error
+
 ------------------------------------------------------------------------------------------
 
 -- 0 admin / 1 user

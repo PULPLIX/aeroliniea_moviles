@@ -56,7 +56,7 @@ public class ServicioTiquete extends Servicio {
             toDo = conexion.prepareCall(INSERCION_TIQUETE);
             toDo.setString(1, newTiquete.getUsuarioId().getId());
             toDo.setInt(2, newTiquete.getVueloId().getId());
-            toDo.setString(3, newTiquete.getPrecioFinal());
+            toDo.setDouble(3, newTiquete.getPrecioFinal());
             toDo.setInt(4, newTiquete.getFilaAsisento());
             toDo.setInt(5, newTiquete.getColumnaAsiento());
             toDo.setString(6, newTiquete.getFormaPago());
@@ -94,7 +94,7 @@ public class ServicioTiquete extends Servicio {
             toDo = conexion.prepareCall(UPDATE_TIQUETE);
             toDo.setString(1, tiquete.getUsuarioId().getId());
             toDo.setInt(2, tiquete.getVueloId().getId());
-            toDo.setString(3, tiquete.getPrecioFinal());
+            toDo.setDouble(3, tiquete.getPrecioFinal());
             toDo.setInt(4, tiquete.getFilaAsisento());
             toDo.setInt(5, tiquete.getColumnaAsiento());
             toDo.setString(6, tiquete.getFormaPago());
@@ -147,7 +147,7 @@ public class ServicioTiquete extends Servicio {
                 Usuario usuarioTem = ServicioUsuario.getSingletonInstance().getUsuario(rs.getString("usuario_id"));
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
                 Tiquete = new Tiquete(rs.getInt("id"), usuarioTem, vueloTem,
-                        rs.getString("precio_final"), rs.getInt("fila_asisento"),
+                        rs.getDouble("precio_final"), rs.getInt("fila_asisento"),
                         rs.getInt("columna_asiento"), rs.getString("forma_pago"));
             }
 
@@ -202,7 +202,7 @@ public class ServicioTiquete extends Servicio {
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
 
                 Tiquete = new Tiquete(rs.getInt("id"), usuarioTem, vueloTem,
-                        rs.getString("precio_final"), rs.getInt("fila_asiento"),
+                        rs.getDouble("precio_final"), rs.getInt("fila_asiento"),
                         rs.getInt("columna_asiento"), rs.getString("forma_pago"));
                 coleccion.add(Tiquete);
 
@@ -257,7 +257,7 @@ public class ServicioTiquete extends Servicio {
                 Vuelo vueloTem = ServicioVuelo.getSingletonInstance().getVuelo(rs.getInt("vuelo_id"));
 
                 Tiquete = new Tiquete(rs.getInt("id"), usuarioTem, vueloTem,
-                        rs.getString("precio_final"), rs.getInt("fila_asiento"),
+                        rs.getDouble("precio_final"), rs.getInt("fila_asiento"),
                         rs.getInt("columna_asiento"), rs.getString("forma_pago"));
                 coleccion.add(Tiquete);
 

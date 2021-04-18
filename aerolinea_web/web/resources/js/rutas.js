@@ -5,9 +5,11 @@
  */
 
 var elements = document.getElementsByClassName('list-group-item-action active');
+
 while (elements.length > 0) {
     elements[0].classList.remove('active');
 }
+
 $("#item-rutas").addClass("active");
 function mostrarDescuento(checkBox) {
     if (checkBox.checked == true) {
@@ -121,8 +123,9 @@ function listarRutas() {
 }
 function insertarRuta() {
 
-    if (verificaCampoVacio($("#ciudadOrigen").val()) && verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val()) && verificaCampoNum($("#precio").val())) {
+    if (verificaCampoVacio($("#ciudadOrigen").val()) && verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val())) {
         var ruta = crearRuta();
+        console.log(ruta.precio);
         $.ajax({
             url: "http://localhost:8081/Backend/api/rutas/insertar",
             type: "post",

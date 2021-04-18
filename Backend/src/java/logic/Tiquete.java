@@ -17,7 +17,7 @@ public class Tiquete implements Serializable {
     private int id;
     private Usuario usuarioId;
     private Vuelo vueloId;
-    private String precioFinal;
+    private double precioFinal;
     private int filaAsisento;
     private int columnaAsiento;
     private String formaPago;
@@ -25,7 +25,7 @@ public class Tiquete implements Serializable {
     public Tiquete() {
     }
 
-    public Tiquete( int id,Usuario usuarioId, Vuelo vueloId, String precioFinal, int filaAsisento, int columnaAsiento, String formaPago) {
+    public Tiquete( int id,Usuario usuarioId, Vuelo vueloId, double precioFinal, int filaAsisento, int columnaAsiento, String formaPago) {
         this.id = id;
         this.precioFinal = precioFinal;
         this.filaAsisento = filaAsisento;
@@ -47,11 +47,11 @@ public class Tiquete implements Serializable {
         this.id = id;
     }
 
-    public String getPrecioFinal() {
+    public double getPrecioFinal() {
         return precioFinal;
     }
 
-    public void setPrecioFinal(String precioFinal) {
+    public void setPrecioFinal(double precioFinal) {
         this.precioFinal = precioFinal;
     }
 

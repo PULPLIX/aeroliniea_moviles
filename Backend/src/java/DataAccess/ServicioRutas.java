@@ -54,13 +54,13 @@ public class ServicioRutas extends Servicio {
             toDo.setDouble(4, newRutas.getPrecio());
             toDo.setDouble(5, newRutas.getPorcentajeDescuento());
 
-            int resultado = toDo.executeUpdate();
-            if (resultado == 0) {
+            boolean resultado = toDo.execute();
+            if (resultado == true) {
                 throw new DbException("No se realizo la insercion del curso");
             }
 
         } catch (SQLIntegrityConstraintViolationException e) {
-            throw new DbException("El identificador de curso ya está en uso o el codigo de carrera no existe");
+            throw new DbException("El identificador de la ruta ya está en uso o el codigo de carrera no existe");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new GeneralException("Ha ocurrido un error, vuelva a intentar...");

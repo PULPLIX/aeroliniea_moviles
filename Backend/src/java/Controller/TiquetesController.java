@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Sockets;
 
 import Exceptions.DbException;
 import Exceptions.GeneralException;
@@ -81,14 +81,14 @@ public class TiquetesController {
         
         //Se hacen los cálculos para obtener el precio final del tiquete
         double precioRuta = vuelo.getRutaId().getPrecio();
-        double precioFinal = precioRuta - (precioRuta * vuelo.getRutaId().getPorcentajeDescuento());
+        double precioFinal = precioRuta - (precioRuta * (vuelo.getRutaId().getPorcentajeDescuento() * 0.01) );
         //Se crea un modeloTiquete para poder insertar iterativamente cada uno de los asientos seleccionados por el cliente
         ModelTiquete mTiquete = ModelTiquete.getInstance();
         //Se itera por cada uno de los asientos que haya elegido el cliente. 
         for (int i = 0; i < asientos.size(); i++) {
             int col = Integer.parseInt(asientos.get(i).get(0));
             int fila = Integer.parseInt(asientos.get(i).get(1));
-            Tiquete nuevoTiquete = new Tiquete(0, usuario, vuelo, String.valueOf(precioFinal), fila, col, formaPago);
+            Tiquete nuevoTiquete = new Tiquete(0, usuario, vuelo, precioFinal, fila, col, formaPago);
             mTiquete.agrergar(nuevoTiquete);
         }
         return gson.toJson(asientos);
