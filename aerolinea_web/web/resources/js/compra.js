@@ -107,8 +107,11 @@ function renderizarAsientos(avion, id_vuelo) {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
-            }
+                    mostrarMensaje("error", "Ocurrió un error");
+                },
+                500: function () {
+                    mostrarMensaje("error", "Ocurrió un error en el servidor");
+                }
         }
     });
 }
@@ -150,7 +153,7 @@ function comprar() {
         JSON.stringify(vuelo.id),
         JSON.stringify(asientosSeleccionados),
         formaPago
-    ]
+    ];
     console.log(data);
     $.ajax({
         url: "http://localhost:8081/Backend/api/tiquetes/comprar",
@@ -161,12 +164,15 @@ function comprar() {
         success: function () {
             actualizarTiquetes(asientosSeleccionados);
             sleep(500).then(() => {
-                window.location.href = "/aerolinea/views/index.jsp";
+                window.location.href = "/aerolinea/views/usuario/misTiquetes.jsp";
             })
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje("error", "Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje("error", "Error de servidor");
             }
         }
     });

@@ -3,8 +3,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 
-
-
 <t:admin>
     <jsp:attribute name="title">
         Dashboard

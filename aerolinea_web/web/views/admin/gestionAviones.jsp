@@ -11,6 +11,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
+        <script src="/aerolinea/resources/js/twbsPagination.js"></script>
         <script src="/aerolinea/resources/js/aviones.js"></script>
     </jsp:attribute>
 
@@ -125,7 +126,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id='paginacion'>
                             <thead>
                                 <tr>
                                     <th scope="col">id</th>
@@ -142,6 +143,9 @@
 
                             </tbody>
                         </table>
+                        <div id="pager">
+                            <ul id="pagination" class="pagination-sm"></ul>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card -->

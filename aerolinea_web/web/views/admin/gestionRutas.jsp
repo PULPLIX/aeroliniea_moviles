@@ -147,7 +147,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id='paginacion'>
                             <thead>
                                 <tr>
                                     <th scope="col">id <i class="fas fa-sort-down "></i></th>
@@ -164,6 +164,9 @@
 
                             </tbody>
                         </table>
+                        <div id="pager">
+                            <ul id="pagination" class="pagination-sm"></ul>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card -->

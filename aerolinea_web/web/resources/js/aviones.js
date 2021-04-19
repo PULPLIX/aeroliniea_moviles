@@ -1,11 +1,42 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+function include(file) {
+    var script = document.createElement('script');
+    script.src = file;
+    script.type = 'text/javascript';
+    script.defer = true;
+    document.getElementsByTagName('head').item(0).appendChild(script);
+}
+
+include('/aerolinea/resources/js/twbsPagination.js');
 
 
-//$(function () {
+function apply_pagination() {
+    $pagination.twbsPagination({
+        totalPages: totalPages,
+        visiblePages: 6,
+        onPageClick: function (event, page) {
+            displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+            endRec = (displayRecordsIndex) + recPerPage;
+            displayRecords = records.slice(displayRecordsIndex, endRec);
+            recargarTabla(displayRecords);
+        }
+    });
+}
+
+var $pagination = $('#pagination'),
+        totalRecords = 0,
+        records = [],
+        displayRecords = [],
+        recPerPage = 10,
+        page = 1,
+        totalPages = 0;
+
+function paginacion(data) {
+    records = data;
+    totalRecords = records.length;
+    totalPages = Math.ceil(totalRecords / recPerPage);
+    apply_pagination();
+
+}
 
 var elements = document.getElementsByClassName('list-group-item-action active');
 while (elements.length > 0) {
@@ -108,7 +139,7 @@ function listarAviones() {
         url: "http://localhost:8081/Backend/api/aviones/listar",
         type: "get",
         success: function (listadoAviones) {
-            recargarTabla(listadoAviones);
+            paginacion(listadoAviones);
         },
         statusCode: {
             404: function () {
