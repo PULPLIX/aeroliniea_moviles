@@ -17,7 +17,6 @@ function getVuelo() {
     let vuelo = sessionStorage.getItem("vueloSelected");
     if (vuelo !== null && vuelo !== undefined) {
         vuelo = JSON.parse(vuelo);
-        console.log(vuelo);
         llenarInfo(vuelo);
         renderizarAsientos(vuelo.avionId, vuelo.id);
     }
@@ -44,7 +43,6 @@ function llenarModalCompra(vuelo, usuario) {
     document.getElementById("modalidad-modal").append(modalidad);
     document.getElementById("duracion-modal").append(vuelo.duracion);
     document.getElementById("avion-modal").append(vuelo.avionId.tipo + " ( " + vuelo.avionId.marca + " - " + vuelo.avionId.anio + " )");
-    console.log(usuario);
     //Llenar datos referentes al usuario que va a comprar el vuelo
     document.getElementById("nombre-modal").append(usuario.nombre + " " + usuario.apellidos);
     document.getElementById("correo-modal").append(usuario.correo);
@@ -85,7 +83,6 @@ function llenarAsientosInfo() {
     asientosSeleccionados.forEach(asiento => {
         asientos += "[" + asiento[0] + " , " + asiento[1] + "]  ";
     });
-    console.log(asientos)
     document.getElementById("asientos-modal").innerHTML = (asientos);
     document.getElementById("cantidadTiquetes-modal").innerHTML = (asientosSeleccionados.length);
     var vuelo = JSON.parse(sessionStorage.getItem("vueloSelected"));
@@ -98,7 +95,6 @@ function renderizarAsientos(avion, id_vuelo) {
         url: "http://localhost:8081/Backend/api/vuelos/asientosOcupados/" + id_vuelo,
         type: "GET",
         success: function (hashAsientos) {
-            console.log(avion);
             if ((avion.asientosFila % 2) == 0) {
                 crearAsientos(2, avion.asientosFila, avion.cantidadFilas, hashAsientos);
             } else {
@@ -151,7 +147,6 @@ function comprar() {
         JSON.stringify(asientosSeleccionados),
         formaPago
     ]
-    console.log(data);
     $.ajax({
         url: "http://localhost:8081/Backend/api/tiquetes/comprar",
         type: "post",

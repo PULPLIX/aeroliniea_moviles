@@ -1,4 +1,4 @@
-const webSocket = new WebSocket("ws://localhost:8081/aerolinea/tiquetesSocket");
+const webSocket = new WebSocket("ws://localhost:8081/Backend/tiquetesSocket");
 
 
 webSocket.addEventListener("open", function (event) {
@@ -17,19 +17,15 @@ function actualizarTiquetes(asientosSeleccionados) {
 }
 
 function actualizarAsientos(message) {
-    console.log(message);
     var array = JSON.parse(message);
     var idVuelo = array[0];
     var vuelo = JSON.parse(sessionStorage.getItem("vueloSelected"));
 
     if (vuelo.id === idVuelo) {
         var asientosSeleccionados = JSON.parse(array[1]);
-        console.log(asientosSeleccionados);
 
         asientosSeleccionados.forEach(asiento => {
-            console.log(asiento);
             var asientoId = asiento[0] + "" + asiento[1];
-//            console.log(asiento);
 
             $("#" + asientoId).attr("onclick", "").unbind("click");
             $("#" + asientoId).removeClass("btn");

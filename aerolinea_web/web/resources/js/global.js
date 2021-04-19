@@ -29,7 +29,6 @@ function llenarModal(objeto) {
             $("#id-modal").html(objeto[atributo]);
         }
         if (atributo === "fecha") {
-            console.log(objeto[atributo]);
             document.getElementById("fecha-modal").valueAsDate = objeto[atributo];
         } else {
             $("#" + atributo + "-modal").val(objeto[atributo]);

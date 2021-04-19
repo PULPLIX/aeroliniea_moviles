@@ -47,7 +47,6 @@ function getAvion(id) {
         url: "http://localhost:8081/Backend/api/aviones/get/" + id,
         type: "GET",
         success: function (usuario) {
-            console.log(usuario);
             llenarModal(usuario);
         },
         statusCode: {
@@ -99,7 +98,6 @@ function recargarTabla(listadoAviones) {
                 "Eliminar</button>";
         $('<td></td>').html(btn).appendTo(row);
         row.appendTo(tabla);
-        console.log(row);
     });
 }
 

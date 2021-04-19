@@ -298,7 +298,6 @@ function recargarTablaVuelosBuscados(listadoVuelos) {
     var tabla = $("#resultado-busqueda");
     listadoVuelos.forEach(vuelo => {
         var row = crearFila(vuelo);
-        console.log(row);
         tabla.append(row);
     });
 }

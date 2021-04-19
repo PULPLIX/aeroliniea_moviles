@@ -65,7 +65,6 @@ function paginacion(data) {
         function _filter(row) {
             var text = row.cells[1].textContent;
             var val = _input.value.toLowerCase();
-            //console.log("row: "+row.cells[1].textContent.indexOf(val)+" val: "+ val)
             row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
         }
 
@@ -247,7 +246,6 @@ function getHistorialTiquetes() {
 function recargarTablaMisTiquetes(listadoHistorialTiquetes) {
     $("#tabla-historial").html("");
     var tabla = $("#tabla-historial");
-    console.log(listadoHistorialTiquetes);
     listadoHistorialTiquetes.forEach(tiquete => {
         var row = $('<tr></tr>');
         $('<td></td>').html(tiquete.vueloId.id).appendTo(row);

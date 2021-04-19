@@ -125,7 +125,6 @@ function insertarRuta() {
 
     if (verificaCampoVacio($("#ciudadOrigen").val()) && verificaCampoVacio($("#ciudadDestino").val()) && verificaCampoVacio($("#horarioId").val())) {
         var ruta = crearRuta();
-        console.log(ruta.precio);
         $.ajax({
             url: "http://localhost:8081/Backend/api/rutas/insertar",
             type: "post",

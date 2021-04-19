@@ -13,7 +13,6 @@ function getUltimos12Meses() {
         url: "http://localhost:8081/Backend/api/reportes/ultimosMeses",
         type: "GET",
         success: function (dataSet) {
-            console.log(dataSet);
             var labels = getLabels(dataSet);
             var data = getData(dataSet);
             var colors = getGraphColors(dataSet);
@@ -36,7 +35,6 @@ function getfacturadoXAnio() {
         url: "http://localhost:8081/Backend/api/reportes/facturadoXAnio",
         type: "GET",
         success: function (dataSet) {
-            console.log(dataSet);
             var labels = getLabels(dataSet);
             var data = getData(dataSet);
             var colors = getGraphColors(dataSet);
@@ -61,7 +59,6 @@ function getTop5Rutas() {
         url: "http://localhost:8081/Backend/api/reportes/top5Rutas",
         type: "GET",
         success: function (dataSet) {
-            console.log(dataSet);
             var labels = getLabels(dataSet);
             var data = getData(dataSet);
             var colors = getGraphColors(dataSet);
