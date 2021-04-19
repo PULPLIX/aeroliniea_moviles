@@ -1,6 +1,6 @@
 package backend;
 
-import DataAccess.servicioReportes;
+import DataAccess.ServicioReportes;
 import Exceptions.DbException;
 import Exceptions.GeneralException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class BackEnd {
     public static void main(String[] args) throws GeneralException, DbException, Exception {
         System.out.println(" ##### ----> BACKEND EJECUTADO <---- #### ");
 
-        servicioReportes sReportes = servicioReportes.getSingletonInstance();
+        ServicioReportes sReportes = ServicioReportes.getSingletonInstance();
         ArrayList<Pair<Integer, String>> ultimos12 = sReportes.ingresosUltimos12Meses();
         ArrayList<Pair<Integer, String>> facturadoAnio = sReportes.facturadoXAnio();
         ArrayList<Pair<Integer, String>> top5Rutas = sReportes.top5Rutas();

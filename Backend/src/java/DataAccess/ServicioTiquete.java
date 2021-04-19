@@ -57,8 +57,8 @@ public class ServicioTiquete extends Servicio {
             toDo.setString(1, newTiquete.getUsuarioId().getId());
             toDo.setInt(2, newTiquete.getVueloId().getId());
             toDo.setDouble(3, newTiquete.getPrecioFinal());
-            toDo.setInt(4, newTiquete.getFilaAsisento());
-            toDo.setInt(5, newTiquete.getColumnaAsiento());
+            toDo.setInt(4, newTiquete.getColumnaAsiento());
+            toDo.setInt(5, newTiquete.getFilaAsisento());
             toDo.setString(6, newTiquete.getFormaPago());
 
             boolean resultado = toDo.execute();

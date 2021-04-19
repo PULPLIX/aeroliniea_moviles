@@ -7,8 +7,6 @@ var asientosSeleccionados = [];
 function evtAsiento(btn) {
     if (btn.classList.contains('active')) {
         btn.innerHTML = '<i class="fas fa-check-circle"></i>';
-        console.log(btn.id);
-        actualizarTiquetes(btn.id);
     } else {
         btn.innerHTML = '<i class="fas fa-user px-m"></i>'
     }
@@ -100,10 +98,11 @@ function renderizarAsientos(avion, id_vuelo) {
         url: "http://localhost:8081/Backend/api/vuelos/asientosOcupados/" + id_vuelo,
         type: "GET",
         success: function (hashAsientos) {
-            if ((avion.cantidadFilas % 3) == 0) {
-                crearAsientos(3, avion.asientosFila, avion.cantidadFilas, hashAsientos);
-            } else {
+            console.log(avion);
+            if ((avion.asientosFila % 2) == 0) {
                 crearAsientos(2, avion.asientosFila, avion.cantidadFilas, hashAsientos);
+            } else {
+                crearAsientos(3, avion.asientosFila, avion.cantidadFilas, hashAsientos);
             }
         },
         statusCode: {
@@ -123,14 +122,15 @@ function crearAsientos(numAsientos, columns, rows, hashAsientos) {
         for (var j = 1; j <= columns; j++) {
             var asiento = "";
             if (hashAsientos[i] != undefined && hashAsientos[i].includes(j)) {
-                asiento = '<a href="#" class="asiento ocupado" data-fila="' + i + '" id="'+i+j+'" data-columna="' + j + '"><i class="fas fa-times-circle"></i></a>'
+                asiento = '<a href="#" class="asiento ocupado" data-fila="' + i + '" id="' + i + j + '" data-columna="' + j + '"><i class="fas fa-times-circle"></i></a>'
             } else {
-                asiento = '<a href="#" class="btn btn-azul-avion asiento" id="'+i+j+'" role="button" data-bs-toggle="button"' +
+                asiento = '<a href="#" class="btn btn-azul-avion asiento" id="' + i + j + '" role="button" data-bs-toggle="button"' +
                         'onclick="evtAsiento(this)" data-fila="' + i + '" data-columna="' + j + '"><i class="fas fa-user  px-m"></i></a>';
             }
             $colElement.append(asiento);
-            if (j % numAsientos - 1 && j != columns) {
-                if (parseInt(i / 10) > 0) {
+//            if (j % numAsientos - 1 && j != columns) {
+            if (j % numAsientos === 0 && j != columns) {
+                if (parseInt(i / 10) > 0) {//Se hace dicha operación para los casos en donde el número no cuenta con 2 digitos, y así agregar más ó menos margin
                     $colElement.append('<div class="px-d">' + i + '</div>');
                 } else {
                     $colElement.append('<div class="px-3">' + i + '</div>');
@@ -151,7 +151,6 @@ function comprar() {
         JSON.stringify(asientosSeleccionados),
         formaPago
     ]
-//    http://localhost:8081/Backend/
     console.log(data);
     $.ajax({
         url: "http://localhost:8081/Backend/api/tiquetes/comprar",
@@ -159,7 +158,8 @@ function comprar() {
         contentType: "application/json",
         data: JSON.stringify(data),
         beforeSend: mostrarCarga(),
-        success: function (asientos) {
+        success: function () {
+            actualizarTiquetes(asientosSeleccionados);
             sleep(500).then(() => {
                 window.location.href = "/aerolinea/views/index.jsp";
             })

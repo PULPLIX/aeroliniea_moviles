@@ -37,7 +37,7 @@
                         src="/aerolinea/resources/images/logoBannerBlanco.png" alt=""
                         class="img-responsive" style="max-width: 100%;"> </div>
                 <div class="list-group list-group-flush">
-                    <a href="/aerolinea/dashboard/show"
+                    <a href="/aerolinea/views/admin/dashboard.jsp"
                        class="list-group-item list-group-item-action active" id="item-dashboard"> <i
                             class="fas fa-tachometer-alt" id="item-dashboard"></i>&nbsp; Dashboard</a>
                     <a href="/aerolinea/views/admin/gestionAviones.jsp" class="list-group-item list-group-item-action" id="item-aviones"><i

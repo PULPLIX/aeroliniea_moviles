@@ -17,21 +17,21 @@ import oracle.jdbc.OracleTypes;
  *
  * @author david
  */
-public class servicioReportes extends Servicio {
+public class ServicioReportes extends Servicio {
 
     private static final String FACTURADOXANIO = "{?=call facturadoPorAnio()}";
     private static final String FACTURADO12MESES = "{?=call facturado12Meses(?,?)}";
     private static final String TOP5RUTAS = "{?=call top5Rutas()}";
 
-    private static servicioReportes serviceReporte;
+    private static ServicioReportes serviceReporte;
 
-    private servicioReportes() {
+    private ServicioReportes() {
 
     }
 
-    public static servicioReportes getSingletonInstance() throws GeneralException {
+    public static ServicioReportes getSingletonInstance() throws GeneralException {
         if (serviceReporte == null) {
-            serviceReporte = new servicioReportes();
+            serviceReporte = new ServicioReportes();
         }
 
         return serviceReporte;

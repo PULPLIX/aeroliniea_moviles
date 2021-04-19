@@ -73,52 +73,51 @@
                 <h1 class="display-6 fw-normal text-negro"><i class="fas fa-plane text-primary"></i>&nbsp;Gestión de aviones</h1>
             </div>
         </div>
-            <div class="row  border-bottom">
-                <div class="col-6 ">
-                    <div class="card">
-                        <div class="card-header titulo"><i class="fas fa-plus"></i> &nbsp;Agregar avión</div>
-                        <div class="card-body">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon1">Tipo: </span>
-                                <input type="text" class="form-control" placeholder="777" id="tipo" name="tipo"
-                                       aria-describedby="basic-addon1">
-                            </div>
+        <div class="row  border-bottom">
+            <div class="col-6 ">
+                <div class="card">
+                    <div class="card-header titulo"><i class="fas fa-plus"></i> &nbsp;Agregar avión</div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Tipo: </span>
+                            <input type="text" class="form-control" placeholder="777" id="tipo" name="tipo"
+                                   aria-describedby="basic-addon1">
+                        </div>
 
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Capacidad:</span>
-                                <input type="text" class="form-control" placeholder="150" id="capacidad" name="capacidad"
-                                       aria-describedby="basic-addon2">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Año:</span>
-                                <input type="text" class="form-control" placeholder="2018" id="anio" name="anio"
-                                       aria-describedby="basic-addon2">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Marca:</span>
-                                <input type="text" class="form-control" placeholder="Boeing" id="marca" name="marca"
-                                       aria-describedby="basic-addon2">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Asientos fila</span>
-                                <input type="text" class="form-control" placeholder="5" id="asientosFila" name="asientosFila"
-                                       aria-describedby="basic-addon2">
-                            </div>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text" id="basic-addon2">Cantidad de filas</span>
-                                <input type="text" class="form-control" placeholder="5" id="cantidadFilas" name="cantidadFilas" 
-                                       aria-describedby="basic-addon2">
-                            </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2">Capacidad:</span>
+                            <input type="text" class="form-control" placeholder="150" id="capacidad" name="capacidad"
+                                   aria-describedby="basic-addon2">
                         </div>
-                        <div class="d-flex justify-content-center pb-4">
-                            <button class="btn btn-primary" onclick="insertarAvion()"><i class="fas fa-plus"></i> &nbsp; Agregar</button>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2">Año:</span>
+                            <input type="text" class="form-control" placeholder="2018" id="anio" name="anio"
+                                   aria-describedby="basic-addon2">
                         </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2">Marca:</span>
+                            <input type="text" class="form-control" placeholder="Boeing" id="marca" name="marca"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2">Asientos fila</span>
+                            <input type="text" class="form-control" placeholder="5" id="asientosFila" name="asientosFila"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon2">Cantidad de filas</span>
+                            <input type="text" class="form-control" placeholder="5" id="cantidadFilas" name="cantidadFilas" 
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center pb-4">
+                        <button class="btn btn-primary" onclick="insertarAvion()"><i class="fas fa-plus"></i> &nbsp; Agregar</button>
                     </div>
                 </div>
             </div>
+        </div>
         <div class="row mt-3">
             <div class="col-12">
-
                 <div class="card">
                     <!-- /.card-header -->
                     <div class=" card-header titulo mb-2">
