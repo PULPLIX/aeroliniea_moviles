@@ -11,9 +11,6 @@ function include(file) {
     script.defer = true;
     document.getElementsByTagName('head').item(0).appendChild(script);
 }
-
-include('/aerolinea/resources/js/vuelos.js');
-
 include('/aerolinea/resources/js/twbsPagination.js');
 
 function apply_pagination() {
@@ -23,7 +20,6 @@ function apply_pagination() {
         onPageClick: function (event, page) {
             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
             endRec = (displayRecordsIndex) + recPerPage;
-
             displayRecords = records.slice(displayRecordsIndex, endRec);
             recargarTablaMisTiquetes(displayRecords);
         }
@@ -130,7 +126,10 @@ function getUsuario() {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje("error", "Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje("error", "Error de servidor");
             }
         }
     });
@@ -184,7 +183,10 @@ function actualizarUsuario() {
         },
         statusCode: {
             404: function () {
-                mostrarMensaje("error", "Ocurrió un error al agregar");
+                mostrarMensaje("error", "Ocurrió un error");
+            },
+            500: function () {
+                mostrarMensaje("error", "Error de servidor");
             }
         }
     });
@@ -213,7 +215,7 @@ function login() {
             },
             statusCode: {
                 404: function () {
-                    mostrarMensaje("error", "Ocurrió un error al agregar");
+                    mostrarMensaje("error", "Ocurrió un error");
                 },
                 500: function () {
                     mostrarMensaje("error", "Ocurrió un error en el servidor");
@@ -236,7 +238,10 @@ function getHistorialTiquetes() {
             },
             statusCode: {
                 404: function () {
-                    alert("Hubo un error");
+                    mostrarMensaje("error", "Página no encontrada");
+                },
+                500: function () {
+                    mostrarMensaje("success", "Lista vacia");
                 }
             }
         });

@@ -2,9 +2,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-
-
-
 <t:admin>
     <jsp:attribute name="title">
         Gestión de vuelos  
@@ -128,7 +125,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover" id='paginacion'>
                             <thead>
                                 <tr>
                                     <th scope="col">id <i class="fas fa-sort-down "></i></th>
@@ -145,6 +142,9 @@
 
                             </tbody>
                         </table>
+                        <div id="pager">
+                            <ul id="pagination" class="pagination-sm"></ul>
+                        </div>
                     </div>
                 </div>
                 <!-- /.card -->

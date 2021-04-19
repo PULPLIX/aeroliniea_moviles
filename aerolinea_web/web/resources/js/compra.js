@@ -35,7 +35,7 @@ function llenarInfo(vuelo) {
 }
 function llenarModalCompra(vuelo, usuario) {
 
-// LLenar datos del tiquete de avion 
+    // LLenar datos del tiquete de avion 
     let modalidad = (vuelo.modalidad === 1 ? "Solo ida" : "Ida y vuelta");
     document.getElementById("origen-modal").append(vuelo.rutaId.ciudadOrigen.nombre);
     document.getElementById("destino-modal").append(vuelo.rutaId.ciudadDestino.nombre);
@@ -51,8 +51,8 @@ function llenarModalCompra(vuelo, usuario) {
     document.getElementById("direccion-modal").append(usuario.direccion);
     //Llenar datos de compra
     let modalidad2 = (vuelo.modalidad === 2
-            ? '<i class="far fa-check-circle texto-verde"></i>'
-            : '<i class="far fa-times-circle text-danger"></i>');
+        ? '<i class="far fa-check-circle texto-verde"></i>'
+        : '<i class="far fa-times-circle text-danger"></i>');
     document.getElementById("precio-modal").append(vuelo.rutaId.precio);
     document.getElementById("descuento-modal").append(vuelo.rutaId.porcentajeDescuento + " %");
     document.getElementById("modalidad2-modal").innerHTML = modalidad2;
@@ -103,7 +103,10 @@ function renderizarAsientos(avion, id_vuelo) {
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje("error", "Ocurrió un error");
+            },
+            500: function () {
+                mostrarMensaje("error", "Ocurrió un error en el servidor");
             }
         }
     });
@@ -113,18 +116,18 @@ function crearAsientos(numAsientos, columns, rows, hashAsientos) {
     $("#asientos-container").html("");
     hashAsientos = JSON.parse(hashAsientos);
     for (var i = 1; i <= rows; i++) {
-        var $rowElement = $("<div>", {"class": "row"});
-        var $colElement = $("<div>", {"class": "col-5 d-flex"}).appendTo($rowElement);
+        var $rowElement = $("<div>", { "class": "row" });
+        var $colElement = $("<div>", { "class": "col-5 d-flex" }).appendTo($rowElement);
         for (var j = 1; j <= columns; j++) {
             var asiento = "";
             if (hashAsientos[i] != undefined && hashAsientos[i].includes(j)) {
                 asiento = '<a href="#" class="asiento ocupado" data-fila="' + i + '" id="' + i + j + '" data-columna="' + j + '"><i class="fas fa-times-circle"></i></a>'
             } else {
                 asiento = '<a href="#" class="btn btn-azul-avion asiento" id="' + i + j + '" role="button" data-bs-toggle="button"' +
-                        'onclick="evtAsiento(this)" data-fila="' + i + '" data-columna="' + j + '"><i class="fas fa-user  px-m"></i></a>';
+                    'onclick="evtAsiento(this)" data-fila="' + i + '" data-columna="' + j + '"><i class="fas fa-user  px-m"></i></a>';
             }
             $colElement.append(asiento);
-//            if (j % numAsientos - 1 && j != columns) {
+            //            if (j % numAsientos - 1 && j != columns) {
             if (j % numAsientos === 0 && j != columns) {
                 if (parseInt(i / 10) > 0) {//Se hace dicha operación para los casos en donde el número no cuenta con 2 digitos, y así agregar más ó menos margin
                     $colElement.append('<div class="px-d">' + i + '</div>');
@@ -156,12 +159,15 @@ function comprar() {
         success: function () {
             actualizarTiquetes(asientosSeleccionados);
             sleep(500).then(() => {
-                window.location.href = "/aerolinea/views/index.jsp";
+                window.location.href = "/aerolinea/views/usuario/misTiquetes.jsp";
             })
         },
         statusCode: {
             404: function () {
-                alert("Hubo un error");
+                mostrarMensaje("error", "Página no encontrada");
+            },
+            500: function () {
+                mostrarMensaje("error", "Error de servidor");
             }
         }
     });

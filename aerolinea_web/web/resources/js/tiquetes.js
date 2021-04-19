@@ -1,6 +1,3 @@
-
-
-
 function include(file) {
     var script = document.createElement('script');
     script.src = file;

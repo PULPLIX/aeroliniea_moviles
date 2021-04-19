@@ -9,8 +9,10 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-        <script src="/aerolinea/resources/js/global.js"></script>
+        <script src="/aerolinea/resources/js/twbsPagination.js"></script>
         <script src="/aerolinea/resources/js/tiquetes.js"></script>
+        <script src="/aerolinea/resources/js/global.js"></script>
+        <script src="/aerolinea/resources/js/vuelos.js"></script>
         <script src="/aerolinea/resources/js/usuarios.js"></script>
 
     </jsp:attribute>
@@ -18,6 +20,11 @@
         ${usu.getId()}
     </jsp:attribute>
     <jsp:body>
+        <div class="mensaje-container" id="mensaje-info" style="display:none;  ">
+            <div class="col-3 icono-mensaje d-flex align-items-center" id="icono-mensaje"></div>
+            <div class="col-9 texto-mensaje d-flex align-items-center text-center mx-2" id="texto-mensaje"
+                 style="color: #046704e8; "></div>
+        </div>
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -43,7 +50,7 @@
                                 <div class="input-group mb-3 d-flex ">
                                     <span class="input-group-text" id="basic-addon1">Fecha: </span>
                                     <input type="date" class="form-control datetime-local" id="fecha-modal" name="fecha" value="" disabled="true">
-                                    <span class="input-group-text" id="basic-addon1">AviÃ³n: </span>
+                                    <span class="input-group-text" id="basic-addon1">Avión: </span>
                                     <select class="form-select" id="avionId-modal"  class="form-control" disabled="true">
                                     </select>
                                 </div>
