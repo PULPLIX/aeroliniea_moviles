@@ -234,7 +234,8 @@ function getHistorialTiquetes() {
             url: "http://localhost:8081/Backend/api/usuario/tiquetesUsuario/" + id,
             type: "get",
             success: function (listadoHistorialTiquetes) {
-                paginacion(listadoHistorialTiquetes);
+                //paginacion(listadoHistorialTiquetes);
+                recargarTablaMisTiquetes(listadoHistorialTiquetes);
             },
             statusCode: {
                 404: function () {
