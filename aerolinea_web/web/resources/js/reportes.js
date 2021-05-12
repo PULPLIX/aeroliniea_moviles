@@ -63,7 +63,6 @@ function getTop5Rutas() {
             var data = getData(dataSet);
             var colors = getGraphColors(dataSet);
             createChart('bar', "Top 5 rutas más vendidas", labels, data, colors, "top5Chart");
-
         },
         statusCode: {
             404: function () {
