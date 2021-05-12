@@ -108,7 +108,9 @@ function listarTiquetes() {
         url: "http://localhost:8081/Backend/api/tiquetes/listar",
         type: "get",
         success: function (listadoTiquetes) {
-            paginacion(listadoTiquetes);
+            //paginacion(listadoTiquetes);
+            console.log(listadoTiquetes);
+            recargarTabla(listadoTiquetes);
         },
         statusCode: {
             404: function () {
