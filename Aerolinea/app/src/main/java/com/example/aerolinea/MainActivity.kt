@@ -10,6 +10,8 @@ import com.example.aerolinea.login_register.Register
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getSupportActionBar()?.hide();
+
         setContentView(R.layout.activity_main)
     }
 

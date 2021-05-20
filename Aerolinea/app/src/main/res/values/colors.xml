@@ -7,5 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blancoConOpacidad">#CBF5F5F5</color>
     <color name="azulito">#074E9D</color>
+    <color name="azulitoOpacidad">#48074E9D</color>
+    <color name="amarillito">#F5F511</color>
+    <color name="fuxia">#e2076a</color>
+
 </resources>

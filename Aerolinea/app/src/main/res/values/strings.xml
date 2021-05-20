@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Aerolinea</string>
+    <string name="title_activity_landing">Landing</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">DAVID\'s AIRLINES</string>
+    <string name="nav_header_subtitle">davids.airlines@dairlines.com</string>
+    <string name="nav_header_desc">nav_header_desc</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="vuelos">Vuelos</string>
+    <string name="tiquetes">Mis tiquetes</string>
+    <string name="otro_menu">Otro menu</string>
+    <string name="title_activity_main_user">MainUserActivity</string>
 </resources>

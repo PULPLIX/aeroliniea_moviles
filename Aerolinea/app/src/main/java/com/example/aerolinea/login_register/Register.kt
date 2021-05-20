@@ -7,22 +7,21 @@ import android.view.View
 import android.widget.Toast
 import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.Model.model
-import com.example.aerolinea.databinding.ActivityLoginBinding
 import com.example.aerolinea.databinding.ActivityRegisterBinding
-import kotlinx.android.synthetic.main.activity_register.*
 
 class Register : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getSupportActionBar()?.hide();
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
     }
 
     fun register(view:View){
-        if( password.text.toString().equals(confirmPassword.text.toString()) ){
-            val usuario1 = Usuario(user.text.toString(), password.text.toString(), "standar")
+        if( binding.password.text.toString().equals(binding.confirmPassword.text.toString()) ){
+            val usuario1 = Usuario(binding.user.text.toString(), binding.password.text.toString(), "standar")
             val model = model()
             model.getInstance().addUser(usuario1.nombre, usuario1);
             val intent = Intent(this, Login::class.java)

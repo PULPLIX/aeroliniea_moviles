@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Aerolinea">
-        <activity android:name=".View.UserView"></activity>
+        <activity
+            android:name=".View.MainUserActivity"
+            android:label="@string/title_activity_main_user"
+            android:theme="@style/Theme.Aerolinea.NoActionBar"></activity>
+
         <activity android:name=".login_register.Register" />
         <activity android:name=".login_register.Login" />
         <activity android:name=".MainActivity">

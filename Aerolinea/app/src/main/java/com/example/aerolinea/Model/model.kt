@@ -6,6 +6,8 @@ object Singleton{
 
     init {
         // Aqui se inicializan las variables y metodos
+        val usuario:Usuario = Usuario("1","1","0");
+        usuarios.put("1",usuario)
     }
 
     fun addUser(key:String, usuario:Usuario):Boolean{
