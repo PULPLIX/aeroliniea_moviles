@@ -12,5 +12,7 @@
     <color name="azulitoOpacidad">#48074E9D</color>
     <color name="amarillito">#F5F511</color>
     <color name="fuxia">#e2076a</color>
+    <color name="verdecito">#15CE3E</color>
+    <color name="negrito">#000</color>
 
 </resources>
