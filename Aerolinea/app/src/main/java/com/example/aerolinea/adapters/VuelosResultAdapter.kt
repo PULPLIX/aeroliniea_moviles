@@ -31,14 +31,14 @@ class VuelosResultAdapter(val vuelos: List<Vuelo>) :
 
     class VueloResultHolder(val view: View) : RecyclerView.ViewHolder(view) {
         private val viewB = ItemVueloBinding.bind(view)
-        fun render(vuelo: Vuelo) {
-            Log.d("vuelo:", vuelo.toString())
-            viewB.tvDestino.text = vuelo.ciudadDestinno
-            viewB.tvOrigen.text = vuelo.ciudadOrigen
+
+        fun render(vuelo: Vuelo){
+            viewB.tvDestino.text = vuelo.rutaId.ciudadDestino.nombre
+            viewB.tvOrigen.text = vuelo.rutaId.ciudadOrigen.nombre
             viewB.tvFecha.text = vuelo.fecha
             viewB.tvDuracion.text = vuelo.duracion
             viewB.tvModalidad.text = vuelo.modalidad
-            viewB.tvPrecio.text = vuelo.precio
+            viewB.tvPrecio.text = vuelo.rutaId.precio.toString()
         }
     }
 }

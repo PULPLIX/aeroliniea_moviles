@@ -1,11 +1,13 @@
 package com.example.aerolinea.Model
 
+import java.util.*
+
 data class Vuelo(
-    val ciudadOrigen: String,
-    val ciudadDestinno: String,
-    val modalidad: String,
-    val duracion: String,
-    val precio: String,
-    val porcentajeDescuento: String,
-    val fecha: String
+    var id: Int,
+    var modalidad: String,
+    var duracion: String,
+    var fecha: String,
+    var avionId: Avion,
+    var rutaId: Ruta,
+    var tiquetesCollection: List<String>
 )

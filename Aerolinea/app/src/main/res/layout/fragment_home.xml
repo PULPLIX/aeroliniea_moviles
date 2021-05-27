@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:background="@drawable/card"
             android:orientation="vertical"
@@ -39,25 +39,47 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/etOrigen"
-                    android:layout_width="match_parent"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextOrigen"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Origen" />
+                    android:layout_marginLeft="0dp"
 
-                <EditText
-                    android:id="@+id/etDestino"
-                    android:layout_width="match_parent"
+                    android:hint="Origen">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/etOrigen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:ems="15"
+                        android:inputType="textPersonName" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextDestino"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Destino" />
+                    android:layout_marginLeft="0dp"
+
+                    android:hint="Destino">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/etDestino"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:ems="15"
+                        android:inputType="textPersonName" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -71,12 +93,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Salida"
                     android:clickable="false"
+                    android:ems="10"
                     android:focusable="false"
-                    />
+                    android:hint="Salida"
+                    android:inputType="textPersonName" />
 
                 <EditText
                     android:id="@+id/etRegreso"
@@ -84,8 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Regreso" />
+                    android:hint="Regreso"
+                    android:inputType="textPersonName" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,14 +114,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/editTextTextPersonName5"
-                    android:layout_width="174dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Pasajeros" />
 
                 <Button
                     android:id="@+id/btnBuscar"
