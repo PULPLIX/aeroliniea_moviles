@@ -10,13 +10,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Vuelo
 import com.example.aerolinea.View.ui.DatePickerFragment
+import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment() {
+    private val tiquetes = listOf<Tiquete>(
+        Tiquete("NY US", "Miami US", "Solo ida", "2h", "100", "20", "Mar 20, 2021", "David Aguilar"),
+        Tiquete("Alajuela CR", "Miami US", "Solo ida", "2h", "200", "20", "May 10, 2021", "David Cordero"),
+        Tiquete("Bogotá Col", "Buenos Aires Arg", "Ida y cvuelta", "2h", "300", "20", "Dec 17, 2021", "David Aguilar"),
+        Tiquete("Santiago Chile", "Lima Perú", "Ida y ida", "2h", "400", "20", "Nov 02, 2021", "David Cordero"),
+        Tiquete("Quito Perí", "Costa Rica", "Solo ida", "2h", "350", "20", "Jan 28, 2021", "David Aguilar"),
+        Tiquete("Panama City", "Managua Nic", "Ida y vuelta", "2h", "684.2", "20", "Feb 17, 2022", "David Cordero")
+    )
 
     val vuelos = listOf<Vuelo>(
         Vuelo("NY US", "Miami US", "Solo ida", "2h", "100", "20", "Mar 20, 2021"),
@@ -35,7 +45,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -46,8 +55,10 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
         binding.etSalida.setOnClickListener { showDatePickerDialog(binding.etSalida) }
         binding.etRegreso.setOnClickListener { showDatePickerDialog(binding.etRegreso) }
+
         initRecycler();
 
         return root
@@ -66,10 +77,11 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
     fun initRecycler() {
         binding.rvResultado.layoutManager = LinearLayoutManager(context)
         val adapter = VuelosResultAdapter(vuelos)
         binding.rvResultado.adapter = adapter
     }
+
+
 }

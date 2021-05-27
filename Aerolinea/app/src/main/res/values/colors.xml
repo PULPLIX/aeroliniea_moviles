@@ -10,9 +10,11 @@
     <color name="blancoConOpacidad">#CBF5F5F5</color>
     <color name="azulito">#074E9D</color>
     <color name="azulitoOpacidad">#48074E9D</color>
+    <color name="celestito">#00D2E4</color>
     <color name="amarillito">#F5F511</color>
     <color name="fuxia">#e2076a</color>
     <color name="verdecito">#15CE3E</color>
     <color name="negrito">#000</color>
-
+    <color name="rojito">#DCDC1717</color>
+    <color name="gris">#444444</color>
 </resources>
