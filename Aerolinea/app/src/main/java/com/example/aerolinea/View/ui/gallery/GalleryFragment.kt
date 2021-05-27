@@ -107,78 +107,8 @@ class GalleryFragment : Fragment() {
 
     fun getTiquetes(): MutableList<Tiquete> {
         var tiquetes: MutableList<Tiquete> = ArrayList()
-        tiquetes.add(
-            Tiquete(
-                "NY US",
-                "Miami US",
-                "Solo ida",
-                "2h",
-                "100",
-                "20",
-                "Mar 20, 2021",
-                "David Aguilar"
-            )
-        )
-        tiquetes.add(
-            Tiquete(
-                "Alajuela CR",
-                "Miami US",
-                "Solo ida",
-                "2h",
-                "200",
-                "20",
-                "May 10, 2021",
-                "David Cordero"
-            )
-        )
-        tiquetes.add(
-            Tiquete(
-                "Bogotá Col",
-                "Buenos Aires Arg",
-                "Ida y cvuelta",
-                "2h",
-                "300",
-                "20",
-                "Dec 17, 2021",
-                "David Aguilar"
-            )
-        )
-        tiquetes.add(
-            Tiquete(
-                "Santiago Chile",
-                "Lima Perú",
-                "Ida y ida",
-                "2h",
-                "400",
-                "20",
-                "Nov 02, 2021",
-                "David Cordero"
-            )
-        )
-        tiquetes.add(
-            Tiquete(
-                "Quito Perí",
-                "Costa Rica",
-                "Solo ida",
-                "2h",
-                "350",
-                "20",
-                "Jan 28, 2021",
-                "David Aguilar"
-            )
-        )
-        tiquetes.add(
-            Tiquete(
-                "Panama City",
-                "Managua Nic",
-                "Ida y vuelta",
-                "2h",
-                "684.2",
-                "20",
-                "Feb 17, 2022",
-                "David Cordero"
-            )
-        )
+        //Traer los tiquetes del API Backend
+
         return tiquetes
     }
 
