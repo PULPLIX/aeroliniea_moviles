@@ -129,7 +129,7 @@ public class ServicioCiudad extends Servicio {
         try {
             toDo = conexion.prepareCall(GET_CIUDAD);
             toDo.registerOutParameter(1, OracleTypes.CURSOR);
-            toDo.setInt(1, id);
+            toDo.setInt(2, id);
             toDo.execute();
             rs = (ResultSet) toDo.getObject(1);
 

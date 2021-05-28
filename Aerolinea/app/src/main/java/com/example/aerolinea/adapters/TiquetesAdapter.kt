@@ -43,11 +43,11 @@ class TiquetesAdapter(val tiquetes: MutableList<Tiquete>):RecyclerView.Adapter<T
         private val viewB = ItemTiqueteBinding.bind(view)
         fun render(tiquete: Tiquete){
             Log.d("tiquete:", tiquete.toString())
-            viewB.tvDestino.text = tiquete.ciudadDestinno
-            viewB.tvOrigen.text = tiquete.ciudadOrigen
-            viewB.tvFecha.text = tiquete.fecha
-            viewB.tvDuracion.text = tiquete.duracion
-            viewB.tvModalidad.text = tiquete.modalidad
+            viewB.tvDestino.text = tiquete.vueloId.rutaId.ciudadDestino.nombre
+            viewB.tvOrigen.text = tiquete.vueloId.rutaId.ciudadOrigen.nombre
+            viewB.tvFecha.text = tiquete.vueloId.fecha
+            viewB.tvDuracion.text = tiquete.vueloId.duracion
+            viewB.tvModalidad.text = tiquete.vueloId.modalidad
         }
     }
 

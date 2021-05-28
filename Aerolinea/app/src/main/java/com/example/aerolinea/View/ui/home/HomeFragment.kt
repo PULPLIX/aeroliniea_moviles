@@ -2,6 +2,7 @@ package com.example.aerolinea.View.ui.home
 
 import android.R
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aerolinea.Daos.DaoCiudad
 import com.example.aerolinea.Daos.DaoVuelo
 import com.example.aerolinea.Model.Ciudad
+import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Vuelo
 import com.example.aerolinea.View.ui.DatePickerFragment
 import com.example.aerolinea.ViewModel.HomeViewModel
@@ -25,24 +28,25 @@ import com.example.aerolinea.ViewModelFactory.HomeViewModelFactory
 import com.example.aerolinea.ViewModelFactory.MainViewModelFactory
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
+import com.google.android.material.datepicker.MaterialDatePicker
+import okhttp3.internal.notify
+import okhttp3.internal.notifyAll
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
-    private val tiquetes = listOf<Tiquete>(
-        Tiquete("NY US", "Miami US", "Solo ida", "2h", "100", "20", "Mar 20, 2021", "David Aguilar"),
-        Tiquete("Alajuela CR", "Miami US", "Solo ida", "2h", "200", "20", "May 10, 2021", "David Cordero"),
-        Tiquete("Bogotá Col", "Buenos Aires Arg", "Ida y cvuelta", "2h", "300", "20", "Dec 17, 2021", "David Aguilar"),
-        Tiquete("Santiago Chile", "Lima Perú", "Ida y ida", "2h", "400", "20", "Nov 02, 2021", "David Cordero"),
-        Tiquete("Quito Perí", "Costa Rica", "Solo ida", "2h", "350", "20", "Jan 28, 2021", "David Aguilar"),
-        Tiquete("Panama City", "Managua Nic", "Ida y vuelta", "2h", "684.2", "20", "Feb 17, 2022", "David Cordero")
-    )
 
     var ciudades: ArrayList<String> = ArrayList()
+    var ciudadesCodigo: ArrayList<String> = ArrayList()
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var vuelos: ArrayList<Vuelo>
     private var _binding: FragmentHomeBinding? = null
+//    private lateinit var vuelos: ArrayList<Vuelo> = listaVuelos()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -57,13 +61,15 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        initRecycler()
 
-        binding.etSalida.setOnClickListener { showDatePickerDialog(binding.etSalida) }
-        binding.etRegreso.setOnClickListener { showDatePickerDialog(binding.etRegreso) }
+    //    binding.etSalida.setOnClickListener { showDatePickerDialog(binding.etSalida) }
+    //    binding.etRegreso.setOnClickListener { showDatePickerDialog(binding.etRegreso) }
         spinnerOrigen()
         spinnerDestino()
-        vuelos = listaVuelos()
-        initRecycler()
+        buscarVuelos()
+        showDateRange()
+
         return root
     }
 
@@ -78,6 +84,7 @@ class HomeFragment : Fragment() {
                 ciudades.clear()
                 response.body()?.forEach{ ciudad->
                     ciudades.add(ciudad.nombre)
+                    ciudadesCodigo.add(ciudad.id.toString())
                 }
             }else{
                 Log.d("Response", response.code().toString())
@@ -119,8 +126,7 @@ class HomeFragment : Fragment() {
                 response ->
             if(response.isSuccessful){
                 response.body()?.forEach{ vuelo->
-                    vuelos.add(vuelo)
-                    Log.d("Vuelo", vuelo.toString())
+                    vuelosTem.add(vuelo)
                 }
             }else{
                 Log.d("Response", response.code().toString())
@@ -144,10 +150,83 @@ class HomeFragment : Fragment() {
     }
     fun initRecycler() {
         binding.rvResultado.layoutManager = LinearLayoutManager(context)
-        val adapter = VuelosResultAdapter(vuelos)
+        val adapter = VuelosResultAdapter(listaVuelos())
         binding.rvResultado.adapter = adapter
-        Log.d("InitRecycler Vuelos", vuelos.toString())
     }
 
+    fun buscarVuelos(){
+        binding.btnBuscar.setOnClickListener{
+            var modalidad: String = ""
+            if (binding.checkModalidad.isChecked){
+                modalidad = "2"
+            }else{
+                modalidad = "1"
+            }
+
+            var origen: String = binding.etOrigen.text.toString()
+            var destino: String = binding.etDestino.text.toString()
+            var codOrigen = ciudadesCodigo.get(ciudades.indexOf(origen))
+            var codDestino = ciudadesCodigo.get(ciudades.indexOf(destino))
+
+            var fechaI = binding.etSalida.text
+            var fechaF = binding.etRegreso.text
+            var descuento: String = "false"
+            var vuelosTem: ArrayList<Vuelo> = ArrayList()
+            val repository = DaoVuelo()
+            val viewModelFactory = HomeViewModelFactory(repository)
+
+            homeViewModel = ViewModelProvider(this,viewModelFactory).get(HomeViewModel::class.java)
+            homeViewModel.buscarVuelos(modalidad,codOrigen,codDestino,fechaI.toString(),fechaF.toString(),descuento)
+            homeViewModel.vuelos.observe(viewLifecycleOwner, Observer {
+                response ->
+                if(response.isSuccessful){
+                    response.body()?.forEach{ vuelo->
+                        vuelosTem.add(vuelo)
+                    }
+                    binding.rvResultado.layoutManager = LinearLayoutManager(context)
+                    val adapter = VuelosResultAdapter(vuelosTem)
+                    binding.rvResultado.adapter = adapter
+                }else{
+                    Log.d("Response", response.code().toString())
+                }
+            })
+        }
+    }
+
+    fun showDateRangePicker(){
+        val dateRangePichek = MaterialDatePicker.Builder
+                .dateRangePicker()
+                .setTitleText("Escoja las fechas")
+                .build()
+
+        dateRangePichek.show(
+                this.requireFragmentManager(),
+                "date_range_picker"
+        )
+
+        dateRangePichek.addOnPositiveButtonClickListener { datePicker ->
+            val startDate = datePicker.first
+            val endDate = datePicker.second
+            if (startDate != null && endDate != null) {
+                binding.etSalida.text = convertLongToDate(startDate)
+                binding.etRegreso.text = convertLongToDate(endDate)
+            }
+        }
+
+    }
+
+    fun convertLongToDate(time:Long): String{
+        val date = Date(time)
+        val format = SimpleDateFormat(
+                "MM/dd/yyyy",
+                Locale.getDefault()
+        )
+        return format.format(date)
+    }
+    fun showDateRange(){
+        binding.btnShowRangePicker.setOnClickListener{
+            showDateRangePicker()
+        }
+    }
 
 }

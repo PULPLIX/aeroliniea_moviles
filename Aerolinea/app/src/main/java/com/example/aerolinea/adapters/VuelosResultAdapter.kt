@@ -18,7 +18,7 @@ class VuelosResultAdapter(val vuelos: List<Vuelo>) :
     ): VuelosResultAdapter.VueloResultHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return VueloResultHolder(layoutInflater.inflate(R.layout.item_vuelo, parent, false))
-
+        Log.d("Vuelos Adapter", vuelos.toString())
     }
 
     override fun onBindViewHolder(holder: VuelosResultAdapter.VueloResultHolder, position: Int) {

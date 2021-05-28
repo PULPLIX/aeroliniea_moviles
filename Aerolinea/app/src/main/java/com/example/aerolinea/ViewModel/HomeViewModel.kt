@@ -1,6 +1,8 @@
 package com.example.aerolinea.ViewModel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,7 +19,13 @@ class HomeViewModel (private val repository: DaoVuelo): ViewModel() {
     fun getVuelos(){
         viewModelScope.launch{
             val response = repository.getVuelos()
-            Log.d("Vuelos",response.body().toString())
+            vuelos.value = response
+        }
+    }
+
+    fun buscarVuelos(modalidad: String, origen: String, destino: String, fechaI: String, fechaF: String, descuento: String){
+        viewModelScope.launch{
+            val response = repository.buscarVuelos(modalidad, origen, destino,fechaI, fechaF, descuento)
             vuelos.value = response
         }
     }

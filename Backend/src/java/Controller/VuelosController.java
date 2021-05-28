@@ -61,6 +61,11 @@ public class VuelosController {
         Gson gson = new Gson();
         ModelVuelo mVuelo = ModelVuelo.getInstance();
         ArrayList<Vuelo> vuelos = null;
+        System.out.println("Modalidad " + Modalidad);
+        System.out.println("Origen " + idOrigen);
+        System.out.println("Destino " + idDestino);
+        System.out.println("Fecha de salida " + fechaI);
+        System.out.println("Fecha de llegada " +fechaF);
         if(descuento){
             vuelos = (ArrayList<Vuelo>) mVuelo.filtrarVueloDescuento(Modalidad, idOrigen, idDestino, fechaI, fechaF);           
         }else{

@@ -12,4 +12,5 @@ class DaoCiudad {
     suspend fun getCiudades(): Response<List<Ciudad>> {
         return RetrofitInstance.api.getCiudades()
     }
+
 }
