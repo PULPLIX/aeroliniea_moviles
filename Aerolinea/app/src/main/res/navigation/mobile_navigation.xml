@@ -20,6 +20,20 @@
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.aerolinea.View.ui.slideshow.SlideshowFragment"
-        android:label="@string/otro_menu"
+        android:label="@string/about_us"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/perfilFragment"
+        android:name="com.example.aerolinea.View.ui.perfil.PerfilFragment"
+        android:label="@string/perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/nav_tiquete"
+        android:name="com.example.aerolinea.View.ui.tiquete.tiquete"
+        android:label="fragment_tiquete"
+        tools:layout="@layout/fragment_tiquete" />
+
+
 </navigation>
