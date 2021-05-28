@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view"
-    >
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
@@ -10,15 +9,28 @@
             android:icon="@drawable/ic_plane"
             android:title="@string/vuelos" />
         <item
-            android:background="#9E0000"
-            android:iconTint="@color/azulito"
             android:id="@+id/nav_gallery"
+            android:background="#9E0000"
             android:icon="@drawable/ic_ticket"
+            android:iconTint="@color/azulito"
             android:title="@string/tiquetes" />
         <item
-            android:iconTint="@color/azulito"
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_flight"
-            android:title="@string/otro_menu" />
+            android:icon="@drawable/ic_info"
+            android:iconTint="@color/azulito"
+            android:title="@string/about_us" />
     </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/perfilFragment"
+            android:icon="@drawable/ic_perfil"
+            android:title="@string/perfil" />
+        <item
+            android:id="@+id/nav_tiquete"
+            android:icon="@drawable/ic_ticket"
+            android:title="@string/perfil" />
+    </group>
+
 </menu>

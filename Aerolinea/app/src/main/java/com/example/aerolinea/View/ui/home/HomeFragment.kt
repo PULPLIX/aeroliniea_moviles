@@ -40,6 +40,7 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
+
     var ciudades: ArrayList<String> = ArrayList()
     var ciudadesCodigo: ArrayList<String> = ArrayList()
 
