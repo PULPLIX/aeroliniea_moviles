@@ -54,7 +54,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/azulito"
+                android:backgroundTint="@color/azulitoSecundaryColor"
                 android:text="Asientos"
                 android:textColor="@color/white" />
         </LinearLayout>
@@ -102,7 +102,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="2dp"
-                        android:textColor="@color/azulito"
+                        android:textColor="@color/azulitoSecundaryColor"
                         android:textSize="14dp"
                         tools:text="Miami" />
 
@@ -118,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
-                        android:textColor="@color/azulito"
+                        android:textColor="@color/azulitoSecundaryColor"
                         android:textSize="14dp"
                         tools:text="NY" />
                 </LinearLayout>
@@ -137,7 +137,7 @@
                         android:layout_marginRight="10dp"
                         android:background="@drawable/ic_time"
                         android:layout_gravity="center"
-                        android:backgroundTint="@color/azulito" />
+                        android:backgroundTint="@color/azulitoSecundaryColor" />
 
                     <TextView
                         android:id="@+id/tvDuracion"
@@ -185,7 +185,7 @@
                         android:layout_height="16dp"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/ic_baseline_calendar_today_24"
-                        android:backgroundTint="@color/azulito" />
+                        android:backgroundTint="@color/azulitoSecundaryColor" />
 
                     <TextView
                         android:id="@+id/tvFecha"

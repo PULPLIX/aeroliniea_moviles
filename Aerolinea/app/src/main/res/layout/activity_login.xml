@@ -85,7 +85,7 @@
                 android:text="Iniciar sesión"
                 android:onClick="loginUser"
                 android:textColor="@color/white"
-                app:backgroundTint="@color/azulito" />
+                app:backgroundTint="@color/azulitoSecundaryColor" />
 
         </LinearLayout>
 
@@ -147,7 +147,7 @@
                     android:shadowColor="#3F51B5"
                     android:text="Crear cuenta"
                     android:onClick="goRegister"
-                    android:textColor="@color/azulito"
+                    android:textColor="@color/azulitoSecundaryColor"
                     app:backgroundTint="@color/azulitoOpacidad" />
             </LinearLayout>
 

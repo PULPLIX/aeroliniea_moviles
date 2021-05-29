@@ -8,9 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blancoConOpacidad">#CBF5F5F5</color>
-    <color name="azulito">#074E9D</color>
+    <color name="azulitoSecundaryColor">#074E9D</color>
     <color name="azulitoOpacidad">#48074E9D</color>
     <color name="celestito">#00D2E4</color>
+    <color name="azulitoSecundary">#3268F3</color>
     <color name="amarillito">#F5F511</color>
     <color name="fuxia">#e2076a</color>
     <color name="verdecito">#15CE3E</color>

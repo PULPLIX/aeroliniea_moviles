@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/azulito</item>
+        <item name="colorOnPrimary">@color/azulitoSecundaryColor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/fuxia</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -23,20 +23,20 @@
 
     <style name="Theme.Aerolinea.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorPrimary">@color/white</item>
-        <item name="android:textColorPrimary">@color/azulito</item>
+        <item name="android:textColorPrimary">@color/azulitoSecundaryColor</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/azulito</item>
+        <item name="colorOnPrimary">@color/azulitoSecundaryColor</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/amarillito</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/azulito</item>
+        <item name="colorOnSecondary">@color/azulitoSecundaryColor</item>
     </style>
 
     <style name="Theme.Aerolinea.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="datePickerTheme" parent="android:Theme.Material.Light.Dialog">
-        <item name="android:colorAccent">@color/azulito</item>
+        <item name="android:colorAccent">@color/azulitoSecundaryColor</item>
     </style>
 
 </resources>

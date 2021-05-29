@@ -12,12 +12,12 @@
             android:id="@+id/nav_gallery"
             android:background="#9E0000"
             android:icon="@drawable/ic_ticket"
-            android:iconTint="@color/azulito"
+            android:iconTint="@color/azulitoSecundaryColor"
             android:title="@string/tiquetes" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_info"
-            android:iconTint="@color/azulito"
+            android:iconTint="@color/azulitoSecundaryColor"
             android:title="@string/about_us" />
     </group>
     <group
@@ -30,7 +30,11 @@
         <item
             android:id="@+id/nav_tiquete"
             android:icon="@drawable/ic_ticket"
-            android:title="@string/perfil" />
+            android:title="@string/tiquetes" />
+        <item
+            android:id="@+id/nav_asientos"
+            android:icon="@drawable/ic_people"
+            android:title="@string/asientos" />
     </group>
 
 </menu>

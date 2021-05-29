@@ -11,7 +11,7 @@
         android:id="@+id/margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/azulito"
+        android:background="@color/azulitoSecundaryColor"
         android:orientation="horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -107,7 +107,7 @@
                         android:id="@+id/tvOrigen"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/azulito"
+                        android:textColor="@color/azulitoSecundaryColor"
                         android:textFontWeight="600"
                         android:textSize="16dp"
                         tools:text="Alajuela San José" />
@@ -124,7 +124,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:background="@drawable/ic_baseline_calendar_today_24"
-                        android:backgroundTint="@color/azulito" />
+                        android:backgroundTint="@color/azulitoSecundaryColor" />
 
 
                     <TextView
@@ -159,7 +159,7 @@
                         android:id="@+id/tvDestino"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/azulito"
+                        android:textColor="@color/azulitoSecundaryColor"
                         android:textFontWeight="600"
                         android:textSize="16dp"
                         tools:text="Alajuela San José" />
@@ -175,7 +175,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:backgroundTint="@color/azulito"
+                        android:backgroundTint="@color/azulitoSecundaryColor"
                         android:background="@drawable/ic_modalidad" />
 
                     <TextView
