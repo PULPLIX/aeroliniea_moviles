@@ -34,6 +34,11 @@
         android:name="com.example.aerolinea.View.ui.tiquete.tiquete"
         android:label="fragment_tiquete"
         tools:layout="@layout/fragment_tiquete" />
+    <fragment
+        android:id="@+id/nav_asientos"
+        android:name="com.example.aerolinea.View.ui.asientos.asientos"
+        android:label="fragment_asientos"
+        tools:layout="@layout/fragment_asientos" />
 
 
 </navigation>

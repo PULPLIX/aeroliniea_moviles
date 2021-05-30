@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/azulito"
+    android:background="@color/azulitoSecundaryColor"
     android:padding="40dp"
     tools:context=".View.ui.tiquete.tiquete">
 
@@ -31,7 +31,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/azulito"
+                android:textColor="@color/azulitoSecundaryColor"
                 android:text="Tiquete" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:textSize="18dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/azulito"
+                android:textColor="@color/azulitoSecundaryColor"
                 android:text="Vuelo: 23" />
 
             <LinearLayout
@@ -55,7 +55,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/ic_home"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
 
                 <TextView
@@ -84,7 +84,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/ic_location"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:layout_height="18dp"
                     android:layout_marginRight="6dp"
                     android:background="@drawable/ic_baseline_calendar_today_24"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="6dp"
                     android:background="@drawable/ic_time"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,7 +166,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="6dp"
                     android:background="@drawable/ic_flight"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -193,7 +193,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="6dp"
                     android:background="@drawable/ic_plane"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -220,7 +220,7 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="6dp"
                     android:background="@drawable/ic_people"
-                    android:backgroundTint="@color/azulito" />
+                    android:backgroundTint="@color/azulitoSecundaryColor" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -247,7 +247,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:layout_marginBottom="10dp"
-                    android:textColor="@color/azulito"
+                    android:textColor="@color/azulitoSecundaryColor"
                     android:text="Información" />
             </LinearLayout>
 
@@ -367,7 +367,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/azulito"
+                    android:textColor="@color/azulitoSecundaryColor"
                     android:layout_weight="1"
                     android:text="Efectivo" />
             </LinearLayout>
