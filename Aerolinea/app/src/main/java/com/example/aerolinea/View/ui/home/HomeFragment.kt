@@ -10,36 +10,27 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aerolinea.Coroutines.CoroutinesAsyncTask
-import com.example.aerolinea.Daos.DaoCiudad
-import com.example.aerolinea.Daos.DaoVuelo
 import com.example.aerolinea.Model.Ciudad
-import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Vuelo
 import com.example.aerolinea.View.ui.DatePickerFragment
 import com.example.aerolinea.ViewModel.HomeViewModel
 import com.example.aerolinea.ViewModel.MainViewModel
-import com.example.aerolinea.ViewModelFactory.HomeViewModelFactory
-import com.example.aerolinea.ViewModelFactory.MainViewModelFactory
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
 import com.example.aerolinea.util.Constans
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 import com.example.aerolinea.util.Constans.Companion.Status
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.coroutines.coroutineContext
 
 
 class HomeFragment : Fragment() {
@@ -67,7 +58,6 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        initRecycler()
 
         //binding.etSalida.setOnClickListener { showDatePickerDialog(binding.etSalida) }
         //binding.etRegreso.setOnClickListener { showDatePickerDialog(binding.etRegreso) }
@@ -97,7 +87,7 @@ class HomeFragment : Fragment() {
     }
 
     class MyAsyncTask(private var activity: FragmentHomeBinding?, private var context: Context) : CoroutinesAsyncTask<Int, Int, String>("MysAsyncTask") {
-        private var apiUrl: String = "https://c4f6263c2e5b.ngrok.io/Backend/api"
+        private var apiUrl: String = Constans.BASE_URL
         var ciudades: ArrayList<String> = ArrayList()
         var ciudadesCodigo: ArrayList<String> = ArrayList()
         var vuelos: ArrayList<Vuelo> = ArrayList()
@@ -256,7 +246,7 @@ class HomeFragment : Fragment() {
         }
         fun initRecycler() {
             activity?.rvResultado?.layoutManager = LinearLayoutManager(context)
-            val adapter = VuelosResultAdapter(vuelos)
+            val adapter = VuelosResultAdapter(vuelos, (context as FragmentActivity).supportFragmentManager)
             activity?.rvResultado?.adapter = adapter
         }
 
@@ -277,11 +267,7 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun initRecycler() {
-//        binding.rvResultado.layoutManager = LinearLayoutManager(context)
-//        val adapter = VuelosResultAdapter(vuelos)
-//        binding.rvResultado.adapter = adapter
-    }
+
 
     fun buscarVuelosASNG(){
         binding.btnBuscar.setOnClickListener{

@@ -64,7 +64,6 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: Strin
                 }
             }
         }
-
         status = Status.RUNNING
 
         // it can be used to setup UI - it should have access to Main Thread
