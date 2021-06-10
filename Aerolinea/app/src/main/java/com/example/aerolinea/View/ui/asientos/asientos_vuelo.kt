@@ -1,22 +1,23 @@
 package com.example.aerolinea.View.ui.asientos
 
-import android.content.DialogInterface
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import com.example.aerolinea.Model.Vuelo
-import com.example.aerolinea.R
+import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
-
+import com.example.aerolinea.databinding.AlertCompraBinding
+import com.example.aerolinea.R
+import com.example.aerolinea.View.ui.gallery.GalleryFragment
 
 class asientos_vuelo : AppCompatActivity() {
 
@@ -35,45 +36,76 @@ class asientos_vuelo : AppCompatActivity() {
     }
 
     fun evtCompra() {
-        binding.btnCompra.setOnClickListener(){
+        binding.btnCompra.setOnClickListener() {
             showAlert(vuelo.toString() + asientos.toString())
         }
     }
 
     fun showAlert(mensaje: String) {
-        //set title for alert dialog
-//        builder.setTitle("Compra de tiquetes")
-        //set message for alert dialog
-//        builder.setMessage(mensaje)
-//        builder.setIcon(android.R.drawable.ic_dialog_alert)
-//
-//        //performing positive action
-//        builder.setPositiveButton("Comprar") { dialogInterface, which ->
-//            Toast.makeText(applicationContext, "clicked yes", Toast.LENGTH_LONG).show()
-//        }
-//        //performing cancel action
-//        builder.setNeutralButton("Cancel") { dialogInterface, which ->
-//            Toast.makeText(
-//                applicationContext,
-//                "clicked cancel\n operation cancel",
-//                Toast.LENGTH_LONG
-//            ).show()
-//        }
+        val layoutInflater: LayoutInflater = LayoutInflater.from(this)
+        val compraBinding = AlertCompraBinding.inflate(layoutInflater)
 
-        val layoutInflater:LayoutInflater = LayoutInflater.from(this)
-        val view:View = layoutInflater.inflate(R.layout.alert_compra,null)
-        val builder = AlertDialog.Builder(this).setView(view)
+        fillAlert(compraBinding)
+
+        val builder = AlertDialog.Builder(this).setView(compraBinding.root)
 
         val alertDialog: AlertDialog = builder.create()
+        alertDialog.getWindow()
+            ?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        compraBinding.btnCancelar.setOnClickListener {
+            alertDialog.dismiss()
+        }
+        compraBinding.btnCompra.setOnClickListener {
+            val intentTiquetes = Intent(this, MainUserActivity::class.java)
+            intentTiquetes.putExtra("compra",  "Compra realizada")
+            applicationContext.startActivity(intentTiquetes)
+        }
         alertDialog.show()
 
-//        alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL)
-//            .setTextColor(ContextCompat.getColor(applicationContext, R.color.rojito))
-//        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE)
-//            .setTextColor(ContextCompat.getColor(applicationContext, R.color.azulitoSecundary))
+    }
 
-        // Set other dialog properties
-        alertDialog.setCancelable(false)
+    fun fillAlert(compraBinding: AlertCompraBinding) {
+        var total =
+            vuelo.rutaId.precio - (vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01))
+        compraBinding.tvIdVuelo.text = "Vuelo: " + vuelo.id.toString()
+        compraBinding.tvOrigen.text = vuelo.rutaId.ciudadDestino.nombre
+        compraBinding.tvDestino.text = vuelo.rutaId.ciudadOrigen.nombre
+        compraBinding.tvFecha.text = vuelo.fecha
+        compraBinding.tvDuracion.text = vuelo.duracion
+        compraBinding.tvAvion.text = vuelo.avionId.marca + " - " + vuelo.avionId.tipo
+        compraBinding.tvAsientos.text = asientos.toString()
+        compraBinding.tvModalidad.text = vuelo.modalidad
+        compraBinding.tvPrecio.text = vuelo.rutaId.precio.toString()
+        compraBinding.tvCantAsientos.text = asientos.size.toString()
+        compraBinding.tvDescuento.text = vuelo.rutaId.porcentajeDescuento.toString()
+        compraBinding.tvTotal.text = total.toString()
+        loadSpinner(compraBinding)
+    }
+
+    fun loadSpinner(compraBinding: AlertCompraBinding) {
+        val spinner = compraBinding.spFormaPago
+        if (spinner != null) {
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item, listOf("Efectivo", "Tarjeta")
+            )
+            spinner.adapter = adapter
+
+            spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View, position: Int, id: Long
+                ) {
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // write code to perform some action
+                }
+            }
+        }
     }
 
     private fun cargarAsientos(filas: Int, columnas: Int) {

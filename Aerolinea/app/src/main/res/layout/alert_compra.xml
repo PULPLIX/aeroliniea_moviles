@@ -17,28 +17,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="431dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:text="Tiquete"
                 android:textColor="@color/azulitoSecundaryColor"
-                android:text="Tiquete" />
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/Vuelo"
+                android:id="@+id/tvIdVuelo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:text="Vuelo: 23"
                 android:textColor="@color/azulitoSecundaryColor"
-                android:text="Vuelo: 23" />
+                android:textSize="18dp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,10 +55,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Origen:" />
+                    android:text="Origen:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvOrigen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -87,10 +85,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Destino:" />
+                    android:text="Destino:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvDestino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -115,10 +114,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Fecha:" />
+                    android:text="Fecha:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvFecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -142,15 +142,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Duración:" />
+                    android:text="Duración:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvDuracion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,10 +170,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Modalidad:" />
+                    android:text="Modalidad:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvModalidad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -195,10 +198,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Avión:" />
+                    android:text="Avión:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvAvion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -222,10 +226,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Asientos:" />
+                    android:text="Asientos:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvAsientos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -241,10 +246,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
                     android:layout_marginBottom="10dp"
+                    android:text="Información"
                     android:textColor="@color/azulitoSecundaryColor"
-                    android:text="Información" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -264,15 +269,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Precio unitario:" />
+                    android:text="Precio unitario:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvPrecio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -290,15 +297,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Cantidad:" />
+                    android:text="Cantidad:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvCantAsientos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -316,15 +325,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Descuento:" />
+                    android:text="Descuento:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvDescuento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -334,12 +345,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="25dp"
-                    android:textColor="@color/gris"
-                    android:text="Total:" />
+                    android:layout_marginRight="10dp"
+                    android:text="Total:"
+                    android:textColor="@color/gris" />
 
                 <TextView
+                    android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -347,27 +359,62 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_marginLeft="25dp"
-                    android:textColor="@color/gris"
-                    android:text="Forma de pago:" />
+                    android:layout_marginRight="10dp"
+                    android:text="Pago:"
+                    android:textColor="@color/gris" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/spFormaPago"
+                    android:theme="@style/spinnerTheme"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/spinner"
+                    android:text="Efectivo"
                     android:textColor="@color/azulitoSecundaryColor"
-                    android:layout_weight="1"
-                    android:text="Efectivo" />
+                    android:outlineSpotShadowColor="@color/azulitoSecundary"
+                    android:outlineAmbientShadowColor="@color/azulitoSecundary"
+                    android:foregroundTint="@color/verdecito"
+                    />
             </LinearLayout>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:backgroundTint="@color/rojito"
+                android:text="Cancelar"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+            <Button
+                android:id="@+id/btnCompra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/azulitoSecundary"
+                android:text="Comprar"
+                android:textColor="@color/white"
+                android:textSize="11dp" />
+
+        </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>

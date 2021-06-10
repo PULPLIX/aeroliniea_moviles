@@ -16,7 +16,7 @@
     <color name="fuxia">#e2076a</color>
     <color name="verdecito">#15CE3E</color>
     <color name="negrito">#000</color>
-    <color name="transparent">#0A000000</color>
+    <color name="transparent">#000C2980</color>
     <color name="rojito">#DCDC1717</color>
     <color name="gris">#444444</color>
 </resources>
