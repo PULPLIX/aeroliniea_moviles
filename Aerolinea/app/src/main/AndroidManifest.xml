@@ -15,9 +15,13 @@
         android:theme="@style/Theme.Aerolinea"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".View.ui.asientos.asientos_vuelo"
+            android:label="@string/title_activity_asientos_vuelo"
+            android:theme="@style/Theme.Aerolinea.NoActionBar"></activity>
+        <activity
             android:name=".View.ui.tiquete.tiquete"
             android:label="@string/title_activity_tiquete"
-            android:theme="@style/Theme.Aerolinea.NoActionBar"></activity>
+            android:theme="@style/Theme.Aerolinea.NoActionBar" />
         <activity
             android:name=".View.MainUserActivity"
             android:label="@string/title_activity_main_user"
