@@ -1,5 +1,6 @@
 package com.example.aerolinea.View.ui.asientos
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -12,12 +13,16 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import com.example.aerolinea.Model.ModelTiquetes
+import com.example.aerolinea.Model.Tiquete
+import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.Model.Vuelo
 import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 import com.example.aerolinea.databinding.AlertCompraBinding
 import com.example.aerolinea.R
 import com.example.aerolinea.View.ui.gallery.GalleryFragment
+import com.google.gson.Gson
 
 class asientos_vuelo : AppCompatActivity() {
 
@@ -37,7 +42,11 @@ class asientos_vuelo : AppCompatActivity() {
 
     fun evtCompra() {
         binding.btnCompra.setOnClickListener() {
-            showAlert(vuelo.toString() + asientos.toString())
+            if(asientos.size <= 0){
+                Toast.makeText(applicationContext, "Seleccione un asiento", Toast.LENGTH_LONG).show()
+            }else{
+                showAlert(vuelo.toString() + asientos.toString())
+            }
         }
     }
 
@@ -58,13 +67,29 @@ class asientos_vuelo : AppCompatActivity() {
         }
         compraBinding.btnCompra.setOnClickListener {
             val intentTiquetes = Intent(this, MainUserActivity::class.java)
-            intentTiquetes.putExtra("compra",  "Compra realizada")
+            guardarTiquetes(compraBinding)
+            intentTiquetes.putExtra("compra",  "Compra realizada correctamente")
             applicationContext.startActivity(intentTiquetes)
         }
         alertDialog.show()
 
     }
+     fun guardarTiquetes(compraBinding: AlertCompraBinding) {
+         var tiquetes = ModelTiquetes().getInstance().getTiquetes()
+        for (asiento in asientos) {
+            val sp = getSharedPreferences("key", Context.MODE_PRIVATE)
+            val usuarioSession = sp.getString("usuario",null)
+            var gson = Gson()
+            var usuario = gson.fromJson<Usuario>(usuarioSession,Usuario::class.java)
+            var total =
+                vuelo.rutaId.precio - (vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01))
+            val fila = asiento[1]
+            val columna = asiento[0]
+            val tiquete:Tiquete = Tiquete(ModelTiquetes().getInstance().getAutoIncrement(),usuario,vuelo,total,fila.toInt(),columna.toInt(),compraBinding.spFormaPago.selectedItem.toString())
+            ModelTiquetes().getInstance().addTiquete(tiquete)
 
+        }
+    }
     fun fillAlert(compraBinding: AlertCompraBinding) {
         var total =
             vuelo.rutaId.precio - (vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01))

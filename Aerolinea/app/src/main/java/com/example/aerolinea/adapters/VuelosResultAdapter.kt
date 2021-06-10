@@ -15,7 +15,7 @@ import com.example.aerolinea.View.ui.asientos.asientos_vuelo
 import com.example.aerolinea.login_register.Register
 
 
-class VuelosResultAdapter(val vuelos: List<Vuelo>) :
+class VuelosResultAdapter(val vuelos: ArrayList<Vuelo>) :
     RecyclerView.Adapter<VuelosResultAdapter.VueloResultHolder>() {
 
     override fun onCreateViewHolder(

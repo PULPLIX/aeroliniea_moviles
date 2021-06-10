@@ -14,17 +14,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.aerolinea.Model.ModelTiquetes
+import com.example.aerolinea.Model.ModelVuelos
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
+import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 class GalleryFragment : Fragment() {
-    val newArrayList: MutableList<Tiquete> = ArrayList()
-    val adapter = TiquetesAdapter(getTiquetes())
-
+    var tiquetes: ArrayList<Tiquete> = ArrayList()
+    val adapter = TiquetesAdapter(tiquetes)
 
     private lateinit var galleryViewModel: GalleryViewModel
     private var _binding: FragmentGalleryBinding? = null
@@ -41,7 +43,8 @@ class GalleryFragment : Fragment() {
     ): View? {
         galleryViewModel =
             ViewModelProvider(this).get(GalleryViewModel::class.java)
-
+        tiquetes.clear()
+        tiquetes = ModelTiquetes().getInstance().getTiquetes()
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -63,9 +66,9 @@ class GalleryFragment : Fragment() {
                     adapter.deleteItem(viewHolder.bindingAdapterPosition)
                 }
                 ItemTouchHelper.RIGHT -> {
-                    val archiveItem = newArrayList[viewHolder.bindingAdapterPosition]
+                    val archiveItem = tiquetes[viewHolder.bindingAdapterPosition]
                     adapter.deleteItem(viewHolder.bindingAdapterPosition)
-                    adapter.addItem(newArrayList.size, archiveItem)
+                    adapter.addItem(tiquetes.size, archiveItem)
                 }
             }
 
@@ -99,16 +102,16 @@ class GalleryFragment : Fragment() {
 
 
     fun initRecycler() {
+
+        val adapter = TiquetesAdapter(tiquetes)
         binding.rvTiquetes.layoutManager = LinearLayoutManager(context)
-        binding.rvTiquetes.adapter = adapter
+        binding?.rvTiquetes?.adapter = adapter
+
         val touchHelper = ItemTouchHelper(swipeGesture)
         touchHelper.attachToRecyclerView(binding.rvTiquetes)
     }
 
     fun getTiquetes(): MutableList<Tiquete> {
-        var tiquetes: MutableList<Tiquete> = ArrayList()
-        //Traer los tiquetes del API Backend
-
         return tiquetes
     }
 

@@ -36,18 +36,8 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    val avion = Avion(1, "Comercial", 34, 2020, "Boing", 9, 34)
-    val ny = Ciudad(1, "NY")
-    val aj = Ciudad(2, "Alajuela")
-    val horario = Horario(2, "Lunes", 3)
-    val ruta = Ruta(1, 200.0, 20.0, ny, aj, horario)
-    val vuelos = listOf<Vuelo>(
-        Vuelo(1, "ida y vuelta", "2", "Mar 20, 2021", avion, ruta, listOf<Tiquete>()),
-        Vuelo(1, "ida y vuelta", "2", "Mar 20, 2021", avion, ruta, listOf<Tiquete>()),
-        Vuelo(1, "ida y vuelta", "2", "Mar 20, 2021", avion, ruta, listOf<Tiquete>()),
-        Vuelo(1, "ida y vuelta", "2", "Mar 20, 2021", avion, ruta, listOf<Tiquete>()),
-        Vuelo(1, "ida y vuelta", "2", "Mar 20, 2021", avion, ruta, listOf<Tiquete>()),
-    )
+
+    var vuelos = arrayListOf<Vuelo>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,21 +46,17 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        vuelos.clear()
+        vuelos = ModelVuelos().getInstance().getVuelos()
 
-        //binding.etSalida.setOnClickListener { showDatePickerDialog(binding.etSalida) }
-        //binding.etRegreso.setOnClickListener { showDatePickerDialog(binding.etRegreso) }
         initRecycler()
         return root
     }
 
     fun initRecycler() {
         val adapter = VuelosResultAdapter(vuelos)
-
         binding.rvResultado.layoutManager = LinearLayoutManager(context)
         binding?.rvResultado?.adapter = adapter
-//        val touchHelper = ItemTouchHelper(swipeGesture)
-//        touchHelper.attachToRecyclerView(binding.rvTiquetes)
-
     }
     fun spinnerOrigen(ciudadesOrigen: String) {
 
