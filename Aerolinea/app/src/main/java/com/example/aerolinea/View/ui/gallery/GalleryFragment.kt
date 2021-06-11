@@ -1,10 +1,9 @@
 package com.example.aerolinea.View.ui.gallery
 
-import android.app.Activity
-import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.TypedValue
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,18 +14,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Model.ModelTiquetes
-import com.example.aerolinea.Model.ModelVuelos
 import com.example.aerolinea.Model.Tiquete
+import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
+import com.example.aerolinea.View.ui.tiquete.tiquete
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
-import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 class GalleryFragment : Fragment() {
     var tiquetes: ArrayList<Tiquete> = ArrayList()
-    val adapter = TiquetesAdapter(tiquetes)
+    private lateinit var adapter: TiquetesAdapter
 
     private lateinit var galleryViewModel: GalleryViewModel
     private var _binding: FragmentGalleryBinding? = null
@@ -45,6 +44,7 @@ class GalleryFragment : Fragment() {
             ViewModelProvider(this).get(GalleryViewModel::class.java)
         tiquetes.clear()
         tiquetes = ModelTiquetes().getInstance().getTiquetes()
+        adapter = TiquetesAdapter(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -64,15 +64,19 @@ class GalleryFragment : Fragment() {
             when (direction) {
                 ItemTouchHelper.LEFT -> {
                     adapter.deleteItem(viewHolder.bindingAdapterPosition)
+                    initRecycler()
                 }
                 ItemTouchHelper.RIGHT -> {
-                    val archiveItem = tiquetes[viewHolder.bindingAdapterPosition]
-                    adapter.deleteItem(viewHolder.bindingAdapterPosition)
-                    adapter.addItem(tiquetes.size, archiveItem)
+                    val intent = Intent(requireContext(), TiqueteActivity::class.java)
+                    var Tiquete = tiquetes[viewHolder.bindingAdapterPosition]
+                    intent.putExtra("Tiquete",Tiquete)
+                    initRecycler()
+                    startActivity(intent)
                 }
             }
 
         }
+
         override fun onChildDraw(
             c: Canvas,
             recyclerView: RecyclerView,
@@ -90,9 +94,19 @@ class GalleryFragment : Fragment() {
                 dY,
                 actionState,
                 isCurrentlyActive
-            )   .addSwipeLeftBackgroundColor(ContextCompat.getColor(context!!, com.example.aerolinea.R.color.rojito))
+            ).addSwipeLeftBackgroundColor(
+                ContextCompat.getColor(
+                    context!!,
+                    com.example.aerolinea.R.color.rojito
+                )
+            )
                 .addSwipeLeftActionIcon(com.example.aerolinea.R.drawable.ic_delete_white)
-                .addSwipeRightBackgroundColor(ContextCompat.getColor(context!!, com.example.aerolinea.R.color.celestito))
+                .addSwipeRightBackgroundColor(
+                    ContextCompat.getColor(
+                        context!!,
+                        com.example.aerolinea.R.color.celestito
+                    )
+                )
                 .addSwipeRightActionIcon(com.example.aerolinea.R.drawable.ic_info_white)
                 .create()
                 .decorate()
@@ -102,7 +116,6 @@ class GalleryFragment : Fragment() {
 
 
     fun initRecycler() {
-
         val adapter = TiquetesAdapter(tiquetes)
         binding.rvTiquetes.layoutManager = LinearLayoutManager(context)
         binding?.rvTiquetes?.adapter = adapter

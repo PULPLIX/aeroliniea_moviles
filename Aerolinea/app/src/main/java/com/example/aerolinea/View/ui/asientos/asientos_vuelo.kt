@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -83,8 +84,11 @@ class asientos_vuelo : AppCompatActivity() {
             var usuario = gson.fromJson<Usuario>(usuarioSession,Usuario::class.java)
             var total =
                 vuelo.rutaId.precio - (vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01))
-            val fila = asiento[1]
-            val columna = asiento[0]
+            val fila = asiento[1].toString()
+            val columna = asiento[0].toString()
+            Log.d("Fila: ", asiento[1].toString().toInt().toString())
+
+            Toast.makeText(applicationContext, fila.toString(), Toast.LENGTH_SHORT).show()
             val tiquete:Tiquete = Tiquete(ModelTiquetes().getInstance().getAutoIncrement(),usuario,vuelo,total,fila.toInt(),columna.toInt(),compraBinding.spFormaPago.selectedItem.toString())
             ModelTiquetes().getInstance().addTiquete(tiquete)
 

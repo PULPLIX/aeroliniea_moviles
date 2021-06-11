@@ -14,10 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aerolinea"
         android:usesCleartextTraffic="true">
+        <activity android:name=".View.ui.tiquete.TiqueteActivity"></activity>
         <activity
             android:name=".View.ui.asientos.asientos_vuelo"
             android:label="@string/title_activity_asientos_vuelo"
-            android:theme="@style/Theme.Aerolinea.NoActionBar"></activity>
+            android:theme="@style/Theme.Aerolinea.NoActionBar" />
         <activity
             android:name=".View.ui.tiquete.tiquete"
             android:label="@string/title_activity_tiquete"

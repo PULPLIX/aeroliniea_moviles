@@ -30,10 +30,12 @@ class TiquetesAdapter(val tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Tiq
 
     override fun getItemCount(): Int = tiquetes.size
 
-    fun deleteItem(i : Int){
-        tiquetes.removeAt(i)
-        notifyDataSetChanged()
+    fun deleteItem(position : Int){
+        tiquetes.removeAt(position)
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,tiquetes.size);
     }
+
     fun addItem(i : Int, tiquete: Tiquete){
         tiquetes.add(i, tiquete)
         notifyDataSetChanged()
