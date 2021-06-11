@@ -15,10 +15,9 @@ class TiquetesAdapter(val tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Tiq
         parent: ViewGroup,
         viewType: Int
     ): TiquetesHolder {
-        Log.d("createViewHolder:", "SIRVA PUTO")
+        Log.d("createViewHolder:", "HA")
         val layoutInflater = LayoutInflater.from(parent.context)
-        val v: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_tiquete, parent, false)
+        val v: View = LayoutInflater.from(parent.context).inflate(R.layout.item_tiquete, parent, false)
 
         return  TiquetesHolder(v);
     }
@@ -49,7 +48,15 @@ class TiquetesAdapter(val tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Tiq
             viewB.tvOrigen.text = tiquete.vueloId.rutaId.ciudadOrigen.nombre
             viewB.tvFecha.text = tiquete.vueloId.fecha
             viewB.tvDuracion.text = tiquete.vueloId.duracion
-            viewB.tvModalidad.text = tiquete.vueloId.modalidad
+            viewB.tvModalidad.text = getModalidad(tiquete.vueloId.modalidad)
+        }
+
+        fun getModalidad(modalidad:String):String{
+            if(modalidad.equals("1")){
+                return "Ida"
+            }else{
+                return "Ida y vuelta"
+            }
         }
     }
 

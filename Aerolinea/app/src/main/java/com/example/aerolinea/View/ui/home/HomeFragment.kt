@@ -1,6 +1,7 @@
 package com.example.aerolinea.View.ui.home
 
 import android.R
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,6 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
-
     var ciudades: ArrayList<String> = ArrayList()
     var ciudadesCodigo: ArrayList<String> = ArrayList()
 
@@ -49,6 +49,11 @@ class HomeFragment : Fragment() {
         vuelos.clear()
         vuelos = ModelVuelos().getInstance().getVuelos()
 
+        guardaCiudades()
+        spinnerOrigen(ciudades)
+        spinnerDestino(ciudades)
+        buscarVuelos()
+        showDateRange()
         initRecycler()
         return root
     }
@@ -58,34 +63,25 @@ class HomeFragment : Fragment() {
         binding.rvResultado.layoutManager = LinearLayoutManager(context)
         binding?.rvResultado?.adapter = adapter
     }
-    fun spinnerOrigen(ciudadesOrigen: String) {
 
-        val sType = object : TypeToken<List<Ciudad>>() {}.type
-        val listaCiudades = Gson().fromJson<List<Ciudad>>(ciudadesOrigen, sType)
+    fun initRecyclerVuelos( vuelosBusqueda: ArrayList<Vuelo>) {
+        val adapter = VuelosResultAdapter(vuelosBusqueda)
+        binding.rvResultado.layoutManager = LinearLayoutManager(context)
+        binding?.rvResultado?.adapter = adapter
+    }
 
-        listaCiudades.forEach { ciudad ->
-            ciudades.add(ciudad.nombre)
-            ciudadesCodigo.add(ciudad.id.toString())
-        }
+    fun spinnerOrigen(ciudadesOrigen: ArrayList<String>) {
+
         Log.d("Ciudades Origen", ciudades.toString())
-        var adapter = ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudades)
+        var adapter = ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesOrigen)
         _binding?.etOrigen?.setAdapter<ArrayAdapter<String>>(adapter)
         _binding?.etOrigen?.adapter
     }
 
-    fun spinnerDestino(ciudadesDestino: String) {
-        ciudades.clear()
-
-        val sType = object : TypeToken<List<Ciudad>>() {}.type
-        val listaCiudades = Gson().fromJson<List<Ciudad>>(ciudadesDestino, sType)
-
-        listaCiudades.forEach { ciudad ->
-            ciudades.add(ciudad.nombre)
-            ciudadesCodigo.add(ciudad.id.toString())
-        }
+    fun spinnerDestino(ciudadesDestino: ArrayList<String>) {
         Log.d("Ciudades Destino", ciudades.toString())
 
-        var adapter = ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudades)
+        var adapter = ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesDestino)
         _binding?.etDestino?.setAdapter<ArrayAdapter<String>>(adapter)
         _binding?.etDestino?.adapter
     }
@@ -150,9 +146,46 @@ class HomeFragment : Fragment() {
         return format.format(date)
     }
 
-//    fun showDateRange() {
-//        binding.root.btnShowRangePicker.setOnClickListener {
-//            showDateRangePicker()
-//        }
-//    }
+    @SuppressLint("NewApi")
+    fun buscarVuelos(){
+        binding.btnBuscar.setOnClickListener{
+            val origen = binding.etOrigen.text.toString()
+            val destino = binding.etDestino.text.toString()
+            val salida = binding.etSalida.text.toString()
+            val llegada = binding.etRegreso.text.toString()
+            initRecyclerVuelos( ModelVuelos().getInstance().findVuelo(getModalidad(binding.checkModalidad.isChecked),origen,destino,salida,llegada))
+        }
+    }
+
+    fun guardaCiudades(){
+        ciudades.clear()
+        ciudadesCodigo.clear()
+
+        ciudades.add("Alajuela")
+        ciudades.add("Miami")
+        ciudades.add("Toronto")
+        ciudades.add("NY")
+        ciudades.add("Hawai")
+        ciudades.add("California")
+        ciudades.add("Japon")
+        ciudadesCodigo.add("1")
+        ciudadesCodigo.add("2")
+        ciudadesCodigo.add("3")
+        ciudadesCodigo.add("4")
+        ciudadesCodigo.add("5")
+        ciudadesCodigo.add("6")
+        ciudadesCodigo.add("7")
+    }
+
+    fun getModalidad(modalidad:Boolean):String{
+        if(modalidad)
+            return "1"
+        return "2"
+    }
+
+    fun showDateRange() {
+        binding.btnShowRangePicker.setOnClickListener {
+            showDateRangePicker()
+        }
+    }
 }

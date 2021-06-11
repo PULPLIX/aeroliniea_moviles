@@ -41,7 +41,7 @@ class VuelosResultAdapter(val vuelos: ArrayList<Vuelo>) :
             viewB.tvOrigen.text = vuelo.rutaId.ciudadOrigen.nombre
             viewB.tvFecha.text = vuelo.fecha
             viewB.tvDuracion.text = vuelo.duracion
-            viewB.tvModalidad.text = vuelo.modalidad
+            viewB.tvModalidad.text = getModalidad(vuelo.modalidad)
             viewB.tvPrecio.text = vuelo.rutaId.precio.toString()
             viewB.idVuelo.text = vuelo.id.toString()
             viewB.btnAsientos.setOnClickListener{inflateAsientos(vuelo)}
@@ -51,6 +51,13 @@ class VuelosResultAdapter(val vuelos: ArrayList<Vuelo>) :
             val intent = Intent(view.context, asientos_vuelo::class.java)
             intent.putExtra("vuelo",  vuelo)
             view.context.startActivity(intent)
+        }
+        fun getModalidad(modalidad:String):String{
+            if(modalidad.equals("1")){
+                return "Ida"
+            }else{
+                return "Ida y vuelta"
+            }
         }
     }
 }

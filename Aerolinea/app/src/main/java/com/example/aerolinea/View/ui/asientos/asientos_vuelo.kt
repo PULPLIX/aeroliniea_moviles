@@ -70,6 +70,7 @@ class asientos_vuelo : AppCompatActivity() {
             val intentTiquetes = Intent(this, MainUserActivity::class.java)
             guardarTiquetes(compraBinding)
             intentTiquetes.putExtra("compra",  "Compra realizada correctamente")
+            intentTiquetes.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             applicationContext.startActivity(intentTiquetes)
         }
         alertDialog.show()
@@ -104,11 +105,11 @@ class asientos_vuelo : AppCompatActivity() {
         compraBinding.tvDuracion.text = vuelo.duracion
         compraBinding.tvAvion.text = vuelo.avionId.marca + " - " + vuelo.avionId.tipo
         compraBinding.tvAsientos.text = asientos.toString()
-        compraBinding.tvModalidad.text = vuelo.modalidad
+        compraBinding.tvModalidad.text = getModalidad(vuelo.modalidad)
         compraBinding.tvPrecio.text = vuelo.rutaId.precio.toString()
         compraBinding.tvCantAsientos.text = asientos.size.toString()
         compraBinding.tvDescuento.text = vuelo.rutaId.porcentajeDescuento.toString()
-        compraBinding.tvTotal.text = total.toString()
+        compraBinding.tvTotal.text = (total*asientos.size).toString()
         loadSpinner(compraBinding)
     }
 
@@ -165,6 +166,14 @@ class asientos_vuelo : AppCompatActivity() {
                 }
             }
             binding.linearAsientos.addView(layout)
+        }
+    }
+
+    fun getModalidad(modalidad:String):String{
+        if(modalidad.equals("1")){
+            return "Ida"
+        }else{
+            return "Ida y vuelta"
         }
     }
 }
