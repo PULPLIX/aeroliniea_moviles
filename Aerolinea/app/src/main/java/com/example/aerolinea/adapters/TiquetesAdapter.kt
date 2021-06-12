@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.R
 import com.example.aerolinea.databinding.ItemTiqueteBinding
@@ -26,7 +27,6 @@ class TiquetesAdapter( var tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Ti
             parent: ViewGroup,
             viewType: Int
     ): TiquetesHolder {
-        Log.d("createViewHolder:", "HA")
         val layoutInflater = LayoutInflater.from(parent.context)
         val v: View = LayoutInflater.from(parent.context).inflate(R.layout.item_tiquete, parent, false)
 
@@ -41,6 +41,8 @@ class TiquetesAdapter( var tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Ti
     override fun getItemCount(): Int = tiquetes.size
 
     fun deleteItem(position: Int) {
+        val tiquete = tiquetes.get(position)
+        ModelTiquetes.deleteTiqueteUsuario(tiquete.id)
         tiquetes.removeAt(position)
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, tiquetes.size);
@@ -72,31 +74,11 @@ class TiquetesAdapter( var tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Ti
         }
         notifyDataSetChanged()
 
-        /*
-        if(text!!.isNotEmpty()){
-            tiquetes.clear()
-            val searchT = text?.toLowerCase(Locale.getDefault())
-            tiquetesTem.forEach {
-                if(it.vueloId.rutaId.ciudadOrigen.nombre.toLowerCase(Locale.getDefault()) == searchT){
-                    tiquetes.add(it)
-                }
-            }
-            notifyDataSetChanged()
-        }else{
-            tiquetes.clear()
-            tiquetes.addAll(tiquetesTem)
-            notifyDataSetChanged()
-        }
-
-        notifyDataSetChanged()
-
-         */
     }
 
     class TiquetesHolder(val view: View) : RecyclerView.ViewHolder(view) {
         private val viewB = ItemTiqueteBinding.bind(view)
         fun render(tiquete: Tiquete) {
-            Log.d("tiquete:", tiquete.toString())
             viewB.tvDestino.text = tiquete.vueloId.rutaId.ciudadDestino.nombre
             viewB.tvOrigen.text = tiquete.vueloId.rutaId.ciudadOrigen.nombre
             viewB.tvFecha.text = tiquete.vueloId.fecha
