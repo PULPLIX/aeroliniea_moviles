@@ -21,7 +21,7 @@ class Register : AppCompatActivity() {
 
     fun register(view:View){
         if( binding.password.text.toString().equals(binding.confirmPassword.text.toString()) ){
-            val usuario1 = Usuario(binding.user.text.toString(), binding.password.text.toString(), "standar")
+            val usuario1 = Usuario("correo",binding.user.text.toString(), binding.password.text.toString(),"1","1","Heredia centro","1")
             val model = model()
             model.getInstance().addUser(usuario1.nombre, usuario1);
             val intent = Intent(this, Login::class.java)

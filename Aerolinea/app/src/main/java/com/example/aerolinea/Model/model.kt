@@ -9,7 +9,7 @@ class model {
 
         init {
             // Aqui se inicializan las variables y metodos
-            val usuario:Usuario = Usuario("1","1","0");
+            val usuario:Usuario = Usuario("davidCorderoAguilar@gmail.com","1","1","60331950","22548891","Heredia Centro","1");
             usuarios.put("1",usuario)
         }
 
@@ -17,8 +17,12 @@ class model {
             usuarios.put(key,usuario)
             return true
         }
+
         fun findUser(key: String):Usuario?{
             return usuarios.get(key)
+        }
+        fun editUser(usuario: Usuario){
+            usuarios.put(usuario.nombre,usuario)
         }
 
         fun confirmUser(key: String,password: String):Boolean{

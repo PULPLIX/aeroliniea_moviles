@@ -26,10 +26,34 @@ class ModelTiquetes {
         fun findTicket(key: Int): Tiquete? {
             return tiquetes.get(key)
         }
+
+        fun getTiquetesUsuario(usuarioId: String): ArrayList<Tiquete> {
+            var tiquetesUsuario: ArrayList<Tiquete> = ArrayList()
+
+            for (tiquete in tiquetes) {
+                if (tiquete.usuarioId.nombre == usuarioId) {
+                    tiquetesUsuario.add(tiquete)
+                }
+            }
+            return tiquetesUsuario
+        }
+
+        fun getTiquetesVuelo(vueloId: Int): ArrayList<Tiquete> {
+            var tiquetesVuelo: ArrayList<Tiquete> = ArrayList()
+            for (tiquete in tiquetes){
+                if(tiquete.vueloId.id == vueloId){
+                    tiquetesVuelo.add(tiquete)
+                }
+            }
+            return tiquetesVuelo
+        }
+
+
         fun getTiquetes(): ArrayList<Tiquete> {
             return tiquetes
         }
-        fun getAutoIncrement(): Int{
+
+        fun getAutoIncrement(): Int {
             return ai
         }
     }

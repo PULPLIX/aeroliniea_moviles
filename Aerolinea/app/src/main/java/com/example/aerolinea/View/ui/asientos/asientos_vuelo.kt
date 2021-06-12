@@ -1,5 +1,6 @@
 package com.example.aerolinea.View.ui.asientos
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -13,7 +14,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Usuario
@@ -22,13 +22,15 @@ import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 import com.example.aerolinea.databinding.AlertCompraBinding
 import com.example.aerolinea.R
-import com.example.aerolinea.View.ui.gallery.GalleryFragment
 import com.google.gson.Gson
 
 class asientos_vuelo : AppCompatActivity() {
 
     private lateinit var binding: ActivityAsientosVueloBinding
     val asientos = mutableListOf<String>()
+    var tiquetesVuelo = mutableListOf<Tiquete>()
+
+
     lateinit var vuelo: Vuelo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class asientos_vuelo : AppCompatActivity() {
         setContentView(binding.root)
         val data = intent.extras
         vuelo = data?.getSerializable("vuelo") as Vuelo
+        tiquetesVuelo = ModelTiquetes.getTiquetesVuelo(vuelo.id)
         cargarAsientos(vuelo.avionId.cantidadFilas, vuelo.avionId.asientosFila)
         evtCompra()
     }
@@ -87,14 +90,14 @@ class asientos_vuelo : AppCompatActivity() {
                 vuelo.rutaId.precio - (vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01))
             val fila = asiento[1].toString()
             val columna = asiento[0].toString()
-            Log.d("Fila: ", asiento[1].toString().toInt().toString())
-
-            Toast.makeText(applicationContext, fila.toString(), Toast.LENGTH_SHORT).show()
             val tiquete:Tiquete = Tiquete(ModelTiquetes().getInstance().getAutoIncrement(),usuario,vuelo,total,fila.toInt(),columna.toInt(),compraBinding.spFormaPago.selectedItem.toString())
             ModelTiquetes().getInstance().addTiquete(tiquete)
-
         }
     }
+
+
+
+    @SuppressLint("SetTextI18n")
     fun fillAlert(compraBinding: AlertCompraBinding) {
         var total =
             vuelo.rutaId.precio - (vuelo.rutaId.precio * (vuelo.rutaId.porcentajeDescuento * 0.01))
@@ -138,6 +141,7 @@ class asientos_vuelo : AppCompatActivity() {
         }
     }
 
+
     private fun cargarAsientos(filas: Int, columnas: Int) {
 
         for (i in 1..filas) {
@@ -151,19 +155,24 @@ class asientos_vuelo : AppCompatActivity() {
             for (j in 1..columnas) {
                 val btn: Button = Button(applicationContext)
                 btn.layoutParams = LinearLayout.LayoutParams(110, 110)
-                btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
                 btn.tag = i.toString() + j.toString()
-                layout.addView(btn)
-                btn.setOnClickListener {
-//                    showAlert(btn.backgroundTintList!!.toString()+ btn.backgroundTintList!!.defaultColor.toString())
-                    if (btn.backgroundTintList!!.defaultColor == -15348162) {
-                        btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
-                        asientos.remove(btn.tag.toString())
-                    } else {
-                        asientos.add(btn.tag.toString());
-                        btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#15CE3E"))
+
+                if(isTicketSold(j, i)){
+                    btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#DCDC1717"))
+                }else{
+                    btn.setOnClickListener {
+                        if (btn.backgroundTintList!!.defaultColor == -15348162) {
+                            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
+                            asientos.remove(btn.tag.toString())
+                        } else {
+                            asientos.add(btn.tag.toString());
+                            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#15CE3E"))
+                        }
                     }
+                    btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
                 }
+                layout.addView(btn)
+
             }
             binding.linearAsientos.addView(layout)
         }
@@ -176,4 +185,14 @@ class asientos_vuelo : AppCompatActivity() {
             return "Ida y vuelta"
         }
     }
+
+    fun isTicketSold(fila: Int, columna: Int): Boolean {
+        for (tiquete in tiquetesVuelo){
+            if(tiquete.filaAsisento == fila && tiquete.columnaAsiento == columna){
+                return true
+            }
+        }
+        return false
+    }
+
 }

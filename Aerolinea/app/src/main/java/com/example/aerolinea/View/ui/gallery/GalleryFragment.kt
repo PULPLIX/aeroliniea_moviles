@@ -1,8 +1,10 @@
 package com.example.aerolinea.View.ui.gallery
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
+import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
 import com.example.aerolinea.View.ui.tiquete.tiquete
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
+import com.google.gson.Gson
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
@@ -40,6 +44,7 @@ class GalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         galleryViewModel =
             ViewModelProvider(this).get(GalleryViewModel::class.java)
         tiquetes.clear()
@@ -47,10 +52,17 @@ class GalleryFragment : Fragment() {
         adapter = TiquetesAdapter(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         initRecycler();
 
         return root
+    }
+
+    fun getUser(): Usuario{
+        val sp = context?.getSharedPreferences("key", Context.MODE_PRIVATE)
+        val usuarioSession = sp?.getString("usuario",null)
+        var gson = Gson()
+        var user = gson.fromJson<Usuario>(usuarioSession, Usuario::class.java)
+        return user
     }
 
     override fun onDestroyView() {
@@ -76,7 +88,6 @@ class GalleryFragment : Fragment() {
             }
 
         }
-
         override fun onChildDraw(
             c: Canvas,
             recyclerView: RecyclerView,
@@ -127,6 +138,7 @@ class GalleryFragment : Fragment() {
     fun getTiquetes(): MutableList<Tiquete> {
         return tiquetes
     }
+
 
 
 }
