@@ -208,6 +208,9 @@
                 android:id="@+id/btnCompra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:textColor="@color/azulitoSecundary"
+                app:backgroundTint="@color/white"
                 android:text="Continuar"
                 />
         </LinearLayout>
