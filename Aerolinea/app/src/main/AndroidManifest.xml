@@ -20,9 +20,9 @@
             android:label="@string/title_activity_asientos_vuelo"
             android:theme="@style/Theme.Aerolinea.NoActionBar" />
         <activity
+            android:parentActivityName=".View.MainUserActivity"
             android:name=".View.ui.tiquete.tiquete"
-            android:label="@string/title_activity_tiquete"
-            android:theme="@style/Theme.Aerolinea.NoActionBar" />
+            android:label="@string/title_activity_tiquete" />
         <activity
             android:name=".View.MainUserActivity"
             android:label="@string/title_activity_main_user"

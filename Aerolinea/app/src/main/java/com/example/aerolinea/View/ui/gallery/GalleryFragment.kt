@@ -3,10 +3,14 @@ package com.example.aerolinea.View.ui.gallery
 import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +20,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
-import com.example.aerolinea.View.ui.tiquete.tiquete
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class GalleryFragment : Fragment() {
@@ -36,21 +41,78 @@ class GalleryFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+        galleryViewModel = ViewModelProvider(this).get(GalleryViewModel::class.java)
         tiquetes.clear()
         tiquetes = ModelTiquetes().getInstance().getTiquetes()
         adapter = TiquetesAdapter(tiquetes)
+        var tiquetesTem = ArrayList<Tiquete>(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         initRecycler();
 
+        // Search view
+        searchView()
+
+/*
+        search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                adapter.filter.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                adapter.filter(newText)
+                if(newText!!.isNotEmpty()){
+                    tiquetes.clear()
+                    val searchT = newText.toLowerCase(Locale.getDefault())
+                    tiquetesTem.forEach {
+                        Log.d("EL IF",it.vueloId.rutaId.ciudadOrigen.nombre +" - "+ searchT )
+                        if(it.vueloId.rutaId.ciudadOrigen.nombre.toLowerCase(Locale.getDefault()) == searchT){
+                            Log.d("Tiquete",it.vueloId.rutaId.ciudadOrigen.nombre)
+                            tiquetes.add(it)
+                        }
+                    }
+                    binding?.rvTiquetes?.adapter!!.notifyDataSetChanged()
+                }else{
+                    Log.d("Tiquetes",tiquetes.toString())
+                    Log.d("TiquetesTem",tiquetesTem.toString())
+                    tiquetes.clear()
+                    tiquetes.addAll(tiquetesTem)
+                    binding?.rvTiquetes?.adapter!!.notifyDataSetChanged()
+                }
+
+
+
+                return false
+            }
+        })
+ */
+
         return root
+    }
+
+    fun searchView(){
+        val search = binding.buscador
+        binding?.rvTiquetes!!.adapter = adapter
+
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                search.clearFocus()
+                adapter!!.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter!!.filter(newText)
+                return false
+            }
+
+        })
     }
 
     override fun onDestroyView() {
@@ -69,7 +131,7 @@ class GalleryFragment : Fragment() {
                 ItemTouchHelper.RIGHT -> {
                     val intent = Intent(requireContext(), TiqueteActivity::class.java)
                     var Tiquete = tiquetes[viewHolder.bindingAdapterPosition]
-                    intent.putExtra("Tiquete",Tiquete)
+                    intent.putExtra("Tiquete", Tiquete)
                     initRecycler()
                     startActivity(intent)
                 }
@@ -78,34 +140,34 @@ class GalleryFragment : Fragment() {
         }
 
         override fun onChildDraw(
-            c: Canvas,
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            dX: Float,
-            dY: Float,
-            actionState: Int,
-            isCurrentlyActive: Boolean
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
         ) {
             RecyclerViewSwipeDecorator.Builder(
-                c,
-                recyclerView,
-                viewHolder,
-                dX,
-                dY,
-                actionState,
-                isCurrentlyActive
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
             ).addSwipeLeftBackgroundColor(
-                ContextCompat.getColor(
-                    context!!,
-                    com.example.aerolinea.R.color.rojito
-                )
+                    ContextCompat.getColor(
+                            context!!,
+                            com.example.aerolinea.R.color.rojito
+                    )
             )
                 .addSwipeLeftActionIcon(com.example.aerolinea.R.drawable.ic_delete_white)
                 .addSwipeRightBackgroundColor(
-                    ContextCompat.getColor(
-                        context!!,
-                        com.example.aerolinea.R.color.celestito
-                    )
+                        ContextCompat.getColor(
+                                context!!,
+                                com.example.aerolinea.R.color.celestito
+                        )
                 )
                 .addSwipeRightActionIcon(com.example.aerolinea.R.drawable.ic_info_white)
                 .create()
