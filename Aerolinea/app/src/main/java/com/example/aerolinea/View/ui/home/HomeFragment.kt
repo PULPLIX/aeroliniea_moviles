@@ -154,15 +154,21 @@ class HomeFragment : Fragment() {
             val destino = binding.etDestino.text.toString()
             val salida = binding.etSalida.text.toString()
             val llegada = binding.etRegreso.text.toString()
-            initRecyclerVuelos(
-                ModelVuelos().getInstance().findVuelo(
-                    getModalidad(binding.checkModalidad.isChecked),
-                    origen,
-                    destino,
-                    salida,
-                    llegada
+
+            if(origen.toString().isNotEmpty() && destino.toString().isNotEmpty() && salida.toString().isNotEmpty() && llegada.toString().isNotEmpty()){
+                initRecyclerVuelos(
+                    ModelVuelos().getInstance().findVuelo(
+                        getModalidad(binding.checkModalidad.isChecked),
+                        origen,
+                        destino,
+                        salida,
+                        llegada
+                    )
                 )
-            )
+            }else{
+                Toast.makeText(this.context, "Rellene todos los campos",Toast.LENGTH_LONG).show()
+            }
+
         }
     }
 

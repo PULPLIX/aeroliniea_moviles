@@ -51,7 +51,7 @@ class GalleryFragment : Fragment() {
         galleryViewModel =
             ViewModelProvider(this).get(GalleryViewModel::class.java)
         tiquetes.clear()
-        tiquetes = ModelTiquetes().getInstance().getTiquetes()
+        tiquetes = ModelTiquetes().getInstance().getTiquetesUsuario(getUser().nombre)
         adapter = TiquetesAdapter(tiquetes)
         var tiquetesTem = ArrayList<Tiquete>(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
@@ -60,42 +60,6 @@ class GalleryFragment : Fragment() {
 
         // Search view
         searchView()
-
-/*
-        search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                adapter.filter.filter(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-
-                adapter.filter(newText)
-                if(newText!!.isNotEmpty()){
-                    tiquetes.clear()
-                    val searchT = newText.toLowerCase(Locale.getDefault())
-                    tiquetesTem.forEach {
-                        Log.d("EL IF",it.vueloId.rutaId.ciudadOrigen.nombre +" - "+ searchT )
-                        if(it.vueloId.rutaId.ciudadOrigen.nombre.toLowerCase(Locale.getDefault()) == searchT){
-                            Log.d("Tiquete",it.vueloId.rutaId.ciudadOrigen.nombre)
-                            tiquetes.add(it)
-                        }
-                    }
-                    binding?.rvTiquetes?.adapter!!.notifyDataSetChanged()
-                }else{
-                    Log.d("Tiquetes",tiquetes.toString())
-                    Log.d("TiquetesTem",tiquetesTem.toString())
-                    tiquetes.clear()
-                    tiquetes.addAll(tiquetesTem)
-                    binding?.rvTiquetes?.adapter!!.notifyDataSetChanged()
-                }
-
-
-
-                return false
-            }
-        })
- */
 
         return root
     }

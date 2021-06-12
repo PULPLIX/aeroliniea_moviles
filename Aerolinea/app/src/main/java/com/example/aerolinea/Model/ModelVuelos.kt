@@ -35,6 +35,12 @@ class ModelVuelos {
             val horario2 = Horario(3, "Martes", 5)
             val ruta2 = Ruta(2, 150.0, 0.0, ny2, aj2, horario2)
 
+            val avion3 = Avion(3, "Comercial", 34, 2022, "Boing 377", 9, 34)
+            val ny3 = Ciudad(8, "Toronto")
+            val aj3 = Ciudad(9, "Hawai")
+            val horario3 = Horario(4, "Jueves", 5)
+            val ruta3 = Ruta(3, 300.0, 10.0, ny3, aj3, horario3)
+
             addVuelo(
                 Vuelo(
                     1,
@@ -52,7 +58,7 @@ class ModelVuelos {
                     "2",
                     "2",
                     "06/20/2021",
-                    avion,
+                    avion2,
                     ruta2,
                     listOf<Tiquete>()
                 )
@@ -74,10 +80,21 @@ class ModelVuelos {
                     "1",
                     "2",
                     "06/29/2021",
-                    avion,
+                    avion3,
                     ruta2,
                     listOf<Tiquete>()
                 )
+            )
+            addVuelo(
+                    Vuelo(
+                            5,
+                            "1",
+                            "4",
+                            "06/24/2021",
+                            avion3,
+                            ruta3,
+                            listOf<Tiquete>()
+                    )
             )
         }
 

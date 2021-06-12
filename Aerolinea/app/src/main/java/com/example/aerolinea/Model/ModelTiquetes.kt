@@ -38,6 +38,17 @@ class ModelTiquetes {
             return tiquetesUsuario
         }
 
+        fun deleteTiqueteUsuario(id_tiquete: Int): Boolean {
+
+            for (tiquete in tiquetes) {
+                if (tiquete.id == id_tiquete) {
+                    tiquetes.remove(tiquete)
+                    return true
+                }
+            }
+            return false
+        }
+
         fun getTiquetesVuelo(vueloId: Int): ArrayList<Tiquete> {
             var tiquetesVuelo: ArrayList<Tiquete> = ArrayList()
             for (tiquete in tiquetes){
