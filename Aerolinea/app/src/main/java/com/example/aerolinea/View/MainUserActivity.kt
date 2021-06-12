@@ -2,7 +2,9 @@ package com.example.aerolinea.View
 
 import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.Menu
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -41,21 +43,24 @@ class MainUserActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home,
+                R.id.nav_gallery,
+                R.id.nav_slideshow,
+                R.id.perfilFragment
             ), drawerLayout
         )
-
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         val data = intent.extras
+
         val fragment = data?.get("compra")
-        if(fragment != null){
+        if (fragment != null) {
             Toast.makeText(applicationContext, fragment.toString(), Toast.LENGTH_SHORT).show()
             navController.navigate(R.id.nav_gallery)
         }
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

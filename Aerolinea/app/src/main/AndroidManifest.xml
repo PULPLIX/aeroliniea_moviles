@@ -14,25 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Aerolinea"
         android:usesCleartextTraffic="true">
-        <activity android:name=".View.ui.tiquete.TiqueteActivity"></activity>
+        <activity android:name=".View.ui.tiquete.TiqueteActivity"
+            android:theme="@style/Theme.Aerolinea.NoActionBar"></activity>
         <activity
             android:name=".View.ui.asientos.asientos_vuelo"
             android:label="@string/title_activity_asientos_vuelo"
             android:theme="@style/Theme.Aerolinea.NoActionBar" />
         <activity
-            android:parentActivityName=".View.MainUserActivity"
-            android:name=".View.ui.tiquete.tiquete"
-            android:label="@string/title_activity_tiquete" />
-        <activity
             android:name=".View.MainUserActivity"
             android:label="@string/title_activity_main_user"
             android:theme="@style/Theme.Aerolinea.NoActionBar" />
+
         <activity android:name=".login_register.Register" />
         <activity android:name=".login_register.Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

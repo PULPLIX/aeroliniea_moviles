@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,11 +45,11 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = null
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         vuelos.clear()
         vuelos = ModelVuelos().getInstance().getVuelos()
-
         guardaCiudades()
         spinnerOrigen(ciudades)
         spinnerDestino(ciudades)
@@ -64,7 +65,7 @@ class HomeFragment : Fragment() {
         binding?.rvResultado?.adapter = adapter
     }
 
-    fun initRecyclerVuelos( vuelosBusqueda: ArrayList<Vuelo>) {
+    fun initRecyclerVuelos(vuelosBusqueda: ArrayList<Vuelo>) {
         val adapter = VuelosResultAdapter(vuelosBusqueda)
         binding.rvResultado.layoutManager = LinearLayoutManager(context)
         binding?.rvResultado?.adapter = adapter
@@ -73,7 +74,8 @@ class HomeFragment : Fragment() {
     fun spinnerOrigen(ciudadesOrigen: ArrayList<String>) {
 
         Log.d("Ciudades Origen", ciudades.toString())
-        var adapter = ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesOrigen)
+        var adapter =
+            ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesOrigen)
         _binding?.etOrigen?.setAdapter<ArrayAdapter<String>>(adapter)
         _binding?.etOrigen?.adapter
     }
@@ -81,7 +83,8 @@ class HomeFragment : Fragment() {
     fun spinnerDestino(ciudadesDestino: ArrayList<String>) {
         Log.d("Ciudades Destino", ciudades.toString())
 
-        var adapter = ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesDestino)
+        var adapter =
+            ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesDestino)
         _binding?.etDestino?.setAdapter<ArrayAdapter<String>>(adapter)
         _binding?.etDestino?.adapter
     }
@@ -97,7 +100,6 @@ class HomeFragment : Fragment() {
 //        Log.d("Vuelos SISI", vuelos.toString())
 //        return vuelosTem
 //    }
-
 
 
     private fun showDatePickerDialog(et: EditText) {
@@ -125,7 +127,6 @@ class HomeFragment : Fragment() {
             this.requireFragmentManager(),
             "date_range_picker"
         )
-
         dateRangePichek.addOnPositiveButtonClickListener { datePicker ->
             val startDate = datePicker.first
             val endDate = datePicker.second
@@ -147,17 +148,25 @@ class HomeFragment : Fragment() {
     }
 
     @SuppressLint("NewApi")
-    fun buscarVuelos(){
-        binding.btnBuscar.setOnClickListener{
+    fun buscarVuelos() {
+        binding.btnBuscar.setOnClickListener {
             val origen = binding.etOrigen.text.toString()
             val destino = binding.etDestino.text.toString()
             val salida = binding.etSalida.text.toString()
             val llegada = binding.etRegreso.text.toString()
-            initRecyclerVuelos( ModelVuelos().getInstance().findVuelo(getModalidad(binding.checkModalidad.isChecked),origen,destino,salida,llegada))
+            initRecyclerVuelos(
+                ModelVuelos().getInstance().findVuelo(
+                    getModalidad(binding.checkModalidad.isChecked),
+                    origen,
+                    destino,
+                    salida,
+                    llegada
+                )
+            )
         }
     }
 
-    fun guardaCiudades(){
+    fun guardaCiudades() {
         ciudades.clear()
         ciudadesCodigo.clear()
 
@@ -177,8 +186,8 @@ class HomeFragment : Fragment() {
         ciudadesCodigo.add("7")
     }
 
-    fun getModalidad(modalidad:Boolean):String{
-        if(modalidad)
+    fun getModalidad(modalidad: Boolean): String {
+        if (modalidad)
             return "1"
         return "2"
     }

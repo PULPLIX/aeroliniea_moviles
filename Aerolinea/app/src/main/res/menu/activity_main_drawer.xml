@@ -27,14 +27,6 @@
             android:id="@+id/perfilFragment"
             android:icon="@drawable/ic_perfil"
             android:title="@string/perfil" />
-        <item
-            android:id="@+id/nav_tiquete"
-            android:icon="@drawable/ic_ticket"
-            android:title="@string/tiquetes" />
-        <item
-            android:id="@+id/nav_asientos"
-            android:icon="@drawable/ic_people"
-            android:title="@string/asientos" />
     </group>
 
 </menu>
