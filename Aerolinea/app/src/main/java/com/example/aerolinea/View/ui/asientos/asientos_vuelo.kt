@@ -30,7 +30,6 @@ class asientos_vuelo : AppCompatActivity() {
     val asientos = mutableListOf<String>()
     var tiquetesVuelo = mutableListOf<Tiquete>()
 
-
     lateinit var vuelo: Vuelo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
