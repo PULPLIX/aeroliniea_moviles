@@ -48,10 +48,6 @@ class asientos : Fragment() {
     }
 
     private fun cargarAsientos(){
-
-
-
-
         var asientos: Array<IntArray> = Array(3) { IntArray(6) }
 
         val myArray = arrayOf(arrayOf("A", "B","C"),arrayOf("1", "2","2"))

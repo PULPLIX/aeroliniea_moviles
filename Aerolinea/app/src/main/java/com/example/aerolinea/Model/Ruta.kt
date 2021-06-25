@@ -1,5 +1,7 @@
 package com.example.aerolinea.Model
 
+import java.io.Serializable
+
 data class Ruta(
     var id: Int,
     var precio: Double,
@@ -7,4 +9,4 @@ data class Ruta(
     var ciudadOrigen: Ciudad,
     var ciudadDestino: Ciudad,
     var horarioId: Horario
-)
+): Serializable

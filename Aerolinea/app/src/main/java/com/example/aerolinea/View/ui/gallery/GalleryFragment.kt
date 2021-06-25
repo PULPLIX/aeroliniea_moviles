@@ -1,30 +1,34 @@
 package com.example.aerolinea.View.ui.gallery
 
-import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
+import com.example.aerolinea.Model.Usuario
+import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
+import com.google.gson.Gson
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlin.collections.ArrayList
 
 
 class GalleryFragment : Fragment() {
-    val newArrayList: MutableList<Tiquete> = ArrayList()
-    val adapter = TiquetesAdapter(getTiquetes())
-
+    var tiquetes: ArrayList<Tiquete> = ArrayList()
+    private lateinit var adapter: TiquetesAdapter
 
     private lateinit var galleryViewModel: GalleryViewModel
     private var _binding: FragmentGalleryBinding? = null
@@ -35,19 +39,52 @@ class GalleryFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
+
         galleryViewModel =
             ViewModelProvider(this).get(GalleryViewModel::class.java)
-
+        tiquetes.clear()
+        tiquetes = ModelTiquetes().getInstance().getTiquetesUsuario(getUser().nombre)
+        adapter = TiquetesAdapter(tiquetes)
+        var tiquetesTem = ArrayList<Tiquete>(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
         initRecycler();
 
+        // Search view
+        searchView()
+
         return root
+    }
+
+    fun getUser(): Usuario{
+        val sp = context?.getSharedPreferences("key", Context.MODE_PRIVATE)
+        val usuarioSession = sp?.getString("usuario",null)
+        var gson = Gson()
+        var user = gson.fromJson<Usuario>(usuarioSession, Usuario::class.java)
+        return user
+    }
+
+    fun searchView(){
+        val search = binding.buscador
+        binding?.rvTiquetes!!.adapter = adapter
+
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                search.clearFocus()
+                adapter!!.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter!!.filter(newText)
+                return false
+            }
+
+        })
     }
 
     override fun onDestroyView() {
@@ -61,35 +98,48 @@ class GalleryFragment : Fragment() {
             when (direction) {
                 ItemTouchHelper.LEFT -> {
                     adapter.deleteItem(viewHolder.bindingAdapterPosition)
+                    initRecycler()
                 }
                 ItemTouchHelper.RIGHT -> {
-                    val archiveItem = newArrayList[viewHolder.bindingAdapterPosition]
-                    adapter.deleteItem(viewHolder.bindingAdapterPosition)
-                    adapter.addItem(newArrayList.size, archiveItem)
+                    val intent = Intent(requireContext(), TiqueteActivity::class.java)
+                    var Tiquete = tiquetes[viewHolder.bindingAdapterPosition]
+                    intent.putExtra("Tiquete", Tiquete)
+                    initRecycler()
+                    startActivity(intent)
                 }
             }
 
         }
         override fun onChildDraw(
-            c: Canvas,
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            dX: Float,
-            dY: Float,
-            actionState: Int,
-            isCurrentlyActive: Boolean
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
         ) {
             RecyclerViewSwipeDecorator.Builder(
-                c,
-                recyclerView,
-                viewHolder,
-                dX,
-                dY,
-                actionState,
-                isCurrentlyActive
-            )   .addSwipeLeftBackgroundColor(ContextCompat.getColor(context!!, com.example.aerolinea.R.color.rojito))
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+            ).addSwipeLeftBackgroundColor(
+                    ContextCompat.getColor(
+                            context!!,
+                            com.example.aerolinea.R.color.rojito
+                    )
+            )
                 .addSwipeLeftActionIcon(com.example.aerolinea.R.drawable.ic_delete_white)
-                .addSwipeRightBackgroundColor(ContextCompat.getColor(context!!, com.example.aerolinea.R.color.celestito))
+                .addSwipeRightBackgroundColor(
+                        ContextCompat.getColor(
+                                context!!,
+                                com.example.aerolinea.R.color.celestito
+                        )
+                )
                 .addSwipeRightActionIcon(com.example.aerolinea.R.drawable.ic_info_white)
                 .create()
                 .decorate()
@@ -99,18 +149,18 @@ class GalleryFragment : Fragment() {
 
 
     fun initRecycler() {
+        val adapter = TiquetesAdapter(tiquetes)
         binding.rvTiquetes.layoutManager = LinearLayoutManager(context)
-        binding.rvTiquetes.adapter = adapter
+        binding?.rvTiquetes?.adapter = adapter
+
         val touchHelper = ItemTouchHelper(swipeGesture)
         touchHelper.attachToRecyclerView(binding.rvTiquetes)
     }
 
     fun getTiquetes(): MutableList<Tiquete> {
-        var tiquetes: MutableList<Tiquete> = ArrayList()
-        //Traer los tiquetes del API Backend
-
         return tiquetes
     }
+
 
 
 }

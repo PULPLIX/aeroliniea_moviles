@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/azulitoSecundaryColor"
     android:padding="40dp"
-    tools:context=".View.ui.tiquete.tiquete">
+    tools:context=".View.ui.tiquete.TiqueteActivity">
 
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:text="Tiquete" />
 
             <TextView
-                android:id="@+id/Vuelo"
+                android:id="@+id/tvIdVuelo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
@@ -65,6 +65,7 @@
                     android:text="Origen:" />
 
                 <TextView
+                    android:id="@+id/tvOrigen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -94,6 +95,7 @@
                     android:text="Destino:" />
 
                 <TextView
+                    android:id="@+id/tvDestino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -122,6 +124,7 @@
                     android:text="Fecha:" />
 
                 <TextView
+                    android:id="@+id/tvFecha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -149,6 +152,7 @@
                     android:text="Duración:" />
 
                 <TextView
+                    android:id="@+id/tvDuracion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -175,6 +179,7 @@
                     android:text="Modalidad:" />
 
                 <TextView
+                    android:id="@+id/tvModalidad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -202,6 +207,7 @@
                     android:text="Avión:" />
 
                 <TextView
+                    android:id="@+id/tvAvion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -229,6 +235,7 @@
                     android:text="Asientos:" />
 
                 <TextView
+                    android:id="@+id/tvAsientos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -271,37 +278,13 @@
                     android:text="Precio unitario:" />
 
                 <TextView
+                    android:id="@+id/tvPrecio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="6dp"
-                    android:background="@drawable/ic_ticket"
-                    android:backgroundTint="@color/amarillito" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:textColor="@color/gris"
-                    android:text="Cantidad:" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="TextView" />
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -323,6 +306,7 @@
                     android:text="Descuento:" />
 
                 <TextView
+                    android:id="@+id/tvDescuento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -343,6 +327,7 @@
                     android:text="Total:" />
 
                 <TextView
+                    android:id="@+id/tvTotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -361,9 +346,10 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="25dp"
                     android:textColor="@color/gris"
-                    android:text="Forma de pago:" />
+                    android:text="Tipo de pago:" />
 
                 <TextView
+                    android:id="@+id/tvTipoPago"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/azulitoSecundaryColor"

@@ -14,9 +14,11 @@
         android:orientation="horizontal">
 
         <SearchView
+            android:id="@+id/buscador"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:inputType="textNoSuggestions"
             android:background="@drawable/button" />
     </LinearLayout>
 

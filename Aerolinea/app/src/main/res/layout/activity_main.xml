@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@color/azulitoSecundaryColor"
     android:theme="@style/Theme.Aerolinea.NoActionBar"
-    >
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,9 +38,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
                 android:layout_weight="1"
-                android:background="@drawable/button"
                 android:onClick="goLogin"
-                android:text="LOGIN" />
+                android:text="LOGIN"
+                android:background="@drawable/button"
+                android:textColor="@color/azulitoSecundary"
+                app:backgroundTint="@color/white" />
 
             <Button
                 android:id="@+id/register"
@@ -50,6 +51,8 @@
                 android:layout_margin="5sp"
                 android:layout_weight="1"
                 android:background="@drawable/button"
+                android:textColor="@color/azulitoSecundary"
+                app:backgroundTint="@color/white"
                 android:onClick="goRegister"
                 android:text="REGISTER" />
         </LinearLayout>

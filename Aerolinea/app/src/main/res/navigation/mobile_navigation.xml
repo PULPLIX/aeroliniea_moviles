@@ -27,18 +27,11 @@
         android:id="@+id/perfilFragment"
         android:name="com.example.aerolinea.View.ui.perfil.PerfilFragment"
         android:label="@string/perfil"
-        tools:layout="@layout/fragment_perfil" />
-
-    <fragment
-        android:id="@+id/nav_tiquete"
-        android:name="com.example.aerolinea.View.ui.tiquete.tiquete"
-        android:label="fragment_tiquete"
-        tools:layout="@layout/fragment_tiquete" />
-    <fragment
-        android:id="@+id/nav_asientos"
-        android:name="com.example.aerolinea.View.ui.asientos.asientos"
-        android:label="fragment_asientos"
-        tools:layout="@layout/fragment_asientos" />
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfilFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 
 </navigation>

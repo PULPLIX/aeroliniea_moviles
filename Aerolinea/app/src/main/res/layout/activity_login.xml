@@ -56,25 +56,46 @@
             android:orientation="vertical"
             android:paddingTop="25dp">
 
-            <EditText
-                android:id="@+id/etUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/border_top"
-                android:ems="10"
-                android:hint="Correo electrónico"
-                android:inputType="textPassword"
-                android:padding="15dp" />
 
-            <EditText
-                android:id="@+id/etPassword"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputChangeID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_bottom"
-                android:ems="10"
-                android:hint="Contraseña"
-                android:inputType="textEmailAddress"
-                android:padding="15dp" />
+                android:textColorHint="#000"
+                android:layout_marginTop="40dp" >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Correo electrónico"
+                    android:inputType="textEmailAddress"
+                    android:background="@drawable/border_top"
+                    android:maxLines="1"
+                    android:textColor="@color/azulitoSecundary"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:endIconMode="password_toggle"
+                android:textColorHint="#000"
+                android:layout_marginTop="0dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:textColor="@color/azulitoSecundary"
+                    android:background="@drawable/border_bottom"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:layout_width="match_parent"
