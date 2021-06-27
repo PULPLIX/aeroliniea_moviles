@@ -17,6 +17,7 @@ class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHo
     private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/ciudades/"
     var binding = binding
     var action: String = ""
+    lateinit var  ciudadesResult : List<Ciudad>
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
 
@@ -28,9 +29,7 @@ class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHo
 
     fun setApiUrl(action: String){
         apiUrl = "http://10.0.2.2:8081/Backend/api/ciudades/"
-
         this.action = action
-
         apiUrl += action
     }
 
@@ -73,13 +72,15 @@ class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHo
 
     fun llenarCiudades(cuidadesOrigen: String){
         val gson = Gson()
-        val sType = object : TypeToken<List<Ciudad>>() { }.type
-        val ciudadesOrigen = gson.fromJson<List<Ciudad>>(cuidadesOrigen, sType)
+        val sType = object : TypeToken<ArrayList<Ciudad>>() { }.type
+        ciudadesResult = gson.fromJson<ArrayList<Ciudad>>(cuidadesOrigen, sType)
+        activity?.ciudades = (ciudadesResult as ArrayList<Ciudad>?)!!
+
         var ciudades = ArrayList<String>()
-        ciudadesOrigen.forEach { ciudad->
+
+        ciudadesResult.forEach { ciudad->
             ciudades.add(ciudad.nombre)
         }
-
         // Ciudades Origen
         var adapterOrigen =
             ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudades)

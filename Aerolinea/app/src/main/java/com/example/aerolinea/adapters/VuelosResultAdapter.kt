@@ -27,7 +27,6 @@ class VuelosResultAdapter(val vuelos: ArrayList<Vuelo>) :
     }
 
     override fun onBindViewHolder(holder: VuelosResultAdapter.VueloResultHolder, position: Int) {
-        Log.d("position:", position.toString())
         holder.render(vuelos[position])
     }
 

@@ -9,7 +9,7 @@ import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.io.DataOutputStream
+import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -19,22 +19,36 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
     var binding = binding
     var action: String = ""
     var method:String  = "GET"
+    lateinit var  vuelo: Vuelo
     var vuelos = arrayListOf<Vuelo>()
+    var parameters =  hashMapOf<String, String?>()
+    var gson = Gson()
+
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
-
         result = processRequest()
-
         Log.d("Result", result)
         return result
     }
 
-    fun setApiUrl(action: String, method: String){
+    fun setApiUrl(action: String, method: String, parameters: HashMap<String,String>?){
         apiUrl = "http://10.0.2.2:8081/Backend/api/vuelos/"
+
         this.action = action
         this.method = method
-
         apiUrl += action
+        addParamsToUrl(parameters)
+
+    }
+
+    fun addParamsToUrl(parameters: HashMap<String,String>?){
+        if (parameters != null) {
+            apiUrl += "?"
+            for ((key, value) in parameters) {
+                apiUrl +="$key=$value&"
+            }
+        }
+        println(apiUrl)
     }
 
     fun processRequest(): String {
@@ -47,33 +61,10 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
                 urlConnection = url
                         .openConnection() as HttpURLConnection //se abre una nueva aconeccion http
                 if(method != "GET"){
-                    val request = apiUrl
-                    val url = URL(request)
-
-                    urlConnection.setDoOutput(true) //Asegura que la peticion sera usada para el envio de datos
-                    urlConnection.setInstanceFollowRedirects(false)
-                    urlConnection.setRequestMethod(method)//setea el tipo de m[etodo por el que se envia la peticion
-                    urlConnection.setRequestProperty("Content-Type", "application/json; utf-8")//agrega los parametros de la cabescera de la peticion para que sean de tipo json
-                    urlConnection.setRequestProperty("Accept", "application/json");//configura la peticion para que acepte json
-                    urlConnection.setUseCaches(false)
-                    //Creacion del body del request
-                    String jsonInputString = gson.toJSON()objt;
-                    con.getOutputStream().use { os ->
-                        val input: ByteArray = jsonInputString.getBytes("utf-8")
-                        os.write(input, 0, input.size)
-                    }
-                    DataOutputStream(urlConnection.getOutputStream()).use { wr -> wr.write(postData) }
+                    result = postRequest(urlConnection)
+                }else{
+                    result = readData(urlConnection)
                 }
-
-                val `in` = urlConnection.inputStream
-                val isw = InputStreamReader(`in`)
-                var data = isw.read()
-                while (data != -1) {
-                    result += data.toChar()
-                    data = isw.read()
-                    print(result)
-                }
-                // return the data to onPostExecute method
                 return result
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -87,23 +78,62 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
         return result
     }
 
+    fun readData(urlConnection: HttpURLConnection) : String{
+        var result:String = ""
+        val `in` = urlConnection.inputStream
+        val isw = InputStreamReader(`in`)
+        var data = isw.read()
+        while (data != -1) {
+            result += data.toChar()
+            data = isw.read()
+        }
+        return result
+    }
+
+    fun postRequest(urlConnection: HttpURLConnection): String{
+        val request = apiUrl
+        val url = URL(request)
+        urlConnection.setDoOutput(true) //Asegura que la peticion sera usada para el envio de datos
+        urlConnection.setInstanceFollowRedirects(false)
+        urlConnection.setRequestMethod(method)//setea el tipo de m[etodo por el que se envia la peticion
+        urlConnection.setRequestProperty("Content-Type", "application/json; utf-8")//agrega los parametros de la cabescera de la peticion para que sean de tipo json
+        urlConnection.setRequestProperty("Accept", "application/json") //configura la peticion para que acepte json
+        urlConnection.setUseCaches(false)//Para no usar cache
+        //Creacion del body del request
+        var jsonInputString = gson.toJson(vuelo)
+        urlConnection.getOutputStream().use { os ->
+            val input: ByteArray = jsonInputString.toByteArray(charset("UTF-8"))
+            os.write(input, 0, input.size)
+        }
+        BufferedReader(
+            InputStreamReader(urlConnection.getInputStream(), "utf-8")
+        ).use { br ->
+            val response = StringBuilder()
+            var responseLine: String? = null
+            while (br.readLine().also { responseLine = it } != null) {
+                response.append(responseLine!!.trim { it <= ' ' })
+            }
+            println(response.toString())
+            return response.toString()
+        }
+    }
+
     override fun onPostExecute(result: String?){
         if (action == "listar"){
             listarVuelos(result.toString())
         }
         if (action == "buscar"){
-            buscar(result.toString())
+            listarVuelos(result.toString())
+            print(result.toString())
         }
     }
 
-    fun buscar(busqueda: String){
-
-    }
-
     fun listarVuelos(listaVuelos: String){
-        val sType = object : TypeToken<List<Vuelo>>() {}.type
-        val listaVuelos = Gson().fromJson<List<Vuelo>>(listaVuelos, sType)
-
+        val sType = object : TypeToken<ArrayList<Vuelo>>() {}.type
+        var listaVuelos = Gson().fromJson<ArrayList<Vuelo>>(listaVuelos, sType)
+        if(listaVuelos == null){
+            listaVuelos = ArrayList<Vuelo>()
+        }
         listaVuelos.forEach { vuelo ->
             vuelos.add(vuelo)
         }
