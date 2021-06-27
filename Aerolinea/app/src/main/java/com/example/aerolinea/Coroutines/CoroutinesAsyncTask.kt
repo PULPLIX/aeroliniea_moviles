@@ -1,6 +1,5 @@
 package com.example.aerolinea.Coroutines
 
-
 import android.util.Log
 import com.example.aerolinea.util.Constans.Companion.Status
 import kotlinx.coroutines.*
@@ -19,11 +18,10 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: Strin
     var status: Status = Status.PENDING
     var preJob: Job? = null
     var bgJob: Deferred<Result>? = null
+
     abstract fun doInBackground(vararg params: Params?): Result
-    abstract fun doInBackgroundListarVuelos(vararg params: Params?): Result
     open fun onProgressUpdate(vararg values: Progress?) {}
     open fun onPostExecute(result: Result?) {}
-    open fun onPostExecuteListar(result: Result?) {}
     open fun onPreExecute() {}
     open fun onCancelled(result: Result?) {}
     protected var isCancelled = false
@@ -32,13 +30,8 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: Strin
      * Executes background task parallel with other background tasks in the queue using
      * default thread pool
      */
-
     fun execute(vararg params: Params?) {
         execute(Dispatchers.Default, *params)
-    }
-
-    fun executeListar(vararg params: Params?) {
-        executeListar(Dispatchers.Default, *params)
     }
 
     /**
@@ -64,6 +57,7 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: Strin
                 }
             }
         }
+
         status = Status.RUNNING
 
         // it can be used to setup UI - it should have access to Main Thread
@@ -87,44 +81,6 @@ abstract class CoroutinesAsyncTask<Params, Progress, Result>(val taskName: Strin
             }
         }
     }
-
-    private fun executeListar(dispatcher: CoroutineDispatcher, vararg params: Params?) {
-
-        if (status != Status.PENDING) {
-            when (status) {
-                Status.RUNNING -> throw IllegalStateException("Cannot execute task:" + " the task is already running.")
-                Status.FINISHED -> throw IllegalStateException("Cannot execute task:"
-                        + " the task has already been executed "
-                        + "(a task can be executed only once)")
-                else -> {
-                }
-            }
-        }
-
-        status = Status.RUNNING
-
-        // it can be used to setup UI - it should have access to Main Thread
-        GlobalScope.launch(Dispatchers.Main) {
-            preJob = launch(Dispatchers.Main) {
-                printLog("$taskName onPreExecute started")
-                onPreExecute()
-                printLog("$taskName onPreExecute finished")
-                bgJob = async(dispatcher) {
-                    printLog("$taskName doInBackground started")
-                    doInBackgroundListarVuelos(*params)
-                }
-            }
-            preJob!!.join()
-            if (!isCancelled) {
-                withContext(Dispatchers.Main) {
-                    onPostExecuteListar(bgJob!!.await())
-                    printLog("$taskName doInBackground finished")
-                    status = Status.FINISHED
-                }
-            }
-        }
-    }
-
 
     fun cancel(mayInterruptIfRunning: Boolean) {
         if (preJob == null || bgJob == null) {

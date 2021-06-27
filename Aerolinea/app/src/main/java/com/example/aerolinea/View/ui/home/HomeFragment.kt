@@ -2,7 +2,6 @@ package com.example.aerolinea.View.ui.home
 
 import android.R
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,24 +11,27 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aerolinea.Model.*
+import com.example.aerolinea.MyAsyncTask.CiudadesAsyncTask
+import com.example.aerolinea.MyAsyncTask.VuelosAsyncTask
 import com.example.aerolinea.View.ui.DatePickerFragment
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
+import com.example.aerolinea.util.Constans.Companion.Status
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class HomeFragment : Fragment() {
 
     var ciudades: ArrayList<String> = ArrayList()
     var ciudadesCodigo: ArrayList<String> = ArrayList()
+    var taskCiudades: CiudadesAsyncTask? = null
+    var taskVuelos: VuelosAsyncTask? = null
 
     //private lateinit var vuelos: ArrayList<Vuelo>
     private var _binding: FragmentHomeBinding? = null
@@ -44,72 +46,42 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = null
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         vuelos.clear()
         vuelos = ModelVuelos().getInstance().getVuelos()
-        guardaCiudades()
-        spinnerOrigen(ciudades)
-        spinnerDestino(ciudades)
+        startService()
         buscarVuelos()
         showDateRange()
         initRecycler()
         return root
     }
 
+    fun startService() {
+        if (taskCiudades?.status == Status.RUNNING){
+            taskCiudades?.cancel(true)
+        }
+        if (taskVuelos?.status == Status.RUNNING){
+            taskVuelos?.cancel(true)
+        }
+
+        // Lista ciudades origen y destino
+        taskCiudades = CiudadesAsyncTask(this, binding)
+        taskCiudades!!.setApiUrl("listar")
+        taskCiudades?.execute(10)
+
+        // Lista vuelos
+        taskVuelos = VuelosAsyncTask(this, binding)
+        taskVuelos!!.setApiUrl("listar")
+        taskVuelos?.execute(10)
+    }
+
     fun initRecycler() {
         val adapter = VuelosResultAdapter(vuelos)
         binding.rvResultado.layoutManager = LinearLayoutManager(context)
-        binding?.rvResultado?.adapter = adapter
-    }
-
-    fun initRecyclerVuelos(vuelosBusqueda: ArrayList<Vuelo>) {
-        val adapter = VuelosResultAdapter(vuelosBusqueda)
-        binding.rvResultado.layoutManager = LinearLayoutManager(context)
-        binding?.rvResultado?.adapter = adapter
-    }
-
-    fun spinnerOrigen(ciudadesOrigen: ArrayList<String>) {
-
-        Log.d("Ciudades Origen", ciudades.toString())
-        var adapter =
-            ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesOrigen)
-        _binding?.etOrigen?.setAdapter<ArrayAdapter<String>>(adapter)
-        _binding?.etOrigen?.adapter
-    }
-
-    fun spinnerDestino(ciudadesDestino: ArrayList<String>) {
-        Log.d("Ciudades Destino", ciudades.toString())
-
-        var adapter =
-            ArrayAdapter(binding.root.context, R.layout.simple_spinner_item, ciudadesDestino)
-        _binding?.etDestino?.setAdapter<ArrayAdapter<String>>(adapter)
-        _binding?.etDestino?.adapter
-    }
-
-//    fun listaVuelos(listaVuelos: String): ArrayList<Vuelo> {
-//        var vuelosTem: ArrayList<Vuelo> = ArrayList()
-//        val sType = object : TypeToken<List<Vuelo>>() {}.type
-//        val listaVuelos = Gson().fromJson<List<Vuelo>>(listaVuelos, sType)
-//
-//        listaVuelos.forEach { vuelo ->
-//            vuelos.add(vuelo)
-//        }
-//        Log.d("Vuelos SISI", vuelos.toString())
-//        return vuelosTem
-//    }
-
-
-    private fun showDatePickerDialog(et: EditText) {
-        val datePicker =
-            DatePickerFragment { day, month, year -> onDateSelected(day, month, year, et) }
-        datePicker.show(getParentFragmentManager(), "Destino")
-    }
-
-    fun onDateSelected(day: Int, month: Int, year: Int, et: EditText) {
-        et.setText("$day/$month/$year")
+        binding.rvResultado.adapter = adapter
     }
 
     override fun onDestroyView() {
@@ -150,46 +122,36 @@ class HomeFragment : Fragment() {
     @SuppressLint("NewApi")
     fun buscarVuelos() {
         binding.btnBuscar.setOnClickListener {
-            val origen = binding.etOrigen.text.toString()
-            val destino = binding.etDestino.text.toString()
-            val salida = binding.etSalida.text.toString()
-            val llegada = binding.etRegreso.text.toString()
 
-            if(origen.toString().isNotEmpty() && destino.toString().isNotEmpty() && salida.toString().isNotEmpty() && llegada.toString().isNotEmpty()){
-                initRecyclerVuelos(
-                    ModelVuelos().getInstance().findVuelo(
-                        getModalidad(binding.checkModalidad.isChecked),
-                        origen,
-                        destino,
-                        salida,
-                        llegada
-                    )
-                )
-            }else{
-                Toast.makeText(this.context, "Rellene todos los campos",Toast.LENGTH_LONG).show()
+            if (taskVuelos?.status == Status.RUNNING){
+                taskVuelos?.cancel(true)
             }
 
+            // Lista ciudades origen y destino
+            taskCiudades = CiudadesAsyncTask(this, binding)
+            taskCiudades!!.setApiUrl("buscar")
+            taskCiudades?.execute(10)
+
+            var modalidad: String = ""
+            if (binding.checkModalidad.isChecked){
+                modalidad = "2"
+            }else{
+                modalidad = "1"
+            }
+
+            var origen: String = binding.etOrigen.text.toString()
+            var destino: String = binding.etDestino.text.toString()
+            var codOrigen = ciudadesCodigo.get(ciudades.indexOf(origen))
+            var codDestino = ciudadesCodigo.get(ciudades.indexOf(destino))
+
+            var fechaI = binding.etSalida.text
+            var fechaF = binding.etRegreso.text
+            var descuento: String = "false"
+            var vuelosTem: ArrayList<Vuelo> = ArrayList()
+
+            homeViewModel.buscarVuelos(modalidad,codOrigen,codDestino,fechaI.toString(),fechaF.toString(),descuento)
+
         }
-    }
-
-    fun guardaCiudades() {
-        ciudades.clear()
-        ciudadesCodigo.clear()
-
-        ciudades.add("Alajuela")
-        ciudades.add("Miami")
-        ciudades.add("Toronto")
-        ciudades.add("NY")
-        ciudades.add("Hawai")
-        ciudades.add("California")
-        ciudades.add("Japon")
-        ciudadesCodigo.add("1")
-        ciudadesCodigo.add("2")
-        ciudadesCodigo.add("3")
-        ciudadesCodigo.add("4")
-        ciudadesCodigo.add("5")
-        ciudadesCodigo.add("6")
-        ciudadesCodigo.add("7")
     }
 
     fun getModalidad(modalidad: Boolean): String {

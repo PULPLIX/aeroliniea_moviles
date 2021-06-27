@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/AvionesController.java</file>
-            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/RutasController.java</file>
-            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/logic/Vuelo.java</file>
-            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/TiquetesController.java</file>
-            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Sockets/TiqueteSocket.java</file>
+            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/CiudadesController.java</file>
+            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/HorariosController.java</file>
+            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/VuelosController.java</file>
         </group>
     </open-files>
 </project-private>
