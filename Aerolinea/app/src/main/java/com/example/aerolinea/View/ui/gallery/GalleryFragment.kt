@@ -56,10 +56,10 @@ class GalleryFragment : Fragment() {
         var tiquetesTem = ArrayList<Tiquete>(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-//        initRecycler();
+        //initRecycler();
         userSession = getUser()
         // Search view
-//        searchView()
+        //searchView()
         startService()
 
         return root
@@ -89,17 +89,17 @@ class GalleryFragment : Fragment() {
 
     fun searchView(){
         val search = binding.buscador
-        binding?.rvTiquetes!!.adapter = adapter
+        binding.rvTiquetes.adapter = adapter
 
         search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search.clearFocus()
-                adapter!!.filter.filter(query)
+                adapter.filter.filter(query)
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter!!.filter(newText)
+                adapter.filter(newText)
                 return false
             }
 
@@ -109,71 +109,6 @@ class GalleryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-
-    val swipeGesture = object : SwipeGesture() {
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            when (direction) {
-                ItemTouchHelper.LEFT -> {
-                    adapter.deleteItem(viewHolder.bindingAdapterPosition)
-                    initRecycler()
-                }
-                ItemTouchHelper.RIGHT -> {
-                    val intent = Intent(requireContext(), TiqueteActivity::class.java)
-                    var Tiquete = tiquetes[viewHolder.bindingAdapterPosition]
-                    intent.putExtra("Tiquete", Tiquete)
-                    initRecycler()
-                    startActivity(intent)
-                }
-            }
-
-        }
-        override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-        ) {
-            RecyclerViewSwipeDecorator.Builder(
-                    c,
-                    recyclerView,
-                    viewHolder,
-                    dX,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-            ).addSwipeLeftBackgroundColor(
-                    ContextCompat.getColor(
-                            context!!,
-                            com.example.aerolinea.R.color.rojito
-                    )
-            )
-                .addSwipeLeftActionIcon(com.example.aerolinea.R.drawable.ic_delete_white)
-                .addSwipeRightBackgroundColor(
-                        ContextCompat.getColor(
-                                context!!,
-                                com.example.aerolinea.R.color.celestito
-                        )
-                )
-                .addSwipeRightActionIcon(com.example.aerolinea.R.drawable.ic_info_white)
-                .create()
-                .decorate()
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-        }
-    }
-
-
-    fun initRecycler() {
-        val adapter = TiquetesAdapter(tiquetes)
-        binding.rvTiquetes.layoutManager = LinearLayoutManager(context)
-        binding?.rvTiquetes?.adapter = adapter
-
-        val touchHelper = ItemTouchHelper(swipeGesture)
-        touchHelper.attachToRecyclerView(binding.rvTiquetes)
     }
 
     fun getTiquetes(): MutableList<Tiquete> {
