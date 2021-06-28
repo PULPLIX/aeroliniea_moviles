@@ -17,12 +17,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Usuario
+import com.example.aerolinea.MyAsyncTask.TiquetesAsycTask
 import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
+import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import java.util.HashMap
 import kotlin.collections.ArrayList
 
 
@@ -36,7 +39,8 @@ class GalleryFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
+    var taskTiquetes: TiquetesAsycTask? = null
+    private lateinit var userSession: Usuario
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -52,20 +56,35 @@ class GalleryFragment : Fragment() {
         var tiquetesTem = ArrayList<Tiquete>(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        initRecycler();
-
+//        initRecycler();
+        userSession = getUser()
         // Search view
-        searchView()
+//        searchView()
+        startService()
 
         return root
     }
 
     fun getUser(): Usuario{
         val sp = context?.getSharedPreferences("key", Context.MODE_PRIVATE)
-        val usuarioSession = sp?.getString("usuario",null)
+        val usuarioSes = sp?.getString("usuario",null)
         var gson = Gson()
-        var user = gson.fromJson<Usuario>(usuarioSession, Usuario::class.java)
+        var user = gson.fromJson<Usuario>(usuarioSes, Usuario::class.java)
         return user
+    }
+
+    fun startService() {
+        if (taskTiquetes?.status == Constans.Companion.Status.RUNNING) {
+            taskTiquetes?.cancel(true)
+        }
+        val map: HashMap<String, String> = hashMapOf(
+            "id" to userSession.id,
+        )
+        // Lista ciudades origen y destino
+        taskTiquetes = TiquetesAsycTask(this, binding)
+        taskTiquetes!!.setApiUrl("tiquetesUsuario","GET", map)
+        taskTiquetes?.execute(10)
+
     }
 
     fun searchView(){

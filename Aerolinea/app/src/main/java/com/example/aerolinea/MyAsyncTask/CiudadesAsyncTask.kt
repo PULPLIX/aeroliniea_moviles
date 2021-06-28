@@ -48,7 +48,6 @@ class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHo
                 while (data != -1) {
                     result += data.toChar()
                     data = isw.read()
-                    print(result)
                 }
                 // return the data to onPostExecute method
                 return result

@@ -21,7 +21,7 @@ class Register : AppCompatActivity() {
 
     fun register(view:View){
         if( binding.password.text.toString().equals(binding.confirmPassword.text.toString()) ){
-            val usuario1 = Usuario(binding.correo.text.toString(),binding.nombre.text.toString(),
+            val usuario1 = Usuario("12",binding.correo.text.toString(),binding.nombre.text.toString(),
                     binding.password.text.toString(),binding.celular.text.toString(),
                     binding.telefono.text.toString(),binding.direccion.text.toString(),"1")
             val model = model()

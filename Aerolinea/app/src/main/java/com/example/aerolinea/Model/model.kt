@@ -9,7 +9,7 @@ class model {
 
         init {
             // Aqui se inicializan las variables y metodos
-            val usuario:Usuario = Usuario("davidCorderoAguilar@gmail.com","1","1","60331950","22548891","Heredia Centro","1");
+            val usuario:Usuario = Usuario("12","davidCorderoAguilar@gmail.com","1","1","60331950","22548891","Heredia Centro","1");
             usuarios.put("1",usuario)
         }
 
