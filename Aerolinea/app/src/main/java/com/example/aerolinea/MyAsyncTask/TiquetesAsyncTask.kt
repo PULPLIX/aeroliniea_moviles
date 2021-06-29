@@ -26,7 +26,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-class TiquetesAsycTask(private var activity: GalleryFragment?, binding: FragmentGalleryBinding) :
+class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: FragmentGalleryBinding) :
     CoroutinesAsyncTask<Int, Int, String>("TiquetesAsyncTask") {
     private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/usuario"
     var binding = binding
@@ -105,8 +105,6 @@ class TiquetesAsycTask(private var activity: GalleryFragment?, binding: Fragment
 
     override fun onPostExecute(result: String?) {
         if (progresDialog.isShowing) progresDialog.dismiss()
-//        /tiquetesUsuario/{id}
-        Log.d("RESULTADO DE CONSULTA", result.toString())
 
         if (action == "tiquetesUsuario") {
             listarTiquetes(result.toString())
@@ -130,8 +128,10 @@ class TiquetesAsycTask(private var activity: GalleryFragment?, binding: Fragment
 
     }
 
-
     override fun onPreExecute() {
+        progresDialog.setMessage("Cargando tiquetes ...")
+        progresDialog.setCancelable(false)
+        progresDialog.show()
     }
 
     override fun onProgressUpdate(vararg values: Int?) {

@@ -1,32 +1,25 @@
 package com.example.aerolinea.View.ui.gallery
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Usuario
-import com.example.aerolinea.MyAsyncTask.TiquetesAsycTask
-import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
-import com.example.aerolinea.adapters.SwipeGesture
+import com.example.aerolinea.MyAsyncTask.TiquetesAsyncTask
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import java.util.HashMap
 import kotlin.collections.ArrayList
+import kotlin.reflect.typeOf
 
 
 class GalleryFragment : Fragment() {
@@ -39,7 +32,7 @@ class GalleryFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    var taskTiquetes: TiquetesAsycTask? = null
+    var taskTiquetes: TiquetesAsyncTask? = null
     private lateinit var userSession: Usuario
 
     override fun onCreateView(
@@ -81,7 +74,7 @@ class GalleryFragment : Fragment() {
             "id" to userSession.id,
         )
         // Lista ciudades origen y destino
-        taskTiquetes = TiquetesAsycTask(this, binding)
+        taskTiquetes = TiquetesAsyncTask(this, binding)
         taskTiquetes!!.setApiUrl("tiquetesUsuario","GET", map)
         taskTiquetes?.execute(10)
 

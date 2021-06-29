@@ -1,5 +1,6 @@
 package com.example.aerolinea.MyAsyncTask
 
+import android.app.ProgressDialog
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aerolinea.Coroutines.CoroutinesAsyncTask
@@ -119,6 +120,10 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
     }
 
     override fun onPostExecute(result: String?){
+        if (progresDialog.isShowing){
+            progresDialog.dismiss()
+        }
+
         if (action == "listar"){
             listarVuelos(result.toString())
         }
@@ -126,6 +131,15 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
             listarVuelos(result.toString())
             print(result.toString())
         }
+        if (action == "eliminar"){
+            listarVuelos(result.toString())
+            print(result.toString())
+        }
+
+    }
+
+    fun eliminarVuelo(id: String) {
+
     }
 
     fun listarVuelos(listaVuelos: String){
@@ -141,9 +155,12 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
         binding.rvResultado.layoutManager = LinearLayoutManager(binding.root.context)
         binding.rvResultado.adapter = adapter
     }
-    override fun onPreExecute() {
-        //activity?.output?.text = "Tast starting.."
 
+    val progresDialog = ProgressDialog(binding.root.context)
+    override fun onPreExecute() {
+        progresDialog.setMessage("Cargando vuelos...")
+        progresDialog.setCancelable(false)
+        progresDialog.show()
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
