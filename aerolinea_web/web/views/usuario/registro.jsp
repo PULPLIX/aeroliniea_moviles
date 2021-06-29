@@ -115,7 +115,7 @@
                         </div>
 
                         <div class="d-flex justify-content-center mb-3">
-                            <button class="btn btn-outline-primary btn-lg w-100"  >Registrarse</button>
+                            <button class="btn btn-outline-primary btn-lg w-100"  onclick="insertarUsuario()">Registrarse</button>
                         </div>
                     </div>
 

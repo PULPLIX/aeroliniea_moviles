@@ -116,10 +116,13 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
     fun listarTiquetes(tiquetesResult: String){
 
         val sType = object : TypeToken<ArrayList<Tiquete>>() {}.type
-        tiquetes = Gson().fromJson<ArrayList<Tiquete>>(tiquetesResult, sType)
+
+        if(tiquetesResult != null){
+            tiquetes = Gson().fromJson(tiquetesResult, sType)
+        }
 
         if(tiquetes == null){
-            tiquetes = ArrayList<Tiquete>()
+            tiquetes = ArrayList()
         }
         initRecycler()
         searchView()

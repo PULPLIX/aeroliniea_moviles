@@ -10,8 +10,6 @@ import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityLoginBinding
 import com.example.aerolinea.login_register.Login
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -29,12 +27,14 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
     var action: String = ""
     var userName: String = ""
     var password: String = ""
-    private lateinit var user: Usuario
+    private val CONNECT_TIMEOUT = 15L
+    private val READ_TIMEOUT = 15L
+    private val WRITE_TIMEOUT = 15L
+    private var user: Usuario? = null
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
         result = processRequest()
-
         return result
     }
 
@@ -49,33 +49,106 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
         this.password = password
     }
 
-    private val CONNECT_TIMEOUT = 15L
-    private val READ_TIMEOUT = 15L
-    private val WRITE_TIMEOUT = 15L
+    fun setUser(id: String,passwordUpdate: String,nombre: String,apellidos: String,correo: String,
+                fechaNacimiento: String, direccion : String, telefonoTrabajo: String,celular: String,
+                rol: String){
+        user = Usuario(id,passwordUpdate,nombre,apellidos,correo,fechaNacimiento,direccion, telefonoTrabajo,celular, rol)
+    }
 
-    fun processRequest(): String {
+    fun insertRequest(): String {
+        var result = ""
+        var jsonString = Gson().toJson(user)
+
+        try {
+            val client = OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                .build()
+
+            val body = jsonString.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+            val request = Request.Builder()
+                .url(URL(apiUrl))
+                .header("Authorization", "true")
+                .post(body)
+                .build()
+
+            client.newCall(request).execute().use {
+                    response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                var usuario = response.body!!.string()
+                result = usuario
+                Log.d("RESULTADO", result)
+            }
+
+        }
+        catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+        return result
+    }
+
+
+    fun updateRequest(): String {
+        var result = ""
+        var jsonString = Gson().toJson(user)
+
+        try {
+            val client = OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                .build()
+
+            val body = jsonString.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+            val request = Request.Builder()
+                .url(URL(apiUrl))
+                .header("Authorization", "true")
+                .put(body)
+                .build()
+
+            client.newCall(request).execute().use {
+                    response ->
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                var usuario = response.body!!.string()
+                result = usuario
+            }
+
+        }
+        catch (e: IOException) {
+            e.printStackTrace()
+            null
+        }
+        return result
+    }
+
+    fun loginRequest(): String{
         var result = ""
         var jsonString = "{\"id\": \"$userName\", \"contrasena\": \"$password\"}"
 
         try {
             val client = OkHttpClient.Builder()
-                    .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                    .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                    .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
-                    .build()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                .build()
 
             val body = jsonString.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
             val request = Request.Builder()
-                    .url(URL(apiUrl))
-                    .header("Authorization", "true")
-                    .post(body)
-                    .build()
+                .url(URL(apiUrl))
+                .header("Authorization", "true")
+                .post(body)
+                .build()
 
-            val response = client.newCall(request).execute().use {
-                response ->
+            client.newCall(request).execute().use {
+                    response ->
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                var gson = Gson()
 
                 var usuario = response.body!!.string()
 
@@ -90,16 +163,17 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
         return result
     }
 
-    @Throws(JsonProcessingException::class)
-    fun objectToJson(obj: Any): String {
-        return ObjectMapper().writeValueAsString(obj)
-    }
+    fun processRequest(): String {
+        var result = ""
 
-    @Throws(IOException::class)
-    fun jsonToAgentObject(json: String?): Usuario? {
-        return if (json == null) { null } else {
-            ObjectMapper().readValue<Usuario>(json, Usuario::class.java)
-        }
+        if(action=="login")
+            result = loginRequest()
+        if(action=="actualizar")
+            result = updateRequest()
+        if(action=="insertar")
+            result = insertRequest()
+
+        return result
     }
 
     override fun onPostExecute(result: String?){
@@ -109,15 +183,24 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
         if (action == "login"){
             login(result.toString())
         }
+        if (action == "actualizar"){
+            actualizar(result.toString())
+        }
+        if (action == "insertar"){
+            insertar(result.toString())
+        }
+    }
+
+    fun insertar(usuario: String){
+        Log.d("INSERTADO", usuario)
+    }
+
+    fun actualizar(usuario: String){
     }
 
     fun login(usuario: String){
 
-        val gson = Gson()
-        val sType = object : TypeToken<Usuario>() { }.type
-        //user = gson.fromJson(usuario, sType)
-
-        if(usuario != null){
+        if(usuario.isNotEmpty()){
             val sp = activity.getSharedPreferences("key", Context.MODE_PRIVATE)
             val ed = sp.edit()
             ed.putString("usuario", usuario)
@@ -132,9 +215,21 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
 
     val progresDialog = ProgressDialog(binding.root.context)
     override fun onPreExecute() {
-        progresDialog.setMessage("Logueandose ...")
-        progresDialog.setCancelable(false)
-        progresDialog.show()
+        if(action == "login") {
+            progresDialog.setMessage("Logueandose ...")
+            progresDialog.setCancelable(false)
+            progresDialog.show()
+        }
+        if(action == "actualizar") {
+            progresDialog.setMessage("actualizando ...")
+            progresDialog.setCancelable(false)
+            progresDialog.show()
+        }
+        if(action == "insertar") {
+            progresDialog.setMessage("Registrandose ...")
+            progresDialog.setCancelable(false)
+            progresDialog.show()
+        }
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
