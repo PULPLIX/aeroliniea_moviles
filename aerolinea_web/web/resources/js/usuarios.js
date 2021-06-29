@@ -103,7 +103,7 @@ function insertarUsuario() {
             contentType: "application/json",
             data: JSON.stringify(usuario),
             success: function () {
-                window.location.href = "/aerolinea/views/admin/gestionAviones.jsp";
+                window.location.href = "/aerolinea/views/global/login.jsp";
             },
             statusCode: {
                 404: function () {

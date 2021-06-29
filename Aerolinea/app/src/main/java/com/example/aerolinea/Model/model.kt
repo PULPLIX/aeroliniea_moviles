@@ -9,7 +9,7 @@ class model {
 
         init {
             // Aqui se inicializan las variables y metodos
-            val usuario:Usuario = Usuario("12","davidCorderoAguilar@gmail.com","1","1","60331950","22548891","Heredia Centro","1");
+            val usuario:Usuario = Usuario("12","1234","David","Aguilar","davidCorderoAguilar@gmail.com","abr 15 2020","Heredia Centro","4737383","898989","1");
             usuarios.put("1",usuario)
         }
 
@@ -26,7 +26,7 @@ class model {
         }
 
         fun confirmUser(key: String,password: String):Boolean{
-            if (usuarios.get(key)?.password.equals(password)){
+            if (usuarios.get(key)?.contrasena.equals(password)){
                 return true
             }
             return false

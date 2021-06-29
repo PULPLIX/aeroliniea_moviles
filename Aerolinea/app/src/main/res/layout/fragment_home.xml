@@ -118,7 +118,6 @@
                     android:text="Regreso"
                     android:textSize="18dp" />
 
-
             </LinearLayout>
 
             <LinearLayout

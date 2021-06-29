@@ -43,6 +43,32 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutCedula"
+                    android:layout_width="320dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="25sp"
+                    app:boxCornerRadiusBottomStart="25sp"
+                    app:boxCornerRadiusTopEnd="25sp"
+                    app:boxCornerRadiusTopStart="25sp"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/cedula"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress"
+                        android:hint="Cedula" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutCorreo"
                     android:layout_width="320dp"
                     android:layout_height="54dp"
@@ -92,6 +118,64 @@
                         android:layout_height="match_parent"
                         android:hint="Nombre" />
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutApellidos"
+                    android:layout_width="320dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="8dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="25sp"
+                    app:boxCornerRadiusBottomStart="25sp"
+                    app:boxCornerRadiusTopEnd="25sp"
+                    app:boxCornerRadiusTopStart="25sp"
+                    app:boxStrokeWidth="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apellidos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Apellidos" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:boxBackgroundColor="@color/white"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginRight="45dp">
+
+                    <ImageButton
+                        android:padding="15dp"
+                        android:id="@+id/btnShowDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="8"
+                        android:src="@drawable/ic_baseline_calendar_today_24"
+                        android:background="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/fechaNacimiento"
+                        android:layout_width="140dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ems="8"
+                        android:gravity="center"
+                        android:text="Fecha N."
+                        android:textSize="18dp"
+                        android:textColor="@color/white"/>
+
+
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layoutCelular"
