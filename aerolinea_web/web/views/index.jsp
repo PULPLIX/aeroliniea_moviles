@@ -27,7 +27,7 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active" id="slide0">
-                            <img src="/aerolinea/resources/images/carousel/clouds.jpg" class="d-block h-80" alt="...">
+                            <img src="/aerolinea/resources/images/backgrounds/clouds.jpg" class="d-block h-80" alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>DAVID's Airlines</h5>
                                 <p>Te ofrecemos los mejores precios de vuelos americanos.</p>
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="carousel-item" id="slide1">
-                            <img src="/aerolinea/resources/images/carousel/airport.jpg" class="d-block h-80" alt="...">
+                            <img src="/aerolinea/resources/images/backgrounds/gull.jpg" class="d-block h-80" alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Vuela seguro con nosotros</h5>
                                 <p>Cientos de vuelos todos los días a todos los países americanos con y sin escala.</p>
@@ -43,7 +43,7 @@
 
                         </div>
                         <div class="carousel-item" id="slide2">
-                            <img src="/aerolinea/resources/images/carousel/frontAirPlain.jpg" class="d-block h-80"
+                            <img src="/aerolinea/resources/images/backgrounds/plane.jpg" class="d-block h-80"
                                 alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Date las vacaciones que te mereces</h5>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="carousel-item" id="slide3">
-                            <img src="/aerolinea/resources/images/carousel/insideAirPlane.jpg" class="d-block h-80"
+                            <img src="/aerolinea/resources/images/backgrounds/mount.jpg" class="d-block h-80"
                                 alt="...">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Aviones cómodos</h5>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="carousel-item " id="slide4">
-                            <img src="/aerolinea/resources/images/carousel/vacations.jpg" class="d-block h-80"
+                            <img src="/aerolinea/resources/images/backgrounds/vacaciones.jpg" class="d-block h-80"
                                 alt="...">
                             <div class="carousel-caption d-none d-md-block text-dark">
                                 <h5>No atrases más esas vacaciones</h5>

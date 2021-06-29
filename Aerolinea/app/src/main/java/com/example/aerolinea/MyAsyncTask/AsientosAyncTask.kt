@@ -218,12 +218,15 @@ class AsientosAyncTask(
 
     fun removeAsiento(row: String, col: String){
         var it = 0
+        var eliminarPos = 0
         for (asiento in asientos){
             if (asiento[0] == row && asiento[1] == col){
-                asientos.removeAt(it)
+                eliminarPos = it
+                break
             }
             it++
         }
+        asientos.removeAt(eliminarPos)
     }
     fun isTicketSold(row: Int, col: Int): Boolean {
         var fila = tiquetesVuelo[row]
