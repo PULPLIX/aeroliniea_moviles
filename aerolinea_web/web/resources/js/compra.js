@@ -4,6 +4,7 @@ const sleep = (milliseconds) => {
 }
 
 var asientosSeleccionados = [];
+
 function evtAsiento(btn) {
     if (btn.classList.contains('active')) {
         btn.innerHTML = '<i class="fas fa-check-circle"></i>';

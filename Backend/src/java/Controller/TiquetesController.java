@@ -80,6 +80,7 @@ public class TiquetesController {
 
         //Se parsean los asientos que hayan sido elejidos por el cliente
         ArrayList<ArrayList<String>> asientos = gson.fromJson(dataArray.get(2), ArrayList.class);
+        
         //Se obtiene la forma de pago que haya elejido el cliente
         String formaPago = gson.fromJson(dataArray.get(3), String.class);
         
