@@ -28,7 +28,6 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
         result = processRequest()
-        Log.d("Result", result)
         return result
     }
 
@@ -49,7 +48,6 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
                 apiUrl +="$key=$value&"
             }
         }
-        println(apiUrl)
     }
 
     fun processRequest(): String {

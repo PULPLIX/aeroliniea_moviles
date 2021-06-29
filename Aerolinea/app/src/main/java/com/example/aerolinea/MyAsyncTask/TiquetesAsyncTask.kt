@@ -41,7 +41,6 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
         result = processRequest()
-        Log.d("Result", result)
         return result
     }
 
@@ -51,7 +50,6 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
         this.method = method
         apiUrl += action
         addParamsToUrl(parameters)
-        Log.d("TIQUETES", apiUrl)
 
     }
 

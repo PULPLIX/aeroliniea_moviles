@@ -33,10 +33,8 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
-
         result = processRequest()
 
-        Log.d("Result", result)
         return result
     }
 
@@ -82,7 +80,6 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
                 var usuario = response.body!!.string()
 
                 result = usuario
-                Log.d("RESPUESTA", result)
             }
 
         }

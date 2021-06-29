@@ -23,7 +23,6 @@ class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHo
 
         result = processRequest()
 
-        Log.d("Result", result)
         return result
     }
 
