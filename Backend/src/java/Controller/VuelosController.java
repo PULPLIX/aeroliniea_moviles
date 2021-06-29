@@ -103,7 +103,7 @@ public class VuelosController {
         ModelVuelo mVuelo = ModelVuelo.getInstance();
         HashMap<Integer, ArrayList<Integer>> asientosOcu = mVuelo.getAsientosOcupados(id);
         String jsonHash = gson.toJson(asientosOcu);
-        return gson.toJson(jsonHash);
+        return jsonHash;
     }
 
     @POST

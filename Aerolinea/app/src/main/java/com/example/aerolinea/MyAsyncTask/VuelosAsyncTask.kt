@@ -33,13 +33,13 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
 
     fun setApiUrl(action: String, method: String, parameters: HashMap<String,String>?){
         apiUrl = "http://10.0.2.2:8081/Backend/api/vuelos/"
-
         this.action = action
         this.method = method
         apiUrl += action
         addParamsToUrl(parameters)
 
     }
+
 
     fun addParamsToUrl(parameters: HashMap<String,String>?){
         if (parameters != null) {

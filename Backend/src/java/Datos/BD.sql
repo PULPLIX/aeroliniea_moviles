@@ -718,6 +718,15 @@ end INSERCION_TIQUETE;
 /
 show error
 
+create or replace procedure DELETE_TIQUETE(ArgIdTiquete in VARCHAR2)
+as
+begin
+	delete from Tiquetes where ID = ArgIdTiquete;
+	commit;
+end DELETE_TIQUETE;
+/
+show error
+
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------

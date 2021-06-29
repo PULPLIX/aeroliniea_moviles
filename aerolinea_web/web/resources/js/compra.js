@@ -114,7 +114,7 @@ function renderizarAsientos(avion, id_vuelo) {
 
 function crearAsientos(numAsientos, columns, rows, hashAsientos) {
     $("#asientos-container").html("");
-    hashAsientos = JSON.parse(hashAsientos);
+//    hashAsientos = JSON.parse(hashAsientos);
     for (var i = 1; i <= rows; i++) {
         var $rowElement = $("<div>", { "class": "row" });
         var $colElement = $("<div>", { "class": "col-5 d-flex" }).appendTo($rowElement);

@@ -18,20 +18,24 @@ import com.example.aerolinea.Model.ModelTiquetes
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.Model.Vuelo
+import com.example.aerolinea.MyAsyncTask.AsientosAyncTask
+import com.example.aerolinea.MyAsyncTask.TiquetesAsyncTask
 import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 import com.example.aerolinea.databinding.AlertCompraBinding
 import com.example.aerolinea.R
+import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
+import java.util.HashMap
 
 class asientos_vuelo : AppCompatActivity() {
 
     private lateinit var binding: ActivityAsientosVueloBinding
     val asientos = mutableListOf<String>()
     var tiquetesVuelo = mutableListOf<Tiquete>()
-
-
     lateinit var vuelo: Vuelo
+    var taskAsientos: AsientosAyncTask? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getSupportActionBar()?.hide();
@@ -40,8 +44,19 @@ class asientos_vuelo : AppCompatActivity() {
         val data = intent.extras
         vuelo = data?.getSerializable("vuelo") as Vuelo
         tiquetesVuelo = ModelTiquetes.getTiquetesVuelo(vuelo.id)
-        cargarAsientos(vuelo.avionId.cantidadFilas, vuelo.avionId.asientosFila)
+        startService()
         evtCompra()
+    }
+
+    fun startService() {
+        if (taskAsientos?.status == Constans.Companion.Status.RUNNING) {
+            taskAsientos?.cancel(true)
+        }
+        // Lista ciudades origen y destino
+        taskAsientos = AsientosAyncTask(this, binding)
+        taskAsientos!!.setAsientosOcupados(vuelo)
+        taskAsientos?.execute(10)
+
     }
 
     fun evtCompra() {
@@ -142,41 +157,7 @@ class asientos_vuelo : AppCompatActivity() {
     }
 
 
-    private fun cargarAsientos(filas: Int, columnas: Int) {
 
-        for (i in 1..filas) {
-            val layout: LinearLayout = LinearLayout(applicationContext)
-            layout.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            layout.setHorizontalGravity(Gravity.CENTER)
-            layout.orientation = LinearLayout.HORIZONTAL
-            for (j in 1..columnas) {
-                val btn: Button = Button(applicationContext)
-                btn.layoutParams = LinearLayout.LayoutParams(110, 110)
-                btn.tag = i.toString() + j.toString()
-
-                if(isTicketSold(j, i)){
-                    btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#DCDC1717"))
-                }else{
-                    btn.setOnClickListener {
-                        if (btn.backgroundTintList!!.defaultColor == -15348162) {
-                            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
-                            asientos.remove(btn.tag.toString())
-                        } else {
-                            asientos.add(btn.tag.toString());
-                            btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#15CE3E"))
-                        }
-                    }
-                    btn.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#3268F3"))
-                }
-                layout.addView(btn)
-
-            }
-            binding.linearAsientos.addView(layout)
-        }
-    }
 
     fun getModalidad(modalidad:String):String{
         if(modalidad.equals("1")){

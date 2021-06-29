@@ -19,6 +19,7 @@ import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import com.example.aerolinea.databinding.FragmentHomeBinding
+import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -77,6 +78,7 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
             var urlConnection: HttpURLConnection? = null
             try {
                 url = URL(apiUrl)
+                Log.d("Esto es el api url-->",apiUrl )
                 urlConnection = url
                     .openConnection() as HttpURLConnection
                 val `in` = urlConnection.inputStream
@@ -111,18 +113,21 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
 //            listarVuelos(result.toString())
             print(result.toString())
         }
+        if(action == "eliminar"){
+            print(result.toString())
+        }
     }
 
     fun listarTiquetes(tiquetesResult: String){
 
         val sType = object : TypeToken<ArrayList<Tiquete>>() {}.type
-        tiquetes = Gson().fromJson<ArrayList<Tiquete>>(tiquetesResult, sType)
-
-        if(tiquetes == null){
+        if (tiquetesResult != ""){
             tiquetes = ArrayList<Tiquete>()
+            tiquetes = Gson().fromJson<ArrayList<Tiquete>>(tiquetesResult, sType)
+            initRecycler()
+            searchView()
         }
-        initRecycler()
-        searchView()
+
 
     }
 
@@ -154,10 +159,24 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
         })
     }
 
+    fun deleteTiquete(id: String){
+        var taskTiquetes = TiquetesAsyncTask(activity, binding)
+        if (taskTiquetes?.status == Constans.Companion.Status.RUNNING) {
+            taskTiquetes?.cancel(true)
+        }
+
+        taskTiquetes.apiUrl = "http://10.0.2.2:8081/Backend/api/tiquetes/eliminar/${id}"
+        taskTiquetes.action = "eliminar"
+        taskTiquetes.method = "GET"
+        taskTiquetes.execute(10)
+    }
+
     val swipeGesture = object : SwipeGesture() {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             when (direction) {
                 ItemTouchHelper.LEFT -> {
+                    var tiquete = adapter.getTiquete(viewHolder.bindingAdapterPosition)
+                    deleteTiquete(tiquete.id.toString())
                     adapter.deleteItem(viewHolder.bindingAdapterPosition)
                     initRecycler()
                 }

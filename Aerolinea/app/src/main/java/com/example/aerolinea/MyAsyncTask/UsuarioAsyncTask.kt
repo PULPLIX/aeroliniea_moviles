@@ -10,8 +10,6 @@ import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityLoginBinding
 import com.example.aerolinea.login_register.Login
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -88,18 +86,6 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
             null
         }
         return result
-    }
-
-    @Throws(JsonProcessingException::class)
-    fun objectToJson(obj: Any): String {
-        return ObjectMapper().writeValueAsString(obj)
-    }
-
-    @Throws(IOException::class)
-    fun jsonToAgentObject(json: String?): Usuario? {
-        return if (json == null) { null } else {
-            ObjectMapper().readValue<Usuario>(json, Usuario::class.java)
-        }
     }
 
     override fun onPostExecute(result: String?){

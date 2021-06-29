@@ -7,6 +7,7 @@ package Sockets;
 
 import Exceptions.DbException;
 import Exceptions.GeneralException;
+import Models.ModelRuta;
 import Models.ModelTiquete;
 import Models.ModelVuelo;
 import com.google.gson.Gson;
@@ -14,12 +15,15 @@ import java.util.ArrayList;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import logic.Ruta;
 import logic.Tiquete;
 import logic.Usuario;
 import logic.Vuelo;
@@ -99,8 +103,18 @@ public class TiquetesController {
      *
      * @param content representation for the resource
      */
-    @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
+    
+    @GET
+    @Path("/eliminar/{id_tiquete}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String eliminar(@PathParam("id_tiquete") String id) throws GeneralException, Exception {
+        Gson gson = new Gson();
+        ModelTiquete mTiquete = ModelTiquete.getInstance();
+        mTiquete.eliminar(Integer.parseInt(id));
+        ArrayList<Tiquete> tiquetes = (ArrayList<Tiquete>) mTiquete.listarTiquete();
+        
+        //Salida de la aplicacion
+        return gson.toJson(tiquetes);
     }
 }

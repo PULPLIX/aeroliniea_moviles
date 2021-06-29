@@ -53,6 +53,10 @@ class TiquetesAdapter( var tiquetes: ArrayList<Tiquete>):RecyclerView.Adapter<Ti
         notifyDataSetChanged()
     }
 
+    fun getTiquete(position: Int) : Tiquete {
+        return tiquetes.get(position)
+    }
+
 
     fun filter(text: String?) {
 
