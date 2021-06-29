@@ -1,3 +1,20 @@
+const webSocket = new WebSocket("ws://localhost:8081/Backend/horarioSocket");
+
+webSocket.onopen = function(event) {
+    console.log("SE HA ABIERTO UN SOCKET HORARIO");
+    };
+
+webSocket.addEventListener("message", function (event) {
+    console.log(event.data)
+    
+    recargarTabla(JSON.parse(event.data));
+});
+
+webSocket.onerror = function(event) {
+  console.error("WebSocket error observed:", event);
+};
+
+
 function include(file) {
     var script = document.createElement('script');
     script.src = file;
@@ -96,6 +113,7 @@ function insertarHorario() {
         success: function (listadoHorarios) {
             recargarTabla(listadoHorarios);
             mostrarMensaje("success", "Horario agregado correctamente");
+            webSocket.send(JSON.stringify(listadoHorarios));
         },
         statusCode: {
             404: function () {
@@ -121,6 +139,7 @@ function actualizarHorario() {
             recargarTabla(listadoHorarios);
             mostrarMensaje("success", "Actualizado correctamente");
             $("#cerrar-modal").trigger("click");
+            webSocket.send(JSON.stringify(listadoHorarios));
         },
         statusCode: {
             404: function () {
@@ -140,6 +159,7 @@ function eliminarHorario(id) {
         success: function (listadoHorarios) {
             mostrarMensaje("success", "Eliminado correctamente");
             recargarTabla(listadoHorarios);
+            webSocket.send(JSON.stringify(listadoHorarios));
         },
         statusCode: {
             404: function () {

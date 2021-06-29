@@ -11,7 +11,6 @@ import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityLoginBinding
 import com.example.aerolinea.login_register.Login
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request

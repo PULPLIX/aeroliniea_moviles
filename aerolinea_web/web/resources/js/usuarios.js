@@ -265,6 +265,7 @@ function recargarTablaMisTiquetes(listadoHistorialTiquetes) {
                 "onclick='getVuelo(" + tiquete.vueloId.id + ")'" + "><i class='fas fa-id-card'></i> Ver vuelo</button>";
         $('<td></td>').html(btn).appendTo(row);
         row.appendTo(tabla);
+
     });
 }
 

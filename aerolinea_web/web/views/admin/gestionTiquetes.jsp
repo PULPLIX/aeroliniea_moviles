@@ -11,8 +11,6 @@
         <script src="/aerolinea/resources/js/twbsPagination.js"></script>
         <script src="/aerolinea/resources/js/tiquetes.js"></script>
                 <script src="/aerolinea/resources/js/global.js"></script>
-        <script src="/aerolinea/resources/js/vuelos.js"></script>
-        <script src="/aerolinea/resources/js/usuarios.js"></script>
     </jsp:attribute>
     <jsp:attribute name="user_id">
         ${usu.getId()}

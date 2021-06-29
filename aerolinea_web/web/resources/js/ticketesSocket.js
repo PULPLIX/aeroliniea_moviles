@@ -1,6 +1,5 @@
 const webSocket = new WebSocket("ws://localhost:8081/Backend/tiquetesSocket");
 
-
 webSocket.addEventListener("open", function (event) {
     console.log("SE HA ABIERTO UN SOCKET");
 });
@@ -9,11 +8,26 @@ webSocket.addEventListener("message", function (event) {
     actualizarAsientos(event.data);
 });
 
+function include(file) {
+    var script = document.createElement('script');
+    script.src = file;
+    script.type = 'text/javascript';
+    script.defer = true;
+    document.getElementsByTagName('head').item(0).appendChild(script);
+}
+
+include('/aerolinea/resources/js/tiquetes.js');
+
+
+
+
+
 function actualizarTiquetes(asientosSeleccionados) {
     var vuelo = JSON.parse(sessionStorage.getItem("vueloSelected"));
     var asientos = [vuelo.id, JSON.stringify(asientosSeleccionados)];
     var message = [JSON.stringify(asientos)];
     webSocket.send(message);
+    
 }
 
 function actualizarAsientos(message) {

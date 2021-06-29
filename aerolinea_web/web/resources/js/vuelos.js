@@ -241,6 +241,7 @@ function recargarTabla(listadoVuelos) {
         } else {
             modAux = "Ida y retorno";
         }
+
         var row = $('<tr></tr>');
         $('<td></td').html(vuelo.id).appendTo(row);
         $('<td></td>').html(vuelo.fecha).appendTo(row);

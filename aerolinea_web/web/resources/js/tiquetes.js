@@ -59,7 +59,6 @@ $(function () {
     $('input[name="daterange"]').daterangepicker({
         opens: 'left'
     }, function (start, end, label) {
-        //console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
     });
 });
 
@@ -108,9 +107,8 @@ function listarTiquetes() {
         url: "http://localhost:8081/Backend/api/tiquetes/listar",
         type: "get",
         success: function (listadoTiquetes) {
-            //paginacion(listadoTiquetes);
-            console.log(listadoTiquetes);
-            recargarTabla(listadoTiquetes);
+            paginacion(listadoTiquetes);
+            //recargarTabla(listadoTiquetes);
         },
         statusCode: {
             404: function () {

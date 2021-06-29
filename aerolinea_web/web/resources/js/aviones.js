@@ -1,3 +1,19 @@
+const webSocket = new WebSocket("ws://localhost:8081/Backend/avionesSocket");
+
+webSocket.onopen = function(event) {
+    console.log("SE HA ABIERTO UN SOCKET AVIONES");
+    };
+
+webSocket.addEventListener("message", function (event) {
+    console.log(event.data)
+    
+    recargarTabla(JSON.parse(event.data));
+});
+
+webSocket.onerror = function(event) {
+  console.error("WebSocket error observed:", event);
+};
+
 function include(file) {
     var script = document.createElement('script');
     script.src = file;
@@ -7,6 +23,8 @@ function include(file) {
 }
 
 include('/aerolinea/resources/js/twbsPagination.js');
+
+
 
 
 function apply_pagination() {
@@ -99,6 +117,7 @@ function eliminarAvion(id) {
         success: function (listadoAviones) {
             mostrarMensaje("success", "Eliminado correctamente");
             recargarTabla(listadoAviones);
+            webSocket.send(JSON.stringify(listadoAviones));
         },
         statusCode: {
             404: function () {
@@ -138,6 +157,7 @@ function listarAviones() {
         type: "get",
         success: function (listadoAviones) {
             paginacion(listadoAviones);
+            
         },
         statusCode: {
             404: function () {
@@ -165,7 +185,8 @@ function insertarAvion() {
             data: JSON.stringify(avion),
             success: function (listadoAviones) {
                 recargarTabla(listadoAviones);
-                mostrarMensaje("success", "Avion agregado correctamente");
+                mostrarMensaje("success", "Avion agregado correctamente");   
+                webSocket.send(JSON.stringify(listadoAviones));
             },
             statusCode: {
                 404: function () {
@@ -199,6 +220,7 @@ function actualizarAvion() {
                 recargarTabla(listadoAviones);
                 mostrarMensaje("success", "Actualizado correctamente");
                 $("#cerrar-modal").trigger("click");
+                webSocket.send(JSON.stringify(listadoAviones));
             },
             statusCode: {
                 404: function () {
