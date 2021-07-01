@@ -18,16 +18,6 @@ import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import org.json.JSONObject
-import tech.gusavila92.websocketclient.WebSocketClient
-import java.io.OutputStream
-import java.net.Socket
-import java.net.SocketAddress
-import java.net.URI
-import java.net.URISyntaxException
 import java.util.*
 import kotlin.collections.ArrayList
 

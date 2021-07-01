@@ -86,7 +86,6 @@ class AsientosAyncTask(
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 .build()
-
             val body = dataJSON.toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
             val request = Request.Builder()
@@ -149,10 +148,9 @@ class AsientosAyncTask(
 
     override fun onPostExecute(result: String?) {
         if (action == "asientosOcupados") {
-            Log.d("Asientos-----> ", result.toString())
             setAsientos(result)
         }else if(action == "compra"){
-                sk.webSocketClient.send(result)
+            sk.webSocketClient.send(result)
             irMisTiquetes()
         }
     }
@@ -270,8 +268,7 @@ class AsientosAyncTask(
         taskAsientos.method = "POST"
         taskAsientos.action = "compra"
         taskAsientos.dataJSON = this.dataJSON
-
-        taskAsientos.execute(10).wait()
+        taskAsientos.execute(10)
     }
 
     fun guardarTiquetes(compraBinding: AlertCompraBinding) {

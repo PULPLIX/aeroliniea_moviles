@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnOpen;
 import javax.websocket.OnMessage;
 
@@ -30,7 +31,7 @@ public class TiqueteSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) {
-
+        System.out.println("La sesion #  " + session.getId() + " ha mandado el siguiente mensaje\n=====================\n"+message);
         try {
             for (Map.Entry<String, Session> set : sessions.entrySet()) {
                 set.getValue().getBasicRemote().sendText(message);
@@ -45,5 +46,8 @@ public class TiqueteSocket {
         System.out.println("Sesión  " + session.getId() + " ha terminado");
         sessions.remove(session.getId());
     }
-
+    @OnError
+    public void onError(Session session, Throwable thr) {
+        System.out.println("EROR EN SOCKET: #" + session.getId() + " -->" + thr.getMessage());
+    }
 }

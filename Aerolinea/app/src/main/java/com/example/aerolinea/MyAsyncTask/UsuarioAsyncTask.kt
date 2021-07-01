@@ -79,7 +79,6 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
 
                 var usuario = response.body!!.string()
                 result = usuario
-                Log.d("RESULTADO", result)
             }
 
         }
