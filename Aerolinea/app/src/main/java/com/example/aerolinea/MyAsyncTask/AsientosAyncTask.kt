@@ -20,6 +20,7 @@ import com.example.aerolinea.View.ui.asientos.asientos_vuelo
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 import com.example.aerolinea.databinding.AlertCompraBinding
 import com.example.aerolinea.util.Constans
+import com.example.aerolinea.util.Constans.Companion.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -38,7 +39,7 @@ class AsientosAyncTask(
     private var activity: asientos_vuelo?,
     binding: ActivityAsientosVueloBinding
 ) : CoroutinesAsyncTask<Int, Int, String>("MysAsyncTask") {
-    private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/vuelos/"
+    private var apiUrl: String = "$BASE_URL/vuelos/"
     var binding = binding
     var action: String = ""
     var method: String = ""
@@ -63,7 +64,7 @@ class AsientosAyncTask(
     }
 
     fun setApiUrl(action: String) {
-        apiUrl = "http://10.0.2.2:8081/Backend/api/vuelos/"
+        apiUrl = "$BASE_URL/vuelos/"
         this.action = action
         apiUrl += action
     }
@@ -141,7 +142,7 @@ class AsientosAyncTask(
 
     fun setAsientosOcupados(vuelo: Vuelo) {
         this.vuelo = vuelo
-        apiUrl = "http://10.0.2.2:8081/Backend/api/vuelos/asientosOcupados/${vuelo.id}"
+        apiUrl = "$BASE_URL/vuelos/asientosOcupados/${vuelo.id}"
         this.method = "GET"
         this.action = "asientosOcupados"
     }
@@ -264,7 +265,7 @@ class AsientosAyncTask(
         }
         // Lista ciudades origen y destino
         taskAsientos.vuelo = vuelo
-        taskAsientos.apiUrl = "http://10.0.2.2:8081/Backend/api/tiquetes/comprar"
+        taskAsientos.apiUrl = "$BASE_URL/tiquetes/comprar"
         taskAsientos.method = "POST"
         taskAsientos.action = "compra"
         taskAsientos.dataJSON = this.dataJSON

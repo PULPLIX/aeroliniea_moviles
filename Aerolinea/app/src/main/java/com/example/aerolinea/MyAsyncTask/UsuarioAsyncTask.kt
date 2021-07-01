@@ -10,6 +10,7 @@ import com.example.aerolinea.Model.Usuario
 import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityLoginBinding
 import com.example.aerolinea.login_register.Login
+import com.example.aerolinea.util.Constans.Companion.BASE_URL
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 
 class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBinding) : CoroutinesAsyncTask<Int, Int, String>("MysAsyncTask") {
-    private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/usuario/"
+    private var apiUrl: String = "$BASE_URL/usuario/"
     var binding = binding
     var action: String = ""
     var userName: String = ""
@@ -38,7 +39,7 @@ class UsuarioAsyncTask(private var activity: Login, binding: ActivityLoginBindin
     }
 
     fun setApiUrl(action: String){
-        apiUrl = "http://10.0.2.2:8081/Backend/api/usuario/"
+        apiUrl = "$BASE_URL/usuario/"
         this.action = action
         apiUrl += action
     }

@@ -20,6 +20,7 @@ import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import com.example.aerolinea.util.Constans
+import com.example.aerolinea.util.Constans.Companion.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -29,7 +30,7 @@ import java.net.URL
 
 class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: FragmentGalleryBinding) :
     CoroutinesAsyncTask<Int, Int, String>("TiquetesAsyncTask") {
-    private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/usuario"
+    private var apiUrl: String = "$BASE_URL/usuario"
     var binding = binding
     var action: String = ""
     val progresDialog = ProgressDialog(activity?.context)
@@ -58,7 +59,7 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
     }
 
     fun setApiUrl(action: String, method: String, parameters: HashMap<String,String>?){
-        apiUrl = "http://10.0.2.2:8081/Backend/api/usuario/"
+        apiUrl = "$BASE_URL/usuario/"
         this.action = action
         this.method = method
         apiUrl += action
@@ -176,7 +177,7 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
             taskTiquetes?.cancel(true)
         }
 
-        taskTiquetes.apiUrl = "http://10.0.2.2:8081/Backend/api/tiquetes/eliminar/${id}"
+        taskTiquetes.apiUrl = "$BASE_URL/tiquetes/eliminar/${id}"
         taskTiquetes.action = "eliminar"
         taskTiquetes.method = "GET"
         taskTiquetes.execute(10)

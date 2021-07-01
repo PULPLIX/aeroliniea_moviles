@@ -8,6 +8,7 @@ import com.example.aerolinea.Model.Vuelo
 import com.example.aerolinea.View.ui.home.HomeFragment
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
+import com.example.aerolinea.util.Constans.Companion.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
@@ -16,7 +17,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHomeBinding) : CoroutinesAsyncTask<Int, Int, String>("MysAsyncTask") {
-    private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/vuelos/"
+    private var apiUrl: String = "$BASE_URL/vuelos/"
     var binding = binding
     var action: String = ""
     var method:String  = "GET"
@@ -32,7 +33,7 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
     }
 
     fun setApiUrl(action: String, method: String, parameters: HashMap<String,String>?){
-        apiUrl = "http://10.0.2.2:8081/Backend/api/vuelos/"
+        apiUrl = "$BASE_URL/vuelos/"
         this.action = action
         this.method = method
         apiUrl += action

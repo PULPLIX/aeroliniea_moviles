@@ -1,12 +1,12 @@
 package com.example.aerolinea.MyAsyncTask
 
 import android.R
-import android.util.Log
 import android.widget.ArrayAdapter
 import com.example.aerolinea.Coroutines.CoroutinesAsyncTask
 import com.example.aerolinea.Model.Ciudad
 import com.example.aerolinea.View.ui.home.HomeFragment
 import com.example.aerolinea.databinding.FragmentHomeBinding
+import com.example.aerolinea.util.Constans.Companion.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.InputStreamReader
@@ -14,7 +14,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHomeBinding) : CoroutinesAsyncTask<Int, Int, String>("MysAsyncTask") {
-    private var apiUrl: String = "http://10.0.2.2:8081/Backend/api/ciudades/"
+    private var apiUrl: String = "$BASE_URL/ciudades/"
     var binding = binding
     var action: String = ""
     lateinit var  ciudadesResult : List<Ciudad>
@@ -27,7 +27,7 @@ class CiudadesAsyncTask(private var activity: HomeFragment?, binding: FragmentHo
     }
 
     fun setApiUrl(action: String){
-        apiUrl = "http://10.0.2.2:8081/Backend/api/ciudades/"
+        apiUrl = "$BASE_URL/ciudades/"
         this.action = action
         apiUrl += action
     }
