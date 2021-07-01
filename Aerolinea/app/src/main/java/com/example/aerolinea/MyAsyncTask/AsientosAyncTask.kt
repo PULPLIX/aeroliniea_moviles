@@ -1,6 +1,5 @@
 package com.example.aerolinea.MyAsyncTask
 
-import android.R
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -15,21 +14,19 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.aerolinea.Coroutines.CoroutinesAsyncTask
 import com.example.aerolinea.Model.*
+import com.example.aerolinea.Socket.Socket
 import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.View.ui.asientos.asientos_vuelo
-import com.example.aerolinea.View.ui.home.HomeFragment
-import com.example.aerolinea.View.ui.tiquete.tiquete
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 import com.example.aerolinea.databinding.AlertCompraBinding
-import com.example.aerolinea.databinding.FragmentHomeBinding
 import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.internal.wait
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -53,6 +50,11 @@ class AsientosAyncTask(
     private val READ_TIMEOUT = 15L
     private val WRITE_TIMEOUT = 15L
     private var user: Usuario? = null
+    var sk = Socket()
+
+    init {
+        sk.createWebSocketClient("tiquetesSocket")
+    }
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
@@ -97,6 +99,7 @@ class AsientosAyncTask(
                     response ->
                 if (!response.isSuccessful) throw IOException("Unexpected code $response")
                 result = response.body!!.string()
+
             }
 
         }
@@ -149,6 +152,7 @@ class AsientosAyncTask(
             Log.d("Asientos-----> ", result.toString())
             setAsientos(result)
         }else if(action == "compra"){
+                sk.webSocketClient.send(result)
             irMisTiquetes()
         }
     }
@@ -162,7 +166,6 @@ class AsientosAyncTask(
     private fun setAsientos(result: String?) {
         val sType = object : TypeToken<HashMap<Int, ArrayList<Int>>>() {}.type
         var listaVuelos = Gson().fromJson<HashMap<Int, ArrayList<Int>>>(result, sType)
-        Log.d("Asientos en objeto---> ", listaVuelos.toString())
         tiquetesVuelo = listaVuelos
         cargarAsientos()
 
@@ -201,8 +204,6 @@ class AsientosAyncTask(
                             cunjontoAsientos.add(fila.toString())
                             cunjontoAsientos.add(col.toString())
                             asientos.add(cunjontoAsientos)
-                            Log.d("conjunto ASIENTO->", cunjontoAsientos.toString())
-                            Log.d("AGREGANDO ASIENTO->", asientos.toString())
                             btn.backgroundTintList =
                                 ColorStateList.valueOf(Color.parseColor("#15CE3E"))
                         }
@@ -248,7 +249,6 @@ class AsientosAyncTask(
 
     fun comprar() {
         if (asientos.size < 1) {
-            Log.d("CANT ASIENTOS ->" ,asientos.toString())
             Toast.makeText(
                 activity!!.applicationContext,
                 "Seleccione un asiento",
@@ -261,8 +261,8 @@ class AsientosAyncTask(
 
     fun compraExecute() {
         var taskAsientos = AsientosAyncTask(activity, binding)
-        if (taskAsientos?.status == Constans.Companion.Status.RUNNING) {
-            taskAsientos?.cancel(true)
+        if (taskAsientos.status == Constans.Companion.Status.RUNNING) {
+            taskAsientos.cancel(true)
         }
         // Lista ciudades origen y destino
         taskAsientos.vuelo = vuelo
@@ -271,7 +271,7 @@ class AsientosAyncTask(
         taskAsientos.action = "compra"
         taskAsientos.dataJSON = this.dataJSON
 
-        taskAsientos?.execute(10)
+        taskAsientos.execute(10).wait()
     }
 
     fun guardarTiquetes(compraBinding: AlertCompraBinding) {

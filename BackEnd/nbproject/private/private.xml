@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/DataAccess/ServicioVuelo.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/DataAccess/ServicioUsuario.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Models/ModelTiquete.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Controller/VuelosController.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Controller/RutasController.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/DataAccess/ServicioTiquete.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Controller/TiquetesController.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Controller/UsuarioController.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/backend/BackEnd.java</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Datos/BD.sql</file>
-            <file>file:/D:/david/Documents/GitHub/aeroliniea_moviles/Backend/src/java/Sockets/TiqueteSocket.java</file>
+            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Controller/UsuarioController.java</file>
+            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Sockets/AvionesSocket.java</file>
+            <file>file:/D:/UNA%202021/Moviles/aeroliniea_moviles/BackEnd/src/java/Sockets/HorarioSocket.java</file>
         </group>
     </open-files>
 </project-private>

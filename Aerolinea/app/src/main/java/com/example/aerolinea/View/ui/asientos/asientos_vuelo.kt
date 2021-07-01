@@ -24,6 +24,7 @@ import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 import com.example.aerolinea.databinding.AlertCompraBinding
 import com.example.aerolinea.R
+import com.example.aerolinea.Socket.Socket
 import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
 import java.util.HashMap

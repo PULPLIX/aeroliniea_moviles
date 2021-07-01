@@ -19,7 +19,9 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:inputType="textNoSuggestions"
-            android:background="@drawable/button" />
+            android:background="@drawable/button" >
+        </SearchView>
+
     </LinearLayout>
 
 

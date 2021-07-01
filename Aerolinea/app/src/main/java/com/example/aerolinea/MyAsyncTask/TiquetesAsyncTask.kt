@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Coroutines.CoroutinesAsyncTask
 import com.example.aerolinea.Model.Tiquete
 import com.example.aerolinea.Model.Usuario
+import com.example.aerolinea.Socket.Socket
 import com.example.aerolinea.View.ui.gallery.GalleryFragment
 import com.example.aerolinea.View.ui.tiquete.TiqueteActivity
 import com.example.aerolinea.adapters.SwipeGesture
 import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
-import com.example.aerolinea.databinding.FragmentHomeBinding
 import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -35,13 +35,25 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
     val progresDialog = ProgressDialog(activity?.context)
     var method: String = ""
     val usario = getUser()
+    var sk = Socket()
     private lateinit var adapter: TiquetesAdapter
-
     lateinit var tiquetes: ArrayList<Tiquete>
+
+    init {
+        sk.createWebSocketClient("tiquetesSocket")
+    }
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
         result = processRequest()
+
+        if(action == "eliminar"){
+            sk.setResult(result)
+            var gson = Gson()
+            Log.i("RESULT JSON", gson.toJson(result))
+            sk.webSocketClient.send(gson.toJson(result))
+        }
+
         return result
     }
 
@@ -78,7 +90,6 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
             var urlConnection: HttpURLConnection? = null
             try {
                 url = URL(apiUrl)
-                Log.d("Esto es el api url-->",apiUrl )
                 urlConnection = url
                     .openConnection() as HttpURLConnection
                 val `in` = urlConnection.inputStream

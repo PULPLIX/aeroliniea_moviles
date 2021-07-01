@@ -1,3 +1,14 @@
+const webSocket = new WebSocket("ws://localhost:8081/Backend/tiquetesSocket");
+
+webSocket.onopen = function(event) {
+    console.log("SE HA ABIERTO UN SOCKET TIQUETES:" + event.data);
+    };
+
+webSocket.addEventListener("message", function (event) {
+    //console.log(event.data);
+    listarTiquetes();
+});
+
 function include(file) {
     var script = document.createElement('script');
     script.src = file;
@@ -107,8 +118,9 @@ function listarTiquetes() {
         url: "http://localhost:8081/Backend/api/tiquetes/listar",
         type: "get",
         success: function (listadoTiquetes) {
-            paginacion(listadoTiquetes);
-            //recargarTabla(listadoTiquetes);
+            //paginacion(listadoTiquetes);
+            console.log("Listando Tiquetes " + listadoTiquetes.length);
+            recargarTabla(listadoTiquetes);
         },
         statusCode: {
             404: function () {
@@ -122,6 +134,7 @@ function listarTiquetes() {
 }
 
 function recargarTabla(listadoTiquetes) {
+    console.table(listadoTiquetes);
     $("#tabla-tiquetes").html("");
     var tabla = $("#tabla-tiquetes");
 

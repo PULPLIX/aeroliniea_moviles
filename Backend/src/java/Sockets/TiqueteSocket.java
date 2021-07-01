@@ -1,7 +1,6 @@
 package Sockets;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,6 +10,7 @@ import javax.websocket.OnMessage;
 
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import javax.ws.rs.Path;
 
 @ServerEndpoint("/tiquetesSocket")
 public class TiqueteSocket {
@@ -21,7 +21,7 @@ public class TiqueteSocket {
     La clase de sesión nos permite enviar los datos al usuario*/
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("Conexión #" + session.getId() + " se ha abierto");
+        System.out.println("Conexión #" + session.getId() + " se ha abierto TIQUETES");
         sessions.put(session.getId(), session);
     }
 

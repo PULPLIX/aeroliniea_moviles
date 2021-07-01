@@ -1,7 +1,7 @@
 const webSocket = new WebSocket("ws://localhost:8081/Backend/tiquetesSocket");
 
 webSocket.addEventListener("open", function (event) {
-    console.log("SE HA ABIERTO UN SOCKET");
+    console.log("SE HA ABIERTO UN SOCKET TIQUETES");
 });
 
 webSocket.addEventListener("message", function (event) {
@@ -16,9 +16,7 @@ function include(file) {
     document.getElementsByTagName('head').item(0).appendChild(script);
 }
 
-include('/aerolinea/resources/js/tiquetes.js');
-
-
+//include('/aerolinea/resources/js/tiquetes.js');
 
 
 
@@ -27,7 +25,6 @@ function actualizarTiquetes(asientosSeleccionados) {
     var asientos = [vuelo.id, JSON.stringify(asientosSeleccionados)];
     var message = [JSON.stringify(asientos)];
     webSocket.send(message);
-    
 }
 
 function actualizarAsientos(message) {

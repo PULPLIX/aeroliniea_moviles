@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sockets;
+package Controller;
 
 import Exceptions.DbException;
 import Exceptions.GeneralException;
-import Models.ModelRuta;
 import Models.ModelTiquete;
 import Models.ModelVuelo;
 import com.google.gson.Gson;
@@ -20,10 +19,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
-import logic.Ruta;
 import logic.Tiquete;
 import logic.Usuario;
 import logic.Vuelo;

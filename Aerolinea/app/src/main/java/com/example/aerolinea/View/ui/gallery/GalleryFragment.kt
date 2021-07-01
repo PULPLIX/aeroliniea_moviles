@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aerolinea.Model.ModelTiquetes
@@ -17,15 +18,23 @@ import com.example.aerolinea.adapters.TiquetesAdapter
 import com.example.aerolinea.databinding.FragmentGalleryBinding
 import com.example.aerolinea.util.Constans
 import com.google.gson.Gson
-import java.util.HashMap
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import tech.gusavila92.websocketclient.WebSocketClient
+import java.io.OutputStream
+import java.net.Socket
+import java.net.SocketAddress
+import java.net.URI
+import java.net.URISyntaxException
+import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.reflect.typeOf
 
 
 class GalleryFragment : Fragment() {
     var tiquetes: ArrayList<Tiquete> = ArrayList()
     private lateinit var adapter: TiquetesAdapter
-
     private lateinit var galleryViewModel: GalleryViewModel
     private var _binding: FragmentGalleryBinding? = null
 
@@ -108,6 +117,19 @@ class GalleryFragment : Fragment() {
         return tiquetes
     }
 
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
