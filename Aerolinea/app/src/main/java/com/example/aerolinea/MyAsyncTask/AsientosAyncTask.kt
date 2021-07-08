@@ -51,11 +51,8 @@ class AsientosAyncTask(
     private val READ_TIMEOUT = 15L
     private val WRITE_TIMEOUT = 15L
     private var user: Usuario? = null
-    var sk = Socket()
+    var sk = Socket("tiquetesSocket")
 
-    init {
-        sk.createWebSocketClient("tiquetesSocket")
-    }
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
@@ -173,6 +170,9 @@ class AsientosAyncTask(
     private fun cargarAsientos() {
         var filas: Int = vuelo.avionId.cantidadFilas
         var columnas: Int = vuelo.avionId.asientosFila
+        binding.tvOrigen.text = vuelo.rutaId.ciudadOrigen.nombre
+        binding.tvDestino.text = vuelo.rutaId.ciudadDestino.nombre
+
         for (i in 1..filas) {
             val layout: LinearLayout = LinearLayout(activity?.applicationContext)
             layout.layoutParams = LinearLayout.LayoutParams(
@@ -213,6 +213,7 @@ class AsientosAyncTask(
 
             }
             binding.linearAsientos.addView(layout)
+
         }
     }
 

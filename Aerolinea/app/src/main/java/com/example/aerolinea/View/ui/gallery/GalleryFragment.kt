@@ -39,19 +39,17 @@ class GalleryFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
         galleryViewModel =
             ViewModelProvider(this).get(GalleryViewModel::class.java)
         tiquetes.clear()
         tiquetes = ModelTiquetes().getInstance().getTiquetesUsuario(getUser().nombre)
         adapter = TiquetesAdapter(tiquetes)
-        var tiquetesTem = ArrayList<Tiquete>(tiquetes)
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
         //initRecycler();
         userSession = getUser()
         // Search view
-        //searchView()
+        searchView()
         startService()
 
         return root

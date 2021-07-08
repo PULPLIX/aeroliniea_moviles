@@ -7,16 +7,20 @@ import tech.gusavila92.websocketclient.WebSocketClient
 import java.net.URI
 import java.net.URISyntaxException
 
-class Socket {
+class Socket(socketName: String) {
 
     lateinit var webSocketClient: WebSocketClient
     private var result = ""
+    private var socketName = socketName
+    init {
+        createWebSocketClient()
+    }
 
     fun setResult(result: String){
         this.result = result
     }
 
-    fun createWebSocketClient(socketName: String) {
+    fun createWebSocketClient() {
         val uri: URI
         try {
             // Connect to local host

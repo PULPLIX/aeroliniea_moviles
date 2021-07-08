@@ -1,13 +1,27 @@
-function include(file) {
-    var script = document.createElement('script');
-    script.src = file;
-    script.type = 'text/javascript';
-    script.defer = true;
-    document.getElementsByTagName('head').item(0).appendChild(script);
-}
+const webSocketVuelos = new WebSocket("ws://localhost:8081/Backend/vueloSocket");
 
-include('/aerolinea/resources/js/twbsPagination.js');
 
+webSocketVuelos.onopen = function (event) {
+    console.log("✈ ✈  ✈  SE HA ABIERTO UN SOCKET DE VUELOS ✈  ✈   ✈");
+};
+
+webSocketVuelos.addEventListener("message", function (event) {
+    console.log(event.data)
+    recargarTabla(JSON.parse(event.data));
+});
+
+webSocketVuelos.onerror = function (event) {
+    console.error("WebSocket error observed:", event);
+};
+
+
+var $pagination = $('#pagination'),
+        totalRecords = 0,
+        records = [],
+        displayRecords = [],
+        recPerPage = 10,
+        page = 1,
+        totalPages = 0;
 
 function apply_pagination() {
     $pagination.twbsPagination({
@@ -22,20 +36,13 @@ function apply_pagination() {
     });
 }
 
-var $pagination = $('#pagination'),
-        totalRecords = 0,
-        records = [],
-        displayRecords = [],
-        recPerPage = 10,
-        page = 1,
-        totalPages = 0;
+
 
 function paginacion(data) {
     records = data;
     totalRecords = records.length;
     totalPages = Math.ceil(totalRecords / recPerPage);
     apply_pagination();
-
 }
 
 var meses = new Map();
@@ -133,11 +140,11 @@ function getVuelo(id) {
         },
         statusCode: {
             404: function () {
-                    mostrarMensaje("error", "Ocurrió un error");
-                },
-                500: function () {
-                    mostrarMensaje("error", "No se encontro el vuelo");
-                }
+                mostrarMensaje("error", "Ocurrió un error");
+            },
+            500: function () {
+                mostrarMensaje("error", "No se encontro el vuelo");
+            }
         }
     });
 }
@@ -153,12 +160,12 @@ function listarVuelos() {
             paginacion(listadoVuelos);
         },
         statusCode: {
-           404: function () {
-                    mostrarMensaje("error", "Ocurrió un error");
-                },
-                500: function () {
-                    mostrarMensaje("error", "Ocurrió un error en el servidor");
-                }
+            404: function () {
+                mostrarMensaje("error", "Ocurrió un error");
+            },
+            500: function () {
+                mostrarMensaje("error", "Ocurrió un error en el servidor");
+            }
         }
     });
 }
@@ -171,6 +178,8 @@ function insertarVuelo() {
             contentType: "application/json",
             data: JSON.stringify(ruta),
             success: function (listadoVuelos) {
+                webSocketVuelos.send(JSON.stringify(listadoVuelos));
+                l
                 recargarTabla(listadoVuelos);
                 mostrarMensaje("success", "Vuelo agregado correctamente");
             },
@@ -202,11 +211,11 @@ function actualizarVuelo() {
         },
         statusCode: {
             404: function () {
-                    mostrarMensaje("error", "Ocurrió un error");
-                },
-                500: function () {
-                    mostrarMensaje("error", "Ocurrió un error en el servidor");
-                }
+                mostrarMensaje("error", "Ocurrió un error");
+            },
+            500: function () {
+                mostrarMensaje("error", "Ocurrió un error en el servidor");
+            }
         }
     });
 }
@@ -218,16 +227,17 @@ function eliminarVuelo(id) {
         contentType: "application/json",
         data: JSON.stringify(id),
         success: function (listadoVuelos) {
+            webSocketVuelos.send(JSON.stringify(listadoVuelos));
             mostrarMensaje("success", "Eliminado correctamente");
             recargarTabla(listadoVuelos);
         },
         statusCode: {
             404: function () {
-                    mostrarMensaje("error", "Ocurrió un error");
-                },
-                500: function () {
-                    mostrarMensaje("error", "Ocurrió un error en el servidor");
-                }
+                mostrarMensaje("error", "Ocurrió un error");
+            },
+            500: function () {
+                mostrarMensaje("error", "Ocurrió un error en el servidor");
+            }
         }
     });
 }
@@ -376,7 +386,7 @@ function getVueloSeleccionado(id) {
         statusCode: {
             404: function () {
                 mostrarMensaje("error", "Ocurrio un error");
-            },500: function () {
+            }, 500: function () {
                 mostrarMensaje("error", "No se ha podido encontrar ningun vuelo");
             }
         }

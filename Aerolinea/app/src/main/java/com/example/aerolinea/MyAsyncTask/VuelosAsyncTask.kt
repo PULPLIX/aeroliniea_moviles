@@ -5,12 +5,14 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aerolinea.Coroutines.CoroutinesAsyncTask
 import com.example.aerolinea.Model.Vuelo
+import com.example.aerolinea.Socket.Socket
 import com.example.aerolinea.View.ui.home.HomeFragment
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
 import com.example.aerolinea.util.Constans.Companion.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.internal.notify
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -25,6 +27,7 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
     var vuelos = arrayListOf<Vuelo>()
     var parameters =  hashMapOf<String, String?>()
     var gson = Gson()
+
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
@@ -59,7 +62,7 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
             try {
                 url = URL(apiUrl)
                 urlConnection = url
-                        .openConnection() as HttpURLConnection //se abre una nueva aconeccion http
+                        .openConnection() as HttpURLConnection //se abre una nueva coneccion http
                 if(method != "GET"){
                     result = postRequest(urlConnection)
                 }else{
@@ -151,6 +154,7 @@ class VuelosAsyncTask(private var activity: HomeFragment?, binding: FragmentHome
             vuelos.add(vuelo)
         }
         val adapter = VuelosResultAdapter(vuelos)
+        adapter.notifyDataSetChanged()
         binding.rvResultado.layoutManager = LinearLayoutManager(binding.root.context)
         binding.rvResultado.adapter = adapter
     }

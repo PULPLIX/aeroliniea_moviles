@@ -42,34 +42,6 @@ class Login : AppCompatActivity() {
 
     }
 
-    /*
-    fun loginUser(view: View) {
-        val usuario: String = binding.etUser.text.toString()
-        val password: String = binding.etPassword.text.toString()
-
-        val model = model()
-        val usuarioSession = model.getInstance().findUser(usuario)
-        if (usuarioSession != null) {
-            if (model.getInstance().confirmUser(usuario, password)) {
-                val sp = getSharedPreferences("key", Context.MODE_PRIVATE)
-                val ed = sp.edit()
-                val gson = Gson()
-                val usuarioJSON =  gson.toJson(usuarioSession)
-                ed.putString("usuario", usuarioJSON)
-                ed.apply()
-                val intentLoging = Intent(this, MainUserActivity::class.java)
-                startActivity(intentLoging)
-            } else {
-                Toast.makeText(applicationContext, "Contraseña incorrecta", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        } else {
-            Toast.makeText(applicationContext, "Registrese", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-     */
-
     fun goRegister(view: View) {
         val intent = Intent(this, Register::class.java)
         startActivity(intent)

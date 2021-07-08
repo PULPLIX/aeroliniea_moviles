@@ -36,13 +36,9 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
     val progresDialog = ProgressDialog(activity?.context)
     var method: String = ""
     val usario = getUser()
-    var sk = Socket()
+    var sk = Socket("tiquetesSocket")
     private lateinit var adapter: TiquetesAdapter
     lateinit var tiquetes: ArrayList<Tiquete>
-
-    init {
-        sk.createWebSocketClient("tiquetesSocket")
-    }
 
     override fun doInBackground(vararg params: Int?): String {
         var result = ""
@@ -64,7 +60,6 @@ class TiquetesAsyncTask(private var activity: GalleryFragment?, binding: Fragmen
         this.method = method
         apiUrl += action
         addParamsToUrl(parameters)
-
     }
 
     fun addParamsToUrl(parameters: HashMap<String,String>?){

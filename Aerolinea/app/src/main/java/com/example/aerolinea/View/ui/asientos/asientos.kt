@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.example.aerolinea.R
-import com.example.aerolinea.databinding.FragmentAsientosBinding
+import com.example.aerolinea.databinding.ActivityAsientosVueloBinding
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class asientos : Fragment() {
 
-    private var _binding: FragmentAsientosBinding? = null
+    private var _binding: ActivityAsientosVueloBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -41,7 +41,7 @@ class asientos : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAsientosBinding.inflate(inflater, container, false)
+        _binding = ActivityAsientosVueloBinding.inflate(inflater, container, false)
         val root: View = binding.root
         cargarAsientos()
         return root

@@ -8,7 +8,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="scripts">
-        <script src="/aerolinea/resources/js/vuelos.js"></script>
+        <script src="/aerolinea/resources/js/twbsPagination.js" defer></script>
+        <script src="/aerolinea/resources/js/vuelos.js " defer></script>
     </jsp:attribute>
     <jsp:attribute name="user_id">
         ${usu.getId()}

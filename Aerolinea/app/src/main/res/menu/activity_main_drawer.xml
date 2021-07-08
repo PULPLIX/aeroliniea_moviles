@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    style="@style/Theme.Aerolinea"
+    >
 
     <group android:checkableBehavior="single">
         <item
@@ -10,7 +12,6 @@
             android:title="@string/vuelos" />
         <item
             android:id="@+id/nav_gallery"
-            android:background="#9E0000"
             android:icon="@drawable/ic_ticket"
             android:iconTint="@color/azulitoSecundaryColor"
             android:title="@string/tiquetes" />

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aerolinea.Model.Vuelo
-import com.example.aerolinea.databinding.FragmentAsientosBinding
 import com.example.aerolinea.databinding.ItemVueloBinding
 import com.example.aerolinea.R
 import com.example.aerolinea.View.ui.asientos.asientos_vuelo

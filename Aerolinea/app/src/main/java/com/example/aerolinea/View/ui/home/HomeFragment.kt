@@ -1,6 +1,7 @@
 package com.example.aerolinea.View.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,20 +13,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aerolinea.Model.*
 import com.example.aerolinea.MyAsyncTask.CiudadesAsyncTask
 import com.example.aerolinea.MyAsyncTask.VuelosAsyncTask
+import com.example.aerolinea.View.MainUserActivity
 import com.example.aerolinea.adapters.VuelosResultAdapter
 import com.example.aerolinea.databinding.FragmentHomeBinding
+import com.example.aerolinea.util.Constans
 import com.google.android.material.datepicker.MaterialDatePicker
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import com.example.aerolinea.util.Constans.Companion.Status
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.net.URI
+import java.net.URISyntaxException
+import tech.gusavila92.websocketclient.WebSocketClient
 
 class HomeFragment : Fragment() {
 
     var ciudades: ArrayList<Ciudad> = ArrayList()
-    var ciudadesCodigo: ArrayList<String> = ArrayList()
     var taskCiudades: CiudadesAsyncTask? = null
     var taskVuelos: VuelosAsyncTask? = null
+    lateinit var webSocketClient: WebSocketClient
+
 
     //private lateinit var vuelos: ArrayList<Vuelo>
     private var _binding: FragmentHomeBinding? = null
@@ -45,11 +54,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         vuelos.clear()
-//        vuelos = ModelVuelos().getInstance().getVuelos()
         startService()
         buscarVuelos()
         showDateRange()
-//        initRecycler()
+        createWebSocketClient()
         return root
     }
 
@@ -72,16 +80,50 @@ class HomeFragment : Fragment() {
         taskVuelos?.execute(10)
     }
 
-    fun initRecycler() {
-        val adapter = VuelosResultAdapter(vuelos)
-        binding.rvResultado.layoutManager = LinearLayoutManager(context)
-        binding.rvResultado.adapter = adapter
+    fun createWebSocketClient() {
+        val uri: URI
+        try {
+            // Connect to local host
+            uri = URI("${Constans.BASE_SOCKET}/vueloSocket")
+        } catch (e: URISyntaxException) {
+            e.printStackTrace()
+            return
+        }
+        webSocketClient = object : WebSocketClient(uri) {
+            override fun onOpen() {
+                Log.d("SOCKET DE VUELOS", "SE A CREADO")
+            }
+
+            override fun onTextReceived(listaVuelosJSON: String) {
+                Log.d("HA LLEGADO UN MENSAJE->", listaVuelosJSON.toString())
+                val intentLoging = Intent(binding.root.context, MainUserActivity::class.java)
+                activity?.finish()
+                binding.root.context.startActivity(intentLoging)
+            }
+
+            override fun onBinaryReceived(data: ByteArray) {}
+            override fun onPingReceived(data: ByteArray) {}
+            override fun onPongReceived(data: ByteArray) {}
+            override fun onException(e: Exception) {
+                println(e.message)
+            }
+
+            override fun onCloseReceived() {
+                Log.i("WebSocket", "Closed ")
+            }
+        }
+        webSocketClient.setConnectTimeout(10000)
+        webSocketClient.setReadTimeout(60000)
+        webSocketClient.enableAutomaticReconnection(5000)
+        webSocketClient.connect()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
     fun showDateRangePicker() {
         val dateRangePichek = MaterialDatePicker.Builder

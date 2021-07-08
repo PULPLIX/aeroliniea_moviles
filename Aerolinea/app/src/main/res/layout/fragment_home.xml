@@ -54,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:focusable="false"
                         android:ems="15"
                         android:inputType="textPersonName" />
 
@@ -74,6 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:focusable="false"
                         android:layout_weight="1"
                         android:ems="15"
                         android:inputType="textPersonName" />

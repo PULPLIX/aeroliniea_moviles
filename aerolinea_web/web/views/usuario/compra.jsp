@@ -36,8 +36,8 @@
                 <div class="col-9 texto-mensaje d-flex align-items-center text-center mx-2" id="texto-mensaje"
                      style="color: #046704e8; "></div>
             </div>
-            <div class="container">
-                <div class="card" style="margin: 2rem 7rem 3rem 7rem;">
+            <div class="container" id="container-asientos">
+                <div class="card" id="card-asientos" style="margin: 2rem 7rem 3rem 7rem;">
                     <div class="card-header titulo-azul d-flex justify-content-center align-items-center">
                         <i class="fas fa-home "></i>&nbsp;
                         <span id="origen-title"></span>&nbsp;&nbsp;
